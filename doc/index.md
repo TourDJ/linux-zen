@@ -87,6 +87,24 @@ Non-login shells
 * $$ 是脚本运行的当前进程ID号
 * $? 是显示最后命令的退出状态，0表示没有错误，其他表示有错误
 
+
+sudo 免密码    
+```shell
+your_user_name ALL=(ALL) NOPASSWD: ALL
+```
+注意： 有的时候你的将用户设了nopasswd，但是不起作用，原因是被后面的group的设置覆盖了，需要把group的设置也改为nopasswd。
+
+su 免密码
+
+切换到root权限，创建group为wheel，`groupadd wheel`，将用户加入wheel group中，命令为`usermod -G wheel your_user_name`，修改su的配置文件/etc/pam.d/su,增加下列项：
+```shell
+auth       required   pam_wheel.so group=wheel 
+# Uncomment this if you want wheel members to be able to
+# su without a password.
+auth       sufficient pam_wheel.so trust use_uid
+```
+
+
 #### linux 目录
 
 * /usr：系统级的目录，可以理解为C:/Windows/，/usr/lib理解为C:/Windows/System32。
