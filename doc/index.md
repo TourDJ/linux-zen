@@ -1,7 +1,12 @@
 
 
+## Linux 命令管理服务方式
+常用的管理服务方式主要有 sysvinit(System V)、upstart 和 systemd几种，每种的命令格式是不一样的。
 
-## [System V](https://en.wikipedia.org/wiki/UNIX_System_V)    
+### [System V](https://en.wikipedia.org/wiki/UNIX_System_V)    
+sysvinit 是 system V 风格的 init 系统，它源于 System V 系列 UNIX。
+
+System V 介绍，摘自维基百科：   
 UNIX System V is one of the first commercial versions of the Unix operating system. It was originally developed by AT&T and first released in 1983. Four major versions of System V were released, numbered 1, 2, 3, and 4. System V Release 4, or SVR4, was commercially the most successful version, being the result of an effort, marketed as "Unix System Unification", which solicited the collaboration of the major Unix vendors. It was the source of several common commercial Unix features. System V is sometimes abbreviated to SysV.
 
 system V 主要用 chkconfig和sevice(Redhat系列)、 update-rc.d(debian 系列)命令管理服务。
@@ -26,7 +31,7 @@ To set a default target, run:
     systemctl set-default TARGET.target
 
 
-* 延伸阅读    
+*参考*：      
 [Centos7下的systemctl命令与service和chkconfig](https://blog.csdn.net/cds86333774/article/details/51165361)     
 [systemd，upstart， systemV服务启动编写](https://www.jianshu.com/p/d856428bc43f)     
 [浅析 Linux 初始化 init 系统，第 1 部分](https://www.ibm.com/developerworks/cn/linux/1407_liuming_init1/index.html?ca=drs-)   
