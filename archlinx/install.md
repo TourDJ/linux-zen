@@ -91,3 +91,41 @@ pacstrap /mnt base base-devel
     # locale-gen
 /etc/locale.gen 会生成指定的本地化文件。
 
+### 配置时间
+
+# ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+
+### 网络
+
+创建 hostname 文件
+
+    /etc/hostname
+    myhostname
+添加对应的信息到 hosts:
+
+    /etc/hosts
+    127.0.0.1	localhost
+    ::1		localhost
+    127.0.1.1	myhostname.localdomain	myhostname
+如果系统有一个永久的 IP 地址，请使用这个永久的 IP 地址而不是 127.0.1.1。
+
+如果配置完网络后上不了网，重启网络：
+
+    systemctl start dhcpcd
+
+添加开机启动到服务中
+
+    systemctl enable dhcpcd
+
+### 桌面
+
+安装x,xserver
+
+    sudo pacman -Syu xorg xorg-xinit xorg-utils dbus
+
+安装gnome
+
+    sudo pacman -Syu gnome
+    
+    
+    
