@@ -1,11 +1,11 @@
 
 Archlinux 安装
 
-创建分区
-使用 parted 分区
+## 创建分区
+使用 parted 分区     
 ![parted 分区](https://github.com/TourDJ/linux-zen/blob/master/image/parted-msdoc.png)    
 
-格式化分区
+## 格式化分区
 # mkfs.ext4 /dev/sdX1
 
 格式交换分区
