@@ -93,7 +93,7 @@ pacstrap /mnt base base-devel
 
 ### 配置时间
 
-# ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+    # ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 ### 网络
 
