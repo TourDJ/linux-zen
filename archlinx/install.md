@@ -53,10 +53,41 @@
 
 pacstrap /mnt base base-devel
 
+如果安装出错，执行以下命令：
+
+    pacman-key --refresh-keys
+
 ## 配置系统
 ### Fstab
 用以下命令生成 fstab 文件 (用 -U 或 -L 选项设置UUID 或卷标)：
 
     # genfstab -U /mnt >> /mnt/etc/fstab
 
+切换到我们刚刚安装的那个系统的文件系统
+
+    arch-chroot /mnt
+
+### 安装 grub
+下载grub
+
+    pacman -S grub
+
+安装grub到sda设备上
+
+    grub-install /dev/sda 
+
+生成配置文件
+
+    grub-mkconfig -o /boot/grub/grub.cfg
+
+### 本地化
+
+    # nano /etc/locale.gen
+    en_US.UTF-8 UTF-8
+    zh_CN.UTF-8 UTF-8
+    zh_TW.UTF-8 UTF-8
+接着执行 locale-gen 以生成 locale 讯息：
+
+    # locale-gen
+/etc/locale.gen 会生成指定的本地化文件。
 
