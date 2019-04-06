@@ -2,11 +2,18 @@
 # Archlinux 安装
 
 ## 创建分区
-使用 parted 分区。
+使用 fdisk 或 parted 修改分区表。以使用 parted 分区为例。
 
 打开 parted 交互模式：
 
     # parted /dev/sdx
+为 BIOS 系统创建 MBR/msdos 分区表：
+
+    (parted) mklabel msdos
+为 UEFI 系统创建 GPT 分区表：
+
+    (parted) mklabel gpt
+
 命令创建分区：
 
     (parted) mkpart part-type fs-type start end
@@ -22,28 +29,34 @@
 
     # mkfs.ext4 /dev/sdX1
 
-格式交换分区
- # mkswap /dev/sdX2
- # swapon /dev/sdX2
+如果您创建了交换分区，格式交换分区
  
- 挂载分区
-mount /dev/sdX1 /mnt
+     # mkswap /dev/sdX2
+     # swapon /dev/sdX2
+ 
+## 挂载分区
+格式化后，将根分区挂载到 /mnt
 
-添加数据源
-vim /etc/pacman.d/mirrorlist
-增加
-Server = xxxxx/$repo/os$arch
+    # mount /dev/sdX1 /mnt
+
+## 添加数据源
+文件 `/etc/pacman.d/mirrorlist` 定义了软件包会从哪个 镜像源 下载。
+打开镜像文件 `vim /etc/pacman.d/mirrorlist`增加服务器地址：
+
+    Server = xxxxx/$repo/os$arch
 
 更新源
-pacman -Syy
 
-安装系统
+    pacman -Syy
+
+## 安装系统
+
 pacstrap /mnt base base-devel
 
-配置系统
-Fstab
+## 配置系统
+### Fstab
 用以下命令生成 fstab 文件 (用 -U 或 -L 选项设置UUID 或卷标)：
 
-# genfstab -U /mnt >> /mnt/etc/fstab
+    # genfstab -U /mnt >> /mnt/etc/fstab
 
 
