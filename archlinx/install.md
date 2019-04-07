@@ -121,11 +121,19 @@ pacstrap /mnt base base-devel
 
 安装x,xserver
 
-    sudo pacman -Syu xorg xorg-xinit xorg-utils dbus
+    sudo pacman -Syu xorg xorg-xinit dbus
 
 安装gnome
 
     sudo pacman -Syu gnome
     
-    
+拷贝一份xinit的初始化配置文件到用户目录下
+
+    cp /etc/X11/xinit/xinitrc ~/.xinitrc
+把twm &开始到末尾的信息全部注释掉，然后添加gnome的启动参数
+
+    export XDG_CURRENT_DESKTOP=GNOME-Classic:GNOME
+    export GNOME_SHELL_SESSION_MODE=classic
+    exec gnome-session --session=gnome-classic
+
     
