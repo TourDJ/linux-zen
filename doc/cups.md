@@ -8,4 +8,21 @@ http://localhost:631/
 
 ### 相关命令
 
+lpadmin
+
+system-config-printer
+
+
 ### 相关文件
+
+配置文件
+
+/etc/cups/cupsd.conf
+
+
+/etc/cups/printers.conf
+
+
+cups 默认开启 631 端口，可以通过 web 界面来管理 cups:
+
+  http://localhost:631
