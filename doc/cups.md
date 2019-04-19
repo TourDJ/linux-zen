@@ -4,8 +4,6 @@ CUPS 全称是 Common UNIX Printing System，意思是通用 Unix 打印系统, 
 来管理打印工作及队列。
 
 
-http://localhost:631/
-
 ### 相关命令
 
 lpadmin
@@ -25,4 +23,4 @@ system-config-printer
 
 cups 默认开启 631 端口，可以通过 web 界面来管理 cups:
 
-  http://localhost:631
+    http://localhost:631
