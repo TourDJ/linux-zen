@@ -1,14 +1,14 @@
 
 
 ## ACL
-ACL，就是Access Control List，一个文件/目录的访问控制列表，可以针对任意指定的用户/组分配RWX权限。它在UGO权限管理的基础上为文件系统提供一个
-额外的、更灵活的权限管理机制。它被设计为UNIX文件权限管理的一个补充。ACL允许你给任何的用户或用户组设置任何文件/目录的访问权限。
+ACL，就是Access Control List，一个文件/目录的访问控制列表，可以针对任意指定的用户/组分配RWX权限。它在UGO权限管理的基础上为文件系统提供一个额外的、更灵活的权限管理机制。它被设计为UNIX文件权限管理的一个补充。ACL允许你给任何的用户或用户组设置任何文件/目录的访问权限。
 
 ### ACL 权限查看
 命令： `getfacl `
 
-For  each  file,  getfacl displays the file name, owner, the group, and the Access Control List (ACL). If a directory has a default ACL, getfacl also displays the default ACL. Non-directories
-       cannot have default ACLs.
+说明：
+
+       For  each  file,  getfacl displays the file name, owner, the group, and the Access Control List (ACL). If a directory has a default ACL, getfacl also displays the default ACL. Non-directories cannot have default ACLs.
 
        If getfacl is used on a file system that does not support ACLs, getfacl displays the access permissions defined by the traditional file mode permission bits.
 
@@ -46,9 +46,12 @@ For  each  file,  getfacl displays the file name, owner, the group, and the Acce
 
        The ACL listings of multiple files are separated by blank lines.  The output of getfacl can also be used as input to setfacl.
 
-   PERMISSIONS
+       PERMISSIONS
        Process  with  search access to a file (i.e., processes with read access to the containing directory of a file) are also granted read access to the file's ACLs.  This is analogous to the per‐
        missions required for accessing the file mode.
 
 
 ### ACL 权限设置
+命令：  `setfacl`
+
+
