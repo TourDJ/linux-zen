@@ -3,6 +3,14 @@
 ## ACL
 ACL，就是Access Control List，一个文件/目录的访问控制列表，可以针对任意指定的用户/组分配RWX权限。它在UGO权限管理的基础上为文件系统提供一个额外的、更灵活的权限管理机制。它被设计为UNIX文件权限管理的一个补充。ACL允许你给任何的用户或用户组设置任何文件/目录的访问权限。
 
+### 检查是否支持ACL
+命令：
+
+       sudo tune2fs -l /dev/sda1 |grep "Default mount options:"
+       Default mount options:                 user_xattr    acl
+从输出中可以看出已经加入 acl 支持。
+
+
 ### ACL 权限查看
 命令： `getfacl `
 
