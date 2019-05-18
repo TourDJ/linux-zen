@@ -12,3 +12,5 @@ Linux 文档
 [UNIX TOOLBOX](http://cb.vu/unixtoolbox_zh_CN.xhtml)        
 [How To Use Systemctl to Manage Systemd Services and Units](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units)    
 [开源世界旅行手册](https://i.linuxtoy.org/docs/guide/)     
+[GNU make doc](https://www.gnu.org/software/make/manual/make.html#toc-An-Introduction-to-Makefiles)     
+
