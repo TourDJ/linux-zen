@@ -1,7 +1,7 @@
 > [返回首页](../README.md)     
 
-## debian 系列
-### deb 包安装方法  
+## Debian/Ubuntu 系列命令
+### deb 包安装方法  
 
 #### 安装一个 Debian 软件包
 
@@ -51,22 +51,32 @@
 第二个命令是全面更新发布版，一般会下载几百兆的新软件包。
 其实在运行完第一个命令后系统就会提示你进行更新升级。因为修改了源，所有这次更新的改动可能会很大，比如安装某个包可能会删除太多的其他包，所有系统会提示你运行“sudo apt-get dist-upgrade”进行全面升级或使用软件包管理器中的“标记全部软件包以便升级”功能进行升级。两者效果是一样的。
 
-#### apt-get指令的 autoclean,clean,autoremove的[区别](http://blog.csdn.net/flydream0/article/details/8620396) 
-apt-get autoclean:
-    如果你的硬盘空间不大的话，可以定期运行这个程序，将已经删除了的软件包的.deb安装文件从硬盘中删除掉。如果你仍然需要硬盘空间的话，可以试试apt-get clean，这会把你已安装的软件包的安装包也删除掉，当然多数情况下这些包没什么用了，因此这是个为硬盘腾地方的好办法。
 
-apt-get clean:
-    类似上面的命令，但它删除包缓存中的所有包。这是个很好的做法，因为多数情况下这些包没有用了。但如果你是拨号上网的话，就得重新考虑了。
 
-apt-get autoremove:
-    删除为了满足其他软件包的依赖而安装的，但现在不再需要的软件包。
+```Linux
+    apt-get update                              在修改/etc/apt/sources.list或者/etc/apt/preferences之後运行该命令。此外您需要定期运行这一命令以确保您的软件包列表是最新的。
+    apt-get install packagename                 安装一个新软件包
+    apt-get remove packagename                  卸载一个已安装的软件包（保留配置文件）
+    apt-get –purge remove packagename           卸载一个已安装的软件包（删除配置文件）
+    apt-get autoremove                          删除为了满足其他软件包的依赖而安装的，但现在不再需要的软件包。
+    apt-get clean                               这个命令会把安装的软件的备份也删除，不过这样不会影响软件的使用的。
+    apt-get autoclean                           apt 会把已装或已卸的软件都备份在硬盘上，所以如果需要空间的话，可以让这个命令来删除你已经删掉的软件
+    apt-get upgrade                             更新所有已安装的软件包
+    apt-get dist-upgrade                        将系统升级到新版本
+    apt-cache search string                     在软件包列表中搜索字符串
+    apt-cache showpkg pkgs                      显示软件包信息。
+    apt-cache dumpavail                         打印可用软件包列表。
+    apt-cache show pkgs                         显示软件包记录，类似于dpkg –print-avail。
+    apt-cache pkgnames                          打印软件包列表中所有软件包的名称。
+    aptitude                                    详细查看已安装或可用的软件包。与apt-get类似，aptitude可以通过命令行方式调用，但仅限于某些命令。最常见的有安装和卸载命令。由于aptitude比apt-get了解更多信息，可以说它更适合用来进行安装和卸载。
+    dpkg –force-all –purge packagename          有些软件很难卸载，而且还阻止了别的软件的应用 ，就可以用这个，不过有点冒险。
+    dpkg -l package-name-pattern                列出所有与模式相匹配的软件包。如果您不知道软件包的全名，您可以使用“*package-name-pattern*”。
+    dpkg -S file                                这个文件属于哪个已安装软件包。
+    dpkg -L package                             列出软件包中的所有文件。
+    apt-file search filename                    查找包含特定文件的软件包（不一定是已安装的），这些文件的文件名中含有指定的字符串。
 
-apt-get remove 软件包名称：
-    删除已安装的软件包（保留配置文件）。
-
-apt-get --purge remove 软件包名称：
-     删除已安装包（不保留配置文件)。
-
+```
+> apt-file是一个独立的软件包。您必须先使用apt-get install来安装它，然後运行apt-file update。如果apt-file search filename输出的内容太多，您可以尝试使用apt-file search filename | grep -w filename（只显示指定字符串作为完整的单词出现在其中的那些文件名）或者类似方法，例如：apt-file search filename | grep /bin/（只显示位于诸如/bin或/usr/bin这些文件夹中的文件，如果您要查找的是某个特定的执行文件的话，这样做是有帮助的）。
 
 ## debian 网络配置
 
