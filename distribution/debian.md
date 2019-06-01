@@ -67,6 +67,19 @@
 
 > apt-file是一个独立的软件包。您必须先使用apt-get install来安装它，然後运行apt-file update。如果apt-file search filename输出的内容太多，您可以尝试使用apt-file search filename | grep -w filename（只显示指定字符串作为完整的单词出现在其中的那些文件名）或者类似方法，例如：apt-file search filename | grep /bin/（只显示位于诸如/bin或/usr/bin这些文件夹中的文件，如果您要查找的是某个特定的执行文件的话，这样做是有帮助的）。
 
+### aptitude 命令
+```Linux
+    aptitude update                             更新可用的包列表
+    aptitude upgrade                            升级可用的包
+    aptitude dist-upgrade                       将系统升级到新的发行版
+    aptitude install pkgname                    安装包
+    aptitude remove pkgname                     删除包
+    aptitude purge pkgname                      删除包及其配置文件
+    aptitude search string                      搜索包
+    aptitude show pkgname                       显示包的详细信息
+    aptitude clean                              删除下载的包文件
+    aptitude autoclean                          仅删除过期的包文件
+```
 
 ## [debian 软件源更新](http://www.cnblogs.com/beanmoon/p/3387652.html)
 修改 /etc/apt/sources.list 之后一般会运行下面两个命令进行更新升级：
