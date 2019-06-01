@@ -22,7 +22,8 @@ Linux is one of the most prominent examples of free and open-source software col
 
 ## Linux 使用
 
-Debian/Ubuntu 常用命令
+[Debian/Ubuntu 常用命令](./distribution/debian.md)     
+
 
 
 
