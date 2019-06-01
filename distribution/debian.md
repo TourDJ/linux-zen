@@ -1,6 +1,6 @@
 > [返回首页](../README.md)     
 
-## Debian/Ubuntu 系列命令
+## Debian/Ubuntu 命令
 ### deb 包安装方法  
 
 #### 安装一个 Debian 软件包
@@ -34,24 +34,15 @@
 #### 重新配制一个已经安装的包裹，如果它使用的是 debconf (debconf 为包裹安装提供了一个统一的配制界面)
 
     dpkg-reconfigure <package>
- 
- 
-> apt-cache 是linux下的一个apt软件包管理工具，它可查询apt的二进制软件包缓存文件。
-参见： http://zwkufo.blog.163.com/blog/static/258825120092245519896/
 
-## [debian 软件源更新](http://www.cnblogs.com/beanmoon/p/3387652.html)
-修改 /etc/apt/sources.list 之后一般会运行下面两个命令进行更新升级：
+#### 其他
 
-        sudo apt-get update
-        sudo apt-get dist-upgrade
-其中 ：
-   update - 取回更新的软件包列表信息
-   dist-upgrade - 发布版升级
-第一个命令仅仅更新的软件包列表信息，所以很快就能完成。
-第二个命令是全面更新发布版，一般会下载几百兆的新软件包。
-其实在运行完第一个命令后系统就会提示你进行更新升级。因为修改了源，所有这次更新的改动可能会很大，比如安装某个包可能会删除太多的其他包，所有系统会提示你运行“sudo apt-get dist-upgrade”进行全面升级或使用软件包管理器中的“标记全部软件包以便升级”功能进行升级。两者效果是一样的。
+    dpkg –force-all –purge packagename          有些软件很难卸载，而且还阻止了别的软件的应用 ，就可以用这个，不过有点冒险。
+    dpkg -l package-name-pattern                列出所有与模式相匹配的软件包。如果您不知道软件包的全名，您可以使用“*package-name-pattern*”。
+    dpkg -S file                                这个文件属于哪个已安装软件包。
+    dpkg -L package                             列出软件包中的所有文件。
 
-
+### 系统命令
 
 ```Linux
     apt-get update                              在修改/etc/apt/sources.list或者/etc/apt/preferences之後运行该命令。此外您需要定期运行这一命令以确保您的软件包列表是最新的。
@@ -69,37 +60,50 @@
     apt-cache show pkgs                         显示软件包记录，类似于dpkg –print-avail。
     apt-cache pkgnames                          打印软件包列表中所有软件包的名称。
     aptitude                                    详细查看已安装或可用的软件包。与apt-get类似，aptitude可以通过命令行方式调用，但仅限于某些命令。最常见的有安装和卸载命令。由于aptitude比apt-get了解更多信息，可以说它更适合用来进行安装和卸载。
-    dpkg –force-all –purge packagename          有些软件很难卸载，而且还阻止了别的软件的应用 ，就可以用这个，不过有点冒险。
-    dpkg -l package-name-pattern                列出所有与模式相匹配的软件包。如果您不知道软件包的全名，您可以使用“*package-name-pattern*”。
-    dpkg -S file                                这个文件属于哪个已安装软件包。
-    dpkg -L package                             列出软件包中的所有文件。
     apt-file search filename                    查找包含特定文件的软件包（不一定是已安装的），这些文件的文件名中含有指定的字符串。
 
 ```
+> apt-cache 是linux下的一个apt软件包管理工具，它可查询apt的二进制软件包缓存文件。
+
 > apt-file是一个独立的软件包。您必须先使用apt-get install来安装它，然後运行apt-file update。如果apt-file search filename输出的内容太多，您可以尝试使用apt-file search filename | grep -w filename（只显示指定字符串作为完整的单词出现在其中的那些文件名）或者类似方法，例如：apt-file search filename | grep /bin/（只显示位于诸如/bin或/usr/bin这些文件夹中的文件，如果您要查找的是某个特定的执行文件的话，这样做是有帮助的）。
+
+
+## [debian 软件源更新](http://www.cnblogs.com/beanmoon/p/3387652.html)
+修改 /etc/apt/sources.list 之后一般会运行下面两个命令进行更新升级：
+
+        sudo apt-get update
+        sudo apt-get dist-upgrade
+其中 ：
+   update - 取回更新的软件包列表信息
+   dist-upgrade - 发布版升级
+第一个命令仅仅更新的软件包列表信息，所以很快就能完成。
+第二个命令是全面更新发布版，一般会下载几百兆的新软件包。
+其实在运行完第一个命令后系统就会提示你进行更新升级。因为修改了源，所有这次更新的改动可能会很大，比如安装某个包可能会删除太多的其他包，所有系统会提示你运行“sudo apt-get dist-upgrade”进行全面升级或使用软件包管理器中的“标记全部软件包以便升级”功能进行升级。两者效果是一样的。
 
 ## debian 网络配置
 
-配置网卡
-修改 /etc/network/interfaces 添加如下
+配置网卡，修改 `/etc/network/interfaces` 添加如下:
 
-auto eth0 #开机自动激活
-iface eth0 inte static #静态IP
-address 192.168.0.56 #本机IP
-netmask 255.255.255.0 #子网掩码
-gateway 192.168.0.254 #路由网关
+    auto eth0 #开机自动激活
+    iface eth0 inte static #静态IP
+    address 192.168.0.56 #本机IP
+    netmask 255.255.255.0 #子网掩码
+    gateway 192.168.0.254 #路由网关
  
 如果是用DHCP自动获取，请在配置文件里添加如下：
-auto eth0
-iface eth0 inet dhcp
+
+    auto eth0
+    iface eth0 inet dhcp
 
 设置DNS
-echo "nameserver 202.96.128.86" >> /etc/resolv.conf
+
+    echo "nameserver 202.96.128.86" >> /etc/resolv.conf
 
 重启一下网卡。
-/etc/init.d/networking restart
 
-## Debian 系命令
+    /etc/init.d/networking restart
+
+## Debian 
         
 debian 的 runlevel级别定义如下：
 
