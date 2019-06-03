@@ -88,6 +88,8 @@
 
 参考资料：      
 * [Linux中apt与apt-get命令的区别与解释](https://www.sysgeek.cn/apt-vs-apt-get/)      
+* [Linux软件包管理基本操作入门](https://www.sysgeek.cn/linux-package-management/)     
+
 
 
 ## [debian 软件源更新](http://www.cnblogs.com/beanmoon/p/3387652.html)
