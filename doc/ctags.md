@@ -13,6 +13,13 @@ ctags的功能：扫描指定的源文件，找出其中所包含的语法元素
       Optional compiled features: +wildcards, +regex, +iconv, +option-directory, +packcc
 
 
+### ctags 安装
+
+    $ ./autogen.sh
+    $ ./configure --prefix=/where/you/want # defaults to /usr/local
+    $ make
+    $ make install # may require extra privileges depending on where to install
+
 ### 常用命令
 * --list-languages     
 查看识别哪些语言
