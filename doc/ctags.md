@@ -87,13 +87,13 @@ ctags的功能：扫描指定的源文件，找出其中所包含的语法元素
     set autochdir
 > 注意第一个命令里的分号是必不可少的。
 
-### vim 快捷键
+#### vim 快捷键
 
-    vi –t tag       (请把tag替换为您欲查找的变量或函数名)
-    :ts             (ts 助记字：tags list, “:”开头的命令为VI中命令行模式命令)
-    :tp             (tp 助记字：tags preview)
-    :tn             (tn 助记字：tags next) 
-    Ctrl + ]
-    Ctrl + T
+    vi –t tag               (请把tag替换为您欲查找的变量或函数名)
+    :ts                     (ts 助记字：tags list, “:”开头的命令为VI中命令行模式命令)
+    :tp                     (tp 助记字：tags preview)
+    :tn                     (tn 助记字：tags next) 
+    Ctrl+](:ta name)        跳转到变量或函数的定义处
+    Ctrl+o/t                返回到跳转前的位置                
        
 
