@@ -23,3 +23,45 @@ ctags的功能：扫描指定的源文件，找出其中所包含的语法元素
 * --list-kinds       
 查看ctags可以识别的语法元素     
 --list-kinds=java 单独查看可以识别的 java 的语法元素
+
+### ctags 命令示例
+
+    ctags-R --languages=c++ --langmap=c++:+.inl -h +.inl --c++-kinds=+px--fields=+aiKSz --extra=+q --exclude=lex.yy.cc --exclude=copy_lex.yy.cc
+命令解释：
+
+* -R
+
+表示扫描当前目录及所有子目录（递归向下）中的源文件。并不是所有文件 ctags 都会扫描，如果用户没有特别指明，则 ctags 根据文件的扩展名来决定是否要扫描该文件，如果 ctags 可以根据文件的扩展名可以判断出该文件所使用的语言，则 ctags 会扫描该文件。
+
+* --languages=c++
+
+只扫描文件内容判定为`c++`的文件，即 ctags 观察文件扩展名，如果扩展名对应`c++`，则扫描该文件。反之如果某个文件叫 aaa.py（python文件），则该文件不会被扫描。
+
+* --langmap=c++:+.inl
+
+告知 ctags，以 inl 为扩展名的文件是`c++`语言写的，在加之上述2中的选项，即要求 ctags 以`c+`+语法扫描以 inl 为扩展名的文件。
+
+* -h +.inl
+
+告知 ctags，把以inl为扩展名的文件看作是头文件的一种（inl文件中放的是inline函数的定义，本来就是为了被include的）。这样ctags在扫描inl文件时，就算里面有static的全局变量，ctags在记录时也不会标明说该变量是局限于本文件的。
+
+* --c++-kinds=+px
+
+记录类型为函数声明和前向声明的语法元素。
+
+* --fields=+aiKSz
+
+控制记录的内容。
+
+* --extra=+q
+
+让ctags额外记录一些东西。
+
+* --exclude=lex.yy.cc --exclude=copy_lex.yy.cc
+
+告知ctags不要扫描名字是这样的文件。还可以控制ctags不要扫描指定目录，这里就不细说了。
+
+* -f tagfile
+
+指定生成的标签文件名，默认是tags. tagfile指定为 - 的话，输出到标准输出。
+
