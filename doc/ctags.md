@@ -20,6 +20,9 @@ ctags的功能：扫描指定的源文件，找出其中所包含的语法元素
 * --list-maps      
 可以根据文件的扩展名以及文件名的形式来确定该文件中是何种语言，从而使用正确的分析器。
 
+* --langmap=c++:+.inl –R      
+指定ctags用特定语言的分析器来分析某种扩展名的文件
+
 * --list-kinds       
 查看ctags可以识别的语法元素     
 --list-kinds=java 单独查看可以识别的 java 的语法元素
@@ -64,4 +67,33 @@ ctags的功能：扫描指定的源文件，找出其中所包含的语法元素
 * -f tagfile
 
 指定生成的标签文件名，默认是tags. tagfile指定为 - 的话，输出到标准输出。
+
+
+### vim 中使用 ctags
+#### vim 中配置 ctags
+生成 tags 文件：
+
+    ctags –R ∗
+在 vim 中指定 tags 文件。通常手动指定，在 vim 命令行输入：
+
+    :set tags=$PATH/tags
+若要引用多个不同目录的tags文件，可以用逗号隔开或者设置在配置文件中。在 ~/.vimrc 加入一行：
+
+    set tags=$PATH/tags
+
+如果经常在不同工程里查阅代码，那么可以在 ~/.vimrc 中添加：
+
+    set tags=tags;
+    set autochdir
+> 注意第一个命令里的分号是必不可少的。
+
+### vim 快捷键
+
+    vi –t tag       (请把tag替换为您欲查找的变量或函数名)
+    :ts             (ts 助记字：tags list, “:”开头的命令为VI中命令行模式命令)
+    :tp             (tp 助记字：tags preview)
+    :tn             (tn 助记字：tags next) 
+    Ctrl + ]
+    Ctrl + T
+       
 
