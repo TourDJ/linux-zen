@@ -186,3 +186,18 @@ linux 网络断了，重启后宝如下错误：
 
 > ~/.bash_histroy里面是记录的上次注销前的历史记录（最大保存1000条，且是上次注销前最近的1000条记录）  
   HISTSIZE 变量记录了保存的数量
+
+
+
+## pkg-config
+Return metainformation about installed libraries
+
+## autoconf
+Generate configuration scripts
+
+
+## autoreconf
+Update generated configuration files
+
+
+

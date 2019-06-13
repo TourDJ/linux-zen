@@ -81,6 +81,17 @@
     aptitude autoclean                          仅删除过期的包文件
 ```
 
+### apt 和 apt-get 区别
+* 新版apt软件包提供了apt命令作为面向用户使用的工具。与传统apt-get和aptitude相比，它提供了进度条显示、彩色字符支持等用户友好的新功能。
+* apt 命令的引入就是为了解决命令过于分散的问题，它包括了 apt-get 命令出现以来使用最广泛的功能选项，以及 apt-cache 和 apt-config 命令中很少用到的功能。
+* apt = apt-get、apt-cache 和 apt-config 中最常用命令选项的集合。
+
+参考资料：      
+* [Linux中apt与apt-get命令的区别与解释](https://www.sysgeek.cn/apt-vs-apt-get/)      
+* [Linux软件包管理基本操作入门](https://www.sysgeek.cn/linux-package-management/)     
+
+
+
 ## [debian 软件源更新](http://www.cnblogs.com/beanmoon/p/3387652.html)
 修改 /etc/apt/sources.list 之后一般会运行下面两个命令进行更新升级：
 
