@@ -103,4 +103,23 @@ ctags的功能：扫描指定的源文件，找出其中所包含的语法元素
     Ctrl+](:ta name)        跳转到变量或函数的定义处
     Ctrl+o/t                返回到跳转前的位置                
        
+### 如何使用？
+例如查阅 Linux 的内核代码。
+
+1. 在 Linux 的源码目录 `/opt/linux-5.1.9` 下输入命令 `ctags -R *` 创建 tags 文件，这个就是索引文件。
+2. 向 vim 注册索引文件 tags 的路径。打开 ~/.vimrc 文件，添加一行：
+
+    set tags=/opt/linux-5.1.9/tags
+然后重新打开终端。
+3. 用 vim 在任意目录写一个test.c文件，内容如下:
+```C
+int main(void)
+{
+    printf("HelloWorld!");
+    return 0;
+}
+```
+写好保存后回到正常模式，把光标停留在 printf 函数上， 然后按 `Ctrl＋]`，vim 会自动跳到 Linux 系统函数 printf() 处，这时我们能查看printf()的源码了。按 `Ctrl＋o/` 回到上一步。
+
+
 
