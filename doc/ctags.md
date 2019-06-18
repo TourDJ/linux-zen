@@ -96,12 +96,15 @@ ctags的功能：扫描指定的源文件，找出其中所包含的语法元素
 
 #### vim 快捷键
 
+    :ts or :tselect         shows the list
+    :tn or :tnext           goes to the next tag in that list
+    :tp or :tprev           goes to the previous tag in that list
+    :tf or :tfirst          goes to the first tag of the list
+    :tl or :tlast           goes to the last tag of the lis  
+
     vi –t tag               (请把tag替换为您欲查找的变量或函数名)
-    :ts                     (ts 助记字：tags list, “:”开头的命令为VI中命令行模式命令)
-    :tp                     (tp 助记字：tags preview)
-    :tn                     (tn 助记字：tags next) 
     Ctrl+](:ta name)        跳转到变量或函数的定义处
-    Ctrl+o/t                返回到跳转前的位置                
+    Ctrl+o/t                返回到跳转前的位置       
        
 ### 如何使用？
 例如查阅 Linux 的内核代码。
