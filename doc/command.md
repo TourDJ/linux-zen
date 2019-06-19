@@ -62,6 +62,8 @@ ps -l
 
     netstat -lntp | grep 6379
 
+#### nmap Network exploration tool and security / port scanner
+
 #### top 
 top 的全屏对话模式可分为3部分：系统信息栏、命令输入栏、进程列表栏。
 第一部分 — 最上部的 系统信息栏 ：
