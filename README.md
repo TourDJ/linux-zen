@@ -19,6 +19,61 @@ Linux also runs on embedded systems, i.e. devices whose operating system is typi
 
 Linux is one of the most prominent examples of free and open-source software collaboration. The source code may be used, modified and distributed—commercially or non-commercially—by anyone under the terms of its respective licenses, such as the GNU General Public License.
 
+## Linux Service Management
+### System V
+UNIX System V is one of the first commercial versions of the Unix operating system. It was originally developed by AT&T and first released in 1983. Four major versions of System V were released, numbered 1, 2, 3, and 4. System V Release 4, or SVR4, was commercially the most successful version, being the result of an effort, marketed as "Unix System Unification", which solicited the collaboration of the major Unix vendors. It was the source of several common commercial Unix features. System V is sometimes abbreviated to SysV.
+
+SysV init 是 system V 风格的 init 系统，它源于 System V 系列 UNIX。SysV init守护进程（sysv init软件包）是一个基于运行级别的系统，它使用运行级别（单用户、多用户以及其他更多级别）和链接（位于/etc/rc?.d目录中，分别链接到/etc/init.d中的init脚本）来启动和关闭系统服务。Upstart init守护进程（upstart软件包）则是基于事件的系统，它使用事件来启动和关闭系统服务。
+
+System V 主要用 chkconfig和sevice(Redhat系列)、 update-rc.d(debian 系列)命令管理服务。
+
+### Systemd
+The systemd software suite provides fundamental building blocks for a Linux operating system. It includes the systemd "System and Service Manager", an init system used to bootstrap user space and manage user processes.
+
+systemd aims to unify service configuration and behavior across Linux distributions. It replaces the UNIX System V and BSD init systems. Since 2015, the majority of Linux distributions have adopted systemd, and it is considered a de facto standard.
+
+The name systemd adheres to the Unix convention of naming daemons by appending the letter d. It also plays on the term "System D", which refers to a person's ability to adapt quickly and improvise to solve problems.
+
+systemd 是 Linux 下一个与 SysV 和 LSB 初始化脚本兼容的系统和服务管理器。systemd 使用 socket 和 D-Bus 来开启服务，提供基于守护进程的按需启动策略，保留了 Linux cgroups 的进程追踪功能，支持快照和系统状态恢复，维护挂载和自挂载点，实现了各服务间基于从属关系的一个更为精细的逻辑控制，拥有前卫的并行性能。systemd 无需经过任何修改便可以替代 sysvinit 。
+
+[systemctl](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units) 是 systemd 最主要的工具。它融合 service 和 chkconfig 的功能于一体。你可以使用它永久性或只在当前会话中启用/禁用服务。
+
+Systemctl 主要负责控制systemd系统和服务管理器。Systemd是一个系统管理守护进程、工具和库的集合，用于取代System V初始进程。   
+
+systemd uses 'targets' instead of runlevels. By default, there are two main targets:b
+* multi-user.target: analogous to runlevel 3
+* graphical.target: analogous to runlevel 5
+
+To view current default target, run:
+
+    systemctl get-default
+
+To set a default target, run:
+
+    systemctl set-default TARGET.target
+
+
+
+chkconfig, service 与 systemctl 命令对照
+
+| 任务	           |              旧指令	          |         新指令            |
+|-------            | ----------                      | --------------            |
+|使某服务自启	        |  chkconfig --level 3 httpd on	  |   systemctl enable httpd.service |
+|使某服务不自动启动	  |  chkconfig --level 3 httpd off	|   systemctl disable httpd.service |
+|检查服务状态	        |  service httpd status	          |   systemctl status httpd.service 或者 systemctl is-active httpd.service |
+|显示所有已启动服务	  |  chkconfig --list	            |   systemctl list-units --type=service |
+|启动某服务	         |  service httpd start	           |   systemctl start httpd.service |
+|停止某服务	         |  service httpd stop	           |   systemctl stop httpd.service |
+|重启某服务	         |  service httpd restart	       |   systemctl restart httpd.service |
+
+
+### Upstart
+
+***
+
+参考资料：     
+  
+
 ## Linux 使用
 
 [Debian/Ubuntu 常用命令](./distribution/debian.md)     
@@ -32,4 +87,10 @@ Linux is one of the most prominent examples of free and open-source software col
 * [How To Use Systemctl to Manage Systemd Services and Units](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units)    
 * [开源世界旅行手册](https://i.linuxtoy.org/docs/guide/)     
 * [GNU make doc](https://www.gnu.org/software/make/manual/make.html#toc-An-Introduction-to-Makefiles)     
+* [How To Use Systemctl to Manage Systemd Services and Units](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units)      
+* [systemd，upstart， systemV服务启动编写](https://www.jianshu.com/p/d856428bc43f)     
+* [浅析 Linux 初始化 init 系统，第 1 部分](https://www.ibm.com/developerworks/cn/linux/1407_liuming_init1/index.html?ca=drs-)   
+* [浅析 Linux 初始化 init 系统，第 2 部分](https://www.ibm.com/developerworks/cn/linux/1407_liuming_init2/index.html)   
+* [浅析 Linux 初始化 init 系统，第 3 部分](https://www.ibm.com/developerworks/cn/linux/1407_liuming_init3/index.html?ca=drs-) 
+* [System V init 与 systemd 的对接](https://fedoraproject.org/wiki/Systemd/zh-cn#System_V_init_.E4.B8.8E_systemd_.E7.9A.84.E5.AF.B9.E6.8E.A5)      
 
