@@ -1,6 +1,7 @@
 # linux-zen
 
-## Linux 概述
+
+## Linux Summary
 Linux (/ˈlɪnəks/) is a family of open source Unix-like operating systems based on the Linux kernel, an operating system kernel first released on September 17, 1991 by Linus Torvalds.Linux is typically packaged in a Linux distribution (or distro for short).
 
 ![unix 系统及衍生系统发展分支图](https://github.com/TourDJ/linux-zen/blob/master/image/unixbranches.jpg)
@@ -71,7 +72,7 @@ To set a default target, run:
     
   
 
-## Linux 使用
+## How Use?
 
 [Debian/Ubuntu 常用命令](./distribution/debian.md)     
 
@@ -79,7 +80,7 @@ To set a default target, run:
 
 
 
-## 参考资料     
+## Reference           
 * [UNIX TOOLBOX](http://cb.vu/unixtoolbox_zh_CN.xhtml)        
 * [How To Use Systemctl to Manage Systemd Services and Units](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units)    
 * [开源世界旅行手册](https://i.linuxtoy.org/docs/guide/)     
