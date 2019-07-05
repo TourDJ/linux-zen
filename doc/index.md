@@ -1,58 +1,5 @@
 
 
-## Linux 命令管理服务方式
-常用的管理服务方式主要有 sysvinit(System V)、upstart 和 systemd几种，每种的命令格式是不一样的。
-
-### [System V](https://en.wikipedia.org/wiki/UNIX_System_V)    
-sysvinit 是 system V 风格的 init 系统，它源于 System V 系列 UNIX。
-
-System V 介绍，摘自维基百科：   
-> UNIX System V is one of the first commercial versions of the Unix operating system. It was originally developed by AT&T and first released in 1983. Four major versions of System V were released, numbered 1, 2, 3, and 4. System V Release 4, or SVR4, was commercially the most successful version, being the result of an effort, marketed as "Unix System Unification", which solicited the collaboration of the major Unix vendors. It was the source of several common commercial Unix features. System V is sometimes abbreviated to SysV.
-
-system V 主要用 chkconfig和sevice(Redhat系列)、 update-rc.d(debian 系列)命令管理服务。
-
-## [Systemd](https://fedoraproject.org/wiki/Systemd/zh-cn#System_V_init_.E4.B8.8E_systemd_.E7.9A.84.E5.AF.B9.E6.8E.A5)
-systemd 是 Linux 下一个与 SysV 和 LSB 初始化脚本兼容的系统和服务管理器。systemd 使用 socket 和 D-Bus 来开启服务，提供基于守护进程的按需启动策略，保留了 Linux cgroups 的进程追踪功能，支持快照和系统状态恢复，维护挂载和自挂载点，实现了各服务间基于从属关系的一个更为精细的逻辑控制，拥有前卫的并行性能。systemd 无需经过任何修改便可以替代 sysvinit 。
-
-[systemctl](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units) 是 systemd 最主要的工具。它融合 service 和 chkconfig 的功能于一体。你可以使用它永久性或只在当前会话中启用/禁用服务。
-
-Systemctl 主要负责控制systemd系统和服务管理器。Systemd是一个系统管理守护进程、工具和库的集合，用于取代System V初始进程。   
-
-systemd uses 'targets' instead of runlevels. By default, there are two main targets:b
-* multi-user.target: analogous to runlevel 3
-* graphical.target: analogous to runlevel 5
-
-To view current default target, run:
-
-    systemctl get-default
-
-To set a default target, run:
-
-    systemctl set-default TARGET.target
-
-
-*参考*：      
-[Centos7下的systemctl命令与service和chkconfig](https://blog.csdn.net/cds86333774/article/details/51165361)     
-[systemd，upstart， systemV服务启动编写](https://www.jianshu.com/p/d856428bc43f)     
-[浅析 Linux 初始化 init 系统，第 1 部分](https://www.ibm.com/developerworks/cn/linux/1407_liuming_init1/index.html?ca=drs-)   
-[浅析 Linux 初始化 init 系统，第 2 部分](https://www.ibm.com/developerworks/cn/linux/1407_liuming_init2/index.html)   
-[浅析 Linux 初始化 init 系统，第 3 部分](https://www.ibm.com/developerworks/cn/linux/1407_liuming_init3/index.html?ca=drs-)   
-
-
-chkconfig, service 与 systemctl 命令对照
-
-| 任务	           |              旧指令	          |         新指令            |
-|-------            | ----------                      | --------------            |
-|使某服务自启	        |  chkconfig --level 3 httpd on	  |   systemctl enable httpd.service |
-|使某服务不自动启动	  |  chkconfig --level 3 httpd off	|   systemctl disable httpd.service |
-|检查服务状态	        |  service httpd status	          |   systemctl status httpd.service 或者 systemctl is-active httpd.service |
-|显示所有已启动服务	  |  chkconfig --list	            |   systemctl list-units --type=service |
-|启动某服务	         |  service httpd start	           |   systemctl start httpd.service |
-|停止某服务	         |  service httpd stop	           |   systemctl stop httpd.service |
-|重启某服务	         |  service httpd restart	       |   systemctl restart httpd.service |
-
-
-> SysV init守护进程（sysv init软件包）是一个基于运行级别的系统，它使用运行级别（单用户、多用户以及其他更多级别）和链接（位于/etc/rc?.d目录中，分别链接到/etc/init.d中的init脚本）来启动和关闭系统服务。Upstart init守护进程（upstart软件包）则是基于事件的系统，它使用事件来启动和关闭系统服务。
 
 ## linux 基础知识
 
