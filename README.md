@@ -58,7 +58,7 @@ To set a default target, run:
 表： chkconfig, service 与 systemctl 命令对照
 
 | 任务	           |              旧指令	          |         新指令            |
-|-------            | ----------                      | --------------            |
+|-----------        | ----------------------         | --------------            |
 |使某服务自启	        |  chkconfig --level 3 httpd on	  |   systemctl enable httpd.service |
 |使某服务不自动启动	  |  chkconfig --level 3 httpd off	|   systemctl disable httpd.service |
 |检查服务状态	        |  service httpd status	          |   systemctl status httpd.service 或者 systemctl is-active httpd.service |
