@@ -74,7 +74,8 @@ To set a default target, run:
 
 ## How Use?
 
-[Debian/Ubuntu 常用命令](./distribution/debian.md)     
+* [Shell Use](./doc/shell.md)       
+* [Debian/Ubuntu 常用命令](./distribution/debian.md)     
 
 
 
