@@ -1,9 +1,9 @@
 
-- [Shell](#shell)      
+- [Shell Use](#shell)      
   - [What Is a Shell?](#shell_what)      
   
 
-## <a id="shell">Shell</a>
+## <a id="shell">Shell Use</a>
 
 ### <a id="shell_what">What Is a Shell?</a>
 A shell is a program that provides an interface between a user and an operating system (OS) kernel. An OS starts a shell for each user when the user logs in or opens a terminal or console window.
