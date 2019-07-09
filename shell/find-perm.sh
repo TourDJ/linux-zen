@@ -7,11 +7,11 @@
 ## see: https://askubuntu.com/questions/1126527/invalid-mode-6000-with-find-perm
 ## so:
 
-##  strict match
+## File's  permission  bits are exactly mode (octal or symbolic).
 find . -type f -perm 6000
-##
+## All of the permission bits mode are set for the file. 
 find . -type f -perm -6000
-##
+## Any of the permission bits mode are set for the file.
 find . -type f -perm /6000
 
 ## How to search for all SUID/SGID files?
