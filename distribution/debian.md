@@ -150,3 +150,14 @@ invoke-rc.d 类似与 RHEL 中的 service。
     echo $HISTSIZE
 可以修改该参数，但重启电脑后失效，如需长久有效，在 /etc/profile 文件中配置。
 
+
+查看内核版本
+```
+cat /etc/issue
+cat /proc/version
+uname -a
+file /bin/bash
+file /bin/bash
+```
+
+
