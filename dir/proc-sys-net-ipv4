@@ -1,11 +1,11 @@
-1)  `/proc/sys/net/ipv4/ip_forward`
+1)  /proc/sys/net/ipv4/ip_forward
 该文件表示是否打开IP转发。
 0，禁止
 1，转发
 基本用途：如VPN、路由产品的利用；
 缺省设置：0
 
-2)  `/proc/sys/net/ipv4/ip_default_ttl`
+2)  /proc/sys/net/ipv4/ip_default_ttl
 该文件表示一个数据报的生存周期（Time To Live），即最多经过多少路由器。 
 缺省设置：64 
 增加该值会降低系统性能。 
