@@ -201,5 +201,6 @@ Generate configuration scripts
 ## autoreconf
 Update generated configuration files
 
+## gedit
 
 
