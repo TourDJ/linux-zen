@@ -108,6 +108,8 @@ s – 改变画面更新周期
 
 #### tee
 
+tee and >
+
 #### tree
 以树型结构显示当前文件夹下的文件及其子文件夹下的内容。    
 
@@ -201,5 +203,6 @@ Generate configuration scripts
 ## autoreconf
 Update generated configuration files
 
+## gedit
 
 
