@@ -69,13 +69,21 @@ To set a default target, run:
 
 
 ### Upstart
-    
+Upstart is an event-based replacement for the /sbin/init daemon which handles starting of tasks and services during boot, stopping them during shutdown and supervising them while the system is running.
+
+It was originally developed for the Ubuntu distribution, but is intended to be suitable for deployment in all Linux distributions as a replacement for the venerable System-V init.
+
+Most major users of Upstart have moved on. Commercial and security support for upstart will stop be from Canonical once the last Ubuntu release shipping upstart lapses.
+
+Project is in maintaince mode only. No new features are being developed and the general advice would be to move over to another minimal init system or systemd.
   
 
 ## How Use?
 
 * [Shell Use](./doc/shell.md)       
 * [Debian/Ubuntu 常用命令](./distribution/debian.md)     
+* [tmux 命令](./doc/tmux.md)    
+
 
 
 
