@@ -79,7 +79,7 @@ Project is in maintaince mode only. No new features are being developed and the 
   
 
 ## How Use?
-
+* [常用命令](./doc/command.md)       
 * [Shell Use](./doc/shell.md)       
 * [Debian/Ubuntu 常用命令](./distribution/debian.md)     
 * [tmux 命令](./doc/tmux.md)    
