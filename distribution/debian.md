@@ -65,7 +65,7 @@
         sudo apt-get update
         sudo apt-get dist-upgrade
 其中 ：          
-&nbsp;&nbsp;&nbsp;&nbsp; update       - 取回更新的软件包列表信息        
+&emsp;&emsp; update       - 取回更新的软件包列表信息        
 &emsp;&emsp; dist-upgrade - 发布版升级        
 * 第一个命令仅仅更新的软件包列表信息，所以很快就能完成。     
 * 第二个命令是全面更新发布版，一般会下载几百兆的新软件包。       
