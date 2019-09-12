@@ -40,7 +40,7 @@
 > apt-file是一个独立的软件包。您必须先使用apt-get install来安装它，然後运行apt-file update。如果apt-file search filename输出的内容太多，您可以尝试使用apt-file search filename | grep -w filename（只显示指定字符串作为完整的单词出现在其中的那些文件名）或者类似方法，例如：apt-file search filename | grep /bin/（只显示位于诸如/bin或/usr/bin这些文件夹中的文件，如果您要查找的是某个特定的执行文件的话，这样做是有帮助的）。
 
 ### aptitude 命令
-```Linux
+
     aptitude update                     更新可用的包列表
     aptitude upgrade                    升级可用的包
     aptitude dist-upgrade               将系统升级到新的发行版
@@ -51,18 +51,12 @@
     aptitude show pkgname               显示包的详细信息
     aptitude clean                      删除下载的包文件
     aptitude autoclean                  仅删除过期的包文件
-```
 
 § apt 和 apt-get 区别      
 
 * 新版apt软件包提供了apt命令作为面向用户使用的工具。与传统apt-get和aptitude相比，它提供了进度条显示、彩色字符支持等用户友好的新功能。
 * apt 命令的引入就是为了解决命令过于分散的问题，它包括了 apt-get 命令出现以来使用最广泛的功能选项，以及 apt-cache 和 apt-config 命令中很少用到的功能。
 * apt = apt-get、apt-cache 和 apt-config 中最常用命令选项的集合。
-
-参考资料：      
-* [Linux中apt与apt-get命令的区别与解释](https://www.sysgeek.cn/apt-vs-apt-get/)      
-* [Linux软件包管理基本操作入门](https://www.sysgeek.cn/linux-package-management/)     
-
 
 
 ## [debian 软件源更新](http://www.cnblogs.com/beanmoon/p/3387652.html)
@@ -71,11 +65,11 @@
         sudo apt-get update
         sudo apt-get dist-upgrade
 其中 ：
-   update - 取回更新的软件包列表信息
-   dist-upgrade - 发布版升级
-第一个命令仅仅更新的软件包列表信息，所以很快就能完成。
-第二个命令是全面更新发布版，一般会下载几百兆的新软件包。
-其实在运行完第一个命令后系统就会提示你进行更新升级。因为修改了源，所有这次更新的改动可能会很大，比如安装某个包可能会删除太多的其他包，所有系统会提示你运行“sudo apt-get dist-upgrade”进行全面升级或使用软件包管理器中的“标记全部软件包以便升级”功能进行升级。两者效果是一样的。
+   update       - 取回更新的软件包列表信息
+   dist-upgrade - 发布版升级        
+* 第一个命令仅仅更新的软件包列表信息，所以很快就能完成。     
+* 第二个命令是全面更新发布版，一般会下载几百兆的新软件包。       
+* 其实在运行完第一个命令后系统就会提示你进行更新升级。因为修改了源，所有这次更新的改动可能会很大，比如安装某个包可能会删除太多的其他包，所有系统会提示你运行“sudo apt-get dist-upgrade”进行全面升级或使用软件包管理器中的“标记全部软件包以便升级”功能进行升级。两者效果是一样的。
 
 ## debian 网络配置
 
@@ -146,6 +140,10 @@ file /bin/bash
 
     sudo passwd
 
+
+## 参考资料：      
+* [Linux中apt与apt-get命令的区别与解释](https://www.sysgeek.cn/apt-vs-apt-get/)      
+* [Linux软件包管理基本操作入门](https://www.sysgeek.cn/linux-package-management/)     
 
 
 
