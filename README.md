@@ -1,7 +1,7 @@
 # linux-zen
 
 
-## Linux Summary
+## Linux 概述
 Linux (/ˈlɪnəks/) is a family of open source Unix-like operating systems based on the Linux kernel, an operating system kernel first released on September 17, 1991 by Linus Torvalds.Linux is typically packaged in a Linux distribution (or distro for short).
 
 ![unix 系统及衍生系统发展分支图](https://github.com/TourDJ/linux-zen/blob/master/image/unixbranches.jpg)
@@ -20,7 +20,9 @@ Linux also runs on embedded systems, i.e. devices whose operating system is typi
 
 Linux is one of the most prominent examples of free and open-source software collaboration. The source code may be used, modified and distributed—commercially or non-commercially—by anyone under the terms of its respective licenses, such as the GNU General Public License.
 
-## Linux Service Management
+## Linux Service Management(Linux 服务管理程序)
+常用的服务管理程序主要有 System V, Systemd, Upstart。
+
 ### System V
 UNIX System V is one of the first commercial versions of the Unix operating system. It was originally developed by AT&T and first released in 1983. Four major versions of System V were released, numbered 1, 2, 3, and 4. System V Release 4, or SVR4, was commercially the most successful version, being the result of an effort, marketed as "Unix System Unification", which solicited the collaboration of the major Unix vendors. It was the source of several common commercial Unix features. System V is sometimes abbreviated to SysV.
 
@@ -78,9 +80,10 @@ Most major users of Upstart have moved on. Commercial and security support for u
 Project is in maintaince mode only. No new features are being developed and the general advice would be to move over to another minimal init system or systemd.
   
 
-## How Use?
+## 如何使用?
 * [常用命令](./doc/command.md)       
-* [Shell Use](./doc/shell.md)       
+* [Shell 使用](./doc/shell.md)       
+* [Redhad/CentOS 常用命令](./distribution/redhat.md)     
 * [Debian/Ubuntu 常用命令](./distribution/debian.md)     
 * [tmux 命令](./doc/tmux.md)    
 
@@ -89,7 +92,7 @@ Project is in maintaince mode only. No new features are being developed and the 
 
 
 
-## Reference           
+## 参考资料           
 * [UNIX TOOLBOX](http://cb.vu/unixtoolbox_zh_CN.xhtml)        
 * [How To Use Systemctl to Manage Systemd Services and Units](https://www.digitalocean.com/community/tutorials/how-to-use-systemctl-to-manage-systemd-services-and-units)    
 * [开源世界旅行手册](https://i.linuxtoy.org/docs/guide/)     
