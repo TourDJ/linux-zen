@@ -160,4 +160,10 @@ file /bin/bash
 file /bin/bash
 ```
 
+设置 root 密码
+
+    sudo passwd
+
+
+
 
