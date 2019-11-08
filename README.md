@@ -20,7 +20,7 @@ Linux also runs on embedded systems, i.e. devices whose operating system is typi
 
 Linux is one of the most prominent examples of free and open-source software collaboration. The source code may be used, modified and distributed—commercially or non-commercially—by anyone under the terms of its respective licenses, such as the GNU General Public License.
 
-## Linux Service Management(Linux 服务管理程序)
+## Linux 服务管理程序
 常用的服务管理程序主要有 System V, Systemd, Upstart。
 
 ### System V
@@ -79,6 +79,16 @@ Most major users of Upstart have moved on. Commercial and security support for u
 
 Project is in maintaince mode only. No new features are being developed and the general advice would be to move over to another minimal init system or systemd.
   
+## Linux 运维
+
+### Linux 性能分析
+一个完整运行的 Linux 系统包括很多子系统（介绍，CPU，Memory，IO，Network，…），监测和评估这些子系统是性能监测的一部分。我们往往需要宏观的看整个系统状态，也需要微观的看每个子系统的运行情况。幸运的是，我们不必重复造轮子，监控这些子系统都有相应的工具可用，这些经过时间考验、随 Unix 成长起来、简单而优雅的小工具是我们日常 Unix/Linux 工作不可缺少的部分。
+
+系统性能专家 Brendan D. Gregg 在最近的 LinuxCon NA 2014 大会上更新了他那个有名的关于 Linux 性能方面的资料和幻灯片。
+
+#### 参考资料：
+[Linux 性能监测：工具](https://www.vpsee.com/2013/06/linux-system-performance-monitoring-tools/)      
+[Linux 性能](http://www.brendangregg.com/linuxperf.html)       
 
 ## 如何使用?
 * [常用命令](./doc/command.md)       
