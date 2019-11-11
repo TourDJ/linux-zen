@@ -86,6 +86,10 @@ Project is in maintaince mode only. No new features are being developed and the 
 
 系统性能专家 Brendan D. Gregg 在最近的 LinuxCon NA 2014 大会上更新了他那个有名的关于 Linux 性能方面的资料和幻灯片。
 
+Linux 性能观察工具
+![](image/linux_observability_tools.png)     
+查看[原图](http://www.brendangregg.com/Perf/linux_observability_tools.png)    
+
 #### 参考资料：
 [Linux 性能监测：工具](https://www.vpsee.com/2013/06/linux-system-performance-monitoring-tools/)      
 [Linux 性能](http://www.brendangregg.com/linuxperf.html)       
