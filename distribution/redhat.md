@@ -42,3 +42,21 @@
 6.删除
 
     firewall-cmd --zone= public --remove-port=80/tcp --permanent
+
+### centos7 以下版本配置防火墙开启端口
+1.开放80，22，8080 端口
+/sbin/iptables -I INPUT -p tcp --dport 80 -j ACCEPT
+/sbin/iptables -I INPUT -p tcp --dport 22 -j ACCEPT
+/sbin/iptables -I INPUT -p tcp --dport 8080 -j ACCEPT
+2.保存
+/etc/rc.d/init.d/iptables save
+3.查看打开的端口
+/etc/init.d/iptables status
+4.关闭防火墙 
+1） 永久性生效，重启后不会复原
+开启： chkconfig iptables on
+关闭： chkconfig iptables off
+2） 即时生效，重启后复原
+开启： service iptables start
+关闭： service iptables stop
+
