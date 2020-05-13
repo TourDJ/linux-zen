@@ -1,7 +1,7 @@
 
 ## redhat 系列
 
-#### CentOS 7 安装 google-chrome 浏览器
+### CentOS 7 安装 google-chrome 浏览器
 1，下载 chrome 的 rpm 包 google-chrome-stable_current_x86_64.rpm       
 2，切换到安装包目录，执行命令：        
 
@@ -19,3 +19,26 @@
 
     rpm --import /etc/pki/rpm-gpg/RPM*    
 7，再执行安装命令即可。
+
+
+
+
+### Centos7 配置防火墙开启端口
+1.查看已开放的端口(默认不开放任何端口)
+
+    firewall-cmd --list-ports
+2.开启80端口
+
+    firewall-cmd --zone=public(作用域) --add-port=80/tcp(端口和访问类型) --permanent(永久生效)
+3.重启防火墙
+
+    firewall-cmd --reload
+4.停止防火墙
+
+    systemctl stop firewalld.service
+5.禁止防火墙开机启动
+
+    systemctl disable firewalld.service
+6.删除
+
+    firewall-cmd --zone= public --remove-port=80/tcp --permanent
