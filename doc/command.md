@@ -1,8 +1,9 @@
 
+- [linux 命令](#linux)          
   - [nohup](#nohup)      
   
 
-## linux 命令
+## <a id="linux">linux 命令</a>
 
 ### <a id="nohup">nohup</a>   
 　　用途：不挂断地运行命令。
