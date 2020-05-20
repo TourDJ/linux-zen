@@ -1,11 +1,21 @@
 
 - [linux 命令](#linux)          
-  - [nohup](#nohup)      
-  
+  - [Linux 基础命令](#linux-base)             
+    - [nohup](#nohup)         
+    - [ldconfig](#ldconfig)          
+    - [find](#find)         
+    - [ps](#ps)        
+    - [netstat](#netstat)      
+    - [top])(#top)           
+  - [tmux 命令](./doc/tmux.md)        
+  - [Redhad/CentOS 常用命令](./distribution/redhat.md)         
+  - [Debian/Ubuntu 常用命令](./distribution/debian.md)        
 
 ## <a id="linux">linux 命令</a>
 
-### <a id="nohup">nohup</a>   
+## <a id="linux-base">Linux 基础命令</a>
+
+#### <a id="nohup">nohup</a>   
 　　用途：不挂断地运行命令。
 
 　　语法：nohup Command [ Arg ... ] [　& ]
@@ -15,21 +25,33 @@
 
     nohup java -jar crm-1.0.jar --server.port=8080 --spring.profiles.active=pro >/home/nginx/crm/logs/crm.log &
 
-### ldconfig
-ldconfig 命令的用途,主要是在默认搜寻目录(/lib和/usr/lib)以及动态库配置文件/etc/ld.so.conf内所列的目录下,搜索出可共享的动态链接库(格式如前介绍,lib*.so*)，进而创建出动态装入程序(ld.so)所需的连接和缓存文件，缓存文件默认为 /etc/ld.so.cache，此文件保存已排好序的动态链接库名字列表。
+#### <a id="ldconfig">ldconfig</a>    
+ldconfig命令的用途主要是在默认搜寻目录/lib和/usr/lib以及动态库配置文件/etc/ld.so.conf内所列的目录下，搜索出可共享的动态链接库（格式如lib*.so\*）,进而创建出动态装入程序(ld.so)所需的连接和缓存文件。缓存文件默认为/etc/ld.so.cache，此文件保存已排好序的动态链接库名字列表，为了让动态链接库为系统所共享，需运行动态链接库的管理命令ldconfig，此执行程序存放在/sbin目录下。
+ldconfig通常在系统启动时运行，而当用户安装了一个新的动态链接库时，就需要手工运行这个命令。
 
-#### 向文件添加和追加内容
+语法:          
+ldconfig [-v|--verbose] [-n] [-N] [-X] [-f CONF] [-C CACHE] [-r ROOT] [-l] [-p|--print-cache] [-c FORMAT] [--format=FORMAT] [-V] [-?|--help|--usage] path... 
 
-    ivan@jiefang:~/test$ echo Hello > a.txt
-    ivan@jiefang:~/test$ echo World >> a.txt
-其中，> 是覆盖，>> 是追加。
+选项          
+* -v或--verbose：用此选项时，ldconfig将显示正在扫描的目录及搜索到的动态链接库，还有它所创建的连接的名字。
+* -n：用此选项时,ldconfig仅扫描命令行指定的目录，不扫描默认目录（/lib、/usr/lib），也不扫描配置文件/etc/ld.so.conf所列的目录。
+* -N：此选项指示ldconfig不重建缓存文件（/etc/ld.so.cache），若未用-X选项，ldconfig照常更新文件的连接。
+* -X：此选项指示ldconfig不更新文件的连接，若未用-N选项，则缓存文件正常更新。
+* -f CONF：此选项指定动态链接库的配置文件为CONF，系统默认为/etc/ld.so.conf。
+* -C CACHE：此选项指定生成的缓存文件为CACHE，系统默认的是/etc/ld.so.cache，此文件存放已排好序的可共享的动态链接库的列表。
+* -r ROOT：此选项改变应用程序的根目录为ROOT（是调用chroot函数实现的）。选择此项时，系统默认的配置文件/etc/ld.so.conf，实际对应的为ROOT/etc/ld.so.conf。如用-r /usr/zzz时，打开配置文件/etc/ld.so.conf时，实际打开的是/usr/zzz/etc/ld.so.conf文件。用此选项，可以大大增加动态链接库管理的灵活性。
+* -l：通常情况下,ldconfig搜索动态链接库时将自动建立动态链接库的连接，选择此项时，将进入专家模式，需要手工设置连接，一般用户不用此项。
+* -p或--print-cache：此选项指示ldconfig打印出当前缓存文件所保存的所有共享库的名字。
+* -c FORMAT 或 --format=FORMAT：此选项用于指定缓存文件所使用的格式，共有三种：old(老格式)，new(新格式)和compat（兼容格式，此为默认格式）。
+* -V：此选项打印出ldconfig的版本信息，而后退出。
+* -? 或 --help 或 --usage：这三个选项作用相同，都是让ldconfig打印出其帮助信息，而后退出。
 
-### find
+#### <a id="find">find</a>
 To find all socket files on your system run
 
     sudo find / -type s
 
-### ps
+#### <a id="ps">ps</a>
 
 ps -l
 
@@ -60,14 +82,14 @@ ps -l
     ps aux | grep redis
 
 
-#### netstat
+#### <a id="netstat">netstat</a>
 检测6379端口是否在监听
 
     netstat -lntp | grep 6379
 
 #### nmap Network exploration tool and security / port scanner
 
-#### top 
+#### <a id="top">top</a> 
 top 的全屏对话模式可分为3部分：系统信息栏、命令输入栏、进程列表栏。
 第一部分 — 最上部的 系统信息栏 ：
 第一行（top）：
@@ -213,4 +235,10 @@ Update generated configuration files
 jobs    查看当前有多少在后台运行的命令
 fg      将后台中的命令调至前台继续运行。如果后台中有多个命令，可以用 fg %jobnumber将选中的命令调出，%jobnumber是通过jobs命令查到的后台正在执行的命令的序号(不是pid)
 bg      将一个在后台暂停的命令，变成继续执行。如果后台中有多个命令，可以用bg %jobnumber将选中的命令调出，%jobnumber是通过jobs命令查到的后台正在执行的命令的序号(不是pid)
+   
+#### 向文件添加和追加内容
+
+    ivan@jiefang:~/test$ echo Hello > a.txt
+    ivan@jiefang:~/test$ echo World >> a.txt
+其中，> 是覆盖，>> 是追加。
 
