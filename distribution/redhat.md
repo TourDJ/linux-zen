@@ -70,5 +70,16 @@
 
 ### yum 命令
 
-yum list
+#### 常用命令
+
+    yum list
+
+
+
+#### 安装 lsb_release
+
+    yum install redhat-lsb
+
+
+
 
