@@ -7,7 +7,7 @@
     - [ps](#ps)        
     - [netstat](#netstat)      
     - [top](#top)           
-  - [tmux 命令](./doc/tmux.md)        
+  - [tmux 命令](./tmux.md)        
   - [Redhad/CentOS 常用命令](../distribution/redhat.md)         
   - [Debian/Ubuntu 常用命令](../distribution/debian.md)        
 
