@@ -95,13 +95,9 @@ Linux 性能观察工具
 [Linux 性能](http://www.brendangregg.com/linuxperf.html)       
 
 ## 如何使用?
-* [常用命令](./doc/command.md)       
+* [Linux 基础知识](./doc/index.md)       
+* [Linux 常用命令](./doc/command.md)       
 * [Shell 使用](./doc/shell.md)       
-* [Redhad/CentOS 常用命令](./distribution/redhat.md)     
-* [Debian/Ubuntu 常用命令](./distribution/debian.md)     
-* [tmux 命令](./doc/tmux.md)    
-
-
 
 
 
