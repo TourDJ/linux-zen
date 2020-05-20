@@ -60,21 +60,23 @@ ps 命令是 Process Status 的缩写，用来列出系统中当前运行的那�
 PID 是每个进程唯一号码。使用 ps 获取所有正在运行的进程列表。
 
 常用命令：
-
+```
       ps -auxefw          所有正在运行进程的详尽列表                      
       ps -A               显示所有进程信息
       ps -u root          显示指定用户信息
       ps -ef              显示所有进程信息，连同命令行
-
+```
 将目前属于您自己这次登入的 PID 与相关信息列示出来
-
+```
      ps -l  
+```
 输出
-
+```
       F S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD
       0 S 0 5881 5654 0 76 0 - 1303 wait pts/0 00:00:00 su
       4 S 0 5882 5881 0 75 0 - 1349 wait pts/0 00:00:00 bash
       4 R 0 6037 5882 0 76 0 - 1111 - pts/0 00:00:00 ps 
+```
 各相关信息的意义为：
 * F 代表这个程序的旗标 (flag)， 4 代表使用者为 super user；
 * S 代表这个程序的状态 (STAT)，关于各 STAT 的意义将在内文介绍；
@@ -89,14 +91,13 @@ PID 是每个进程唯一号码。使用 ps 获取所有正在运行的进程列
 * TIME 使用掉的 CPU 时间。
 * CMD 所下达的指令为何！？
 
-
 检测后台进程是否存在
-
+```
       ps -ef | grep redis
       ps aux | grep redis
-    
+```    
 然而，更典型的用法是使用管道或者 pgrep:
-
+```
       # ps axww | grep cron
         586  ??  Is     0:01.48 /usr/sbin/cron -s
       # ps aux | grep 'ss[h]'              # Find all ssh pids without the grep pid
@@ -107,7 +108,7 @@ PID 是每个进程唯一号码。使用 ps 获取所有正在运行的进程列
       # strace df                          # 跟踪系统调用和信号
       # truss df                           # 同上(FreeBSD/Solaris/类Unix)
       # history | tail -50                 # 显示最后50个使用过的命令
-
+```
 ps命令列出的是当前那些进程的快照，就是执行ps命令的那个时刻的那些进程，如果想要动态的显示进程信息，就可以使用 top 命令。
 
 #### <a id="top">top</a> 
