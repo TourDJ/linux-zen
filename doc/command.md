@@ -1,9 +1,10 @@
 
 - [linux 命令](#linux)          
-  - [Linux 基础命令](#linux-base)             
+  - [基础命令](#linux-base)             
     - [nohup](#nohup)         
     - [ldconfig](#ldconfig)          
     - [find](#find)         
+  - [进程命令] 
     - [ps](#ps)        
     - [netstat](#netstat)      
     - [top](#top)           
