@@ -8,6 +8,11 @@
     - [ps](#ps)        
     - [netstat](#netstat)      
     - [top](#top)           
+  - [优先级](#priority)           
+    - [renice](#renice)           
+    - [nice](#nice)           
+    - [ionice](#ionice)           
+  - [前台/后台](#fgbg)          
   - [tmux 命令](./tmux.md)        
   - [Redhad/CentOS 常用命令](../distribution/redhat.md)         
   - [Debian/Ubuntu 常用命令](../distribution/debian.md)        
@@ -61,14 +66,14 @@ PID 是每个进程唯一号码。使用 ps 获取所有正在运行的进程列
 
 常用命令：
 ```
-ps -auxefw          所有正在运行进程的详尽列表                      
-ps -A               显示所有进程信息
-ps -u root          显示指定用户信息
-ps -ef              显示所有进程信息，连同命令行
+root# ps -auxefw          所有正在运行进程的详尽列表                      
+root# ps -A               显示所有进程信息
+root# ps -u root          显示指定用户信息
+root# ps -ef              显示所有进程信息，连同命令行
 ```
 将目前属于您自己这次登入的 PID 与相关信息列示出来
 ```
-ps -l  
+root# ps -l  
 ```
 输出
 ```
@@ -95,8 +100,8 @@ F S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD
 
 检测后台进程是否存在
 ```
-ps -ef | grep redis
-ps aux | grep redis
+root# ps -ef | grep redis
+root# ps aux | grep redis
 ```    
 然而，更典型的用法是使用管道或者 pgrep:
 ```
@@ -112,6 +117,45 @@ ps aux | grep redis
 # history | tail -50                 # 显示最后50个使用过的命令
 ```
 ps命令列出的是当前那些进程的快照，就是执行ps命令的那个时刻的那些进程，如果想要动态的显示进程信息，就可以使用 top 命令。
+
+### <a id="priority">优先级</a>
+
+#### <a id="renice">renice</a>
+用 renice 更改正在运行进程的优先级。负值是更高的优先级，最小为-20，其正值与 "nice" 值的意义相同。
+
+    root# renice -5 586                      # 更强的优先级
+    586: old priority 0, new priority -5
+
+#### <a id="nice">nice</a>
+使用 nice 命令启动一个已定义优先级的进程。 正值为低优先级，负值为高优先级。确定你知道 /usr/bin/nice 或者使用 shell 内置命令(# which nice)。
+
+    root# nice -n -5 top                     # 更高优先级(/usr/bin/nice)
+    root# nice -n 5 top                      # 更低优先级(/usr/bin/nice)
+    root# nice +5 top                        # tcsh 内置 nice 命令(同上)
+
+#### <a id="ionice">ionice</a>
+nice 可以影响 CPU 的调度，另一个实用命令 ionice 可以调度磁盘 IO。
+
+*This is very useful for intensive IO application which can bring a machine to its knees while still in a lower priority.* 
+
+此命令仅可在 Linux (AFAIK) 上使用。你可以选择一个类型(idle - best effort - real time)，它的 man 页很短并有很好的解释。
+
+    root# ionice c3 -p123                    # 给 pid 123 设置为 idle 类型
+    root# ionice -c2 -n0 firefox             # 用 best effort 类型运行 firefox 并且设为高优先级
+    root# ionice -c3 -p$$                    # 将当前的进程(shell)的磁盘 IO 调度设置为 idle 类型
+例中最后一条命令对于编译(或调试)一个大型项目会非常有用。每一个运行于此 shell 的命令都会有一个较低的优先级，但并不妨碍这个系统。**$$ 是你 shell 的 pid (试试 echo $$)。**
+
+### <a id="fgbg">前台/后台</a>
+
+当一个进程在 shell 中已运行，可以使用 [Ctrl]-[Z] (^Z), bg 和 fg 来 调入调出前后台。举个例子：启动 2 个进程，调入后台。使用 jobs 列出后台列表，然后再调入一个进程到前台。
+
+    root# ping cb.vu > ping.log
+    ^Z                                        # ping 使用 [Ctrl]-[Z] 来暂停(停止) 
+    root# bg                                  # 调入后台继续运行
+    root# jobs -l                             # 后台进程列表
+    [1]  - 36232 Running                       ping cb.vu > ping.log
+    [2]  + 36233 Suspended (tty output)        top
+    root# fg %2                              # 让进程 2 返回到前台运行
 
 #### <a id="top">top</a> 
 top 的全屏对话模式可分为3部分：系统信息栏、命令输入栏、进程列表栏。
