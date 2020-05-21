@@ -98,7 +98,7 @@ Linux 性能观察工具
 * [Linux 基础知识](./doc/index.md)       
 * [Linux 常用命令](./doc/command.md)       
 * [Shell 使用](./doc/shell.md)       
-
+* [Makefile](./doc/makefile.md)             
 
 
 
