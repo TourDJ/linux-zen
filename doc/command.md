@@ -61,21 +61,21 @@ PID 是每个进程唯一号码。使用 ps 获取所有正在运行的进程列
 
 常用命令：
 ```
-      ps -auxefw          所有正在运行进程的详尽列表                      
-      ps -A               显示所有进程信息
-      ps -u root          显示指定用户信息
-      ps -ef              显示所有进程信息，连同命令行
+ps -auxefw          所有正在运行进程的详尽列表                      
+ps -A               显示所有进程信息
+ps -u root          显示指定用户信息
+ps -ef              显示所有进程信息，连同命令行
 ```
 将目前属于您自己这次登入的 PID 与相关信息列示出来
 ```
-     ps -l  
+ps -l  
 ```
 输出
 ```
-      F S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD
-      0 S 0 5881 5654 0 76 0 - 1303 wait pts/0 00:00:00 su
-      4 S 0 5882 5881 0 75 0 - 1349 wait pts/0 00:00:00 bash
-      4 R 0 6037 5882 0 76 0 - 1111 - pts/0 00:00:00 ps 
+F S UID PID PPID C PRI NI ADDR SZ WCHAN TTY TIME CMD
+0 S 0 5881 5654 0 76 0 - 1303 wait pts/0 00:00:00 su
+4 S 0 5882 5881 0 75 0 - 1349 wait pts/0 00:00:00 bash
+4 R 0 6037 5882 0 76 0 - 1111 - pts/0 00:00:00 ps 
 ```
 各相关信息的意义为：
 * F 代表这个程序的旗标 (flag)， 4 代表使用者为 super user
@@ -95,21 +95,21 @@ PID 是每个进程唯一号码。使用 ps 获取所有正在运行的进程列
 
 检测后台进程是否存在
 ```
-      ps -ef | grep redis
-      ps aux | grep redis
+ps -ef | grep redis
+ps aux | grep redis
 ```    
 然而，更典型的用法是使用管道或者 pgrep:
 ```
-      # ps axww | grep cron
-        586  ??  Is     0:01.48 /usr/sbin/cron -s
-      # ps aux | grep 'ss[h]'              # Find all ssh pids without the grep pid
-      # pgrep -l sshd                      # 查找所有进程名中有sshd的进程ID
-      # echo $$                            # The PID of your shell
-      # fuser -va 22/tcp                   # 列出使用端口22的进程
-      # fuser -va /home                    # 列出访问 /home 分区的进程
-      # strace df                          # 跟踪系统调用和信号
-      # truss df                           # 同上(FreeBSD/Solaris/类Unix)
-      # history | tail -50                 # 显示最后50个使用过的命令
+# ps axww | grep cron
+  586  ??  Is     0:01.48 /usr/sbin/cron -s
+# ps aux | grep 'ss[h]'              # Find all ssh pids without the grep pid
+# pgrep -l sshd                      # 查找所有进程名中有sshd的进程ID
+# echo $$                            # The PID of your shell
+# fuser -va 22/tcp                   # 列出使用端口22的进程
+# fuser -va /home                    # 列出访问 /home 分区的进程
+# strace df                          # 跟踪系统调用和信号
+# truss df                           # 同上(FreeBSD/Solaris/类Unix)
+# history | tail -50                 # 显示最后50个使用过的命令
 ```
 ps命令列出的是当前那些进程的快照，就是执行ps命令的那个时刻的那些进程，如果想要动态的显示进程信息，就可以使用 top 命令。
 
