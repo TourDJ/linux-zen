@@ -16,6 +16,7 @@
   - [前台/后台](#fgbg)          
   - [acl](./acl.md)         
   - [backup](./backup.md)         
+  - [cron](./cron.md)          
   - [tmux 命令](./tmux.md)        
   - [Redhad/CentOS 常用命令](../distribution/redhat.md)         
   - [Debian/Ubuntu 常用命令](../distribution/debian.md)        
