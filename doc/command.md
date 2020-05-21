@@ -8,6 +8,7 @@
     - [ps](#ps)        
     - [netstat](#netstat)      
     - [top](#top)           
+    - [kill](#kill)        
   - [优先级](#priority)           
     - [renice](#renice)           
     - [nice](#nice)           
@@ -216,6 +217,23 @@ top 运行中可以通过 top 的内部命令对进程的显示方式进行控�
 检测6379端口是否在监听
 
     netstat -lntp | grep 6379
+
+### <a id="kill">Kill</a>
+使用 kill 或 killall 终止或发送一个信号给进程。
+
+    # ping -i 60 cb.vu > ping.log &
+    [1] 4712
+    # kill -s TERM 4712                  # 同 kill -15 4712
+    # killall -1 httpd                   # 发送 HUP 信号终止进程 httpd
+    # pkill -9 http                      # 发送 TERM 信号终止包含 http 的进程
+    # pkill -TERM -u www                 # 发送 TERM 信号终止 www 所有者进程
+    # fuser -k -TERM -m /home            # 终止所有访问 /home 的进程(卸载该分区前)
+下面是一些重要的信号：
+1       HUP (挂起)
+2       INT (中断)
+3       QUIT (退出)
+9       KILL (KILL 信号不能被捕捉，不能被忽略。)
+15     TERM (软件终止信号)
 
 #### nmap Network exploration tool and security / port scanner
 
