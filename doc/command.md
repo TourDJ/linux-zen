@@ -213,6 +213,12 @@ top 运行中可以通过 top 的内部命令对进程的显示方式进行控�
 
 按 f 键，再按某一列的代表字母，即可选中或取消显示。
 
+当 top 在运行的时候，按下 h 键会显示帮助画面。常用键如下：          
+* u [用户名] 只显示属于此用户的进程。使用 + 或者空白可以查看所有用户
+* k [PID] 结束 PID 进程
+* 1 显示所有进程状态信息(只有Linux)
+* R 将当前排序倒转
+
 #### <a id="netstat">netstat</a>
 检测6379端口是否在监听
 
@@ -229,11 +235,12 @@ top 运行中可以通过 top 的内部命令对进程的显示方式进行控�
     # pkill -TERM -u www                 # 发送 TERM 信号终止 www 所有者进程
     # fuser -k -TERM -m /home            # 终止所有访问 /home 的进程(卸载该分区前)
 下面是一些重要的信号：
-1       HUP (挂起)
-2       INT (中断)
-3       QUIT (退出)
-9       KILL (KILL 信号不能被捕捉，不能被忽略。)
-15     TERM (软件终止信号)
+
+    1       HUP (挂起)
+    2       INT (中断)
+    3       QUIT (退出)
+    9       KILL (KILL 信号不能被捕捉，不能被忽略。)
+    15     TERM (软件终止信号)
 
 #### nmap Network exploration tool and security / port scanner
 
