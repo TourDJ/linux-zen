@@ -18,8 +18,9 @@ loop设备是一种伪设备，是使用文件来模拟块设备的一种技术�
 lsblk |grep loop0
 losetup -a
 
-4）挂载块设备
-    
+4）你也可以将这个块设备格式化并创建其他的文件系统，然后再mount到某个目录
+
+    $ mkfs -t ext3 /dev/loop0
     $ mount /dev/loop0 /tmp
 
 5）要删除这个loop设备可以执行以下命令
