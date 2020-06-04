@@ -7,19 +7,24 @@ loop设备是一种伪设备，是使用文件来模拟块设备的一种技术�
 一般在linux中会有8个loop设备，一般是/dev/loop0~loop7，可用通过losetup -a查看所有的loop设备，如果命令没有输出就说明所有的loop设备都没有被占用，你可以按照以下步骤创建自己的loop设备。
 
 1）创建一个文件
-dd if=/dev/zero of=/var/loop.img bs=1M count=10240
+
+    $ dd if=/dev/zero of=/var/loop.img bs=1M count=10240
 
 2）使用losetup将文件转化为块设备
-losetup /dev/loop0 /var/loop.img
+
+    $ losetup /dev/loop0 /var/loop.img
 
 3）通过lsblk查看刚刚创建的块设备
 lsblk |grep loop0
 losetup -a
 
 4）当然，你也可以将这个块设备格式化并创建其他的文件系统，然后再mount到某个目录，有点多余啊，一般人不这么干。
+    
+    $ mount /dev/loop0 /tmp
 
 5）要删除这个loop设备可以执行以下命令
-losetup -d /dev/loop0
+
+    $ losetup -d /dev/loop0
 
 
 ## losetup命令
