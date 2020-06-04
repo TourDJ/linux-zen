@@ -22,17 +22,18 @@ losetup -a
 losetup -d /dev/loop0
 
 
-losetup命令
+## losetup命令
 
     losetup [ -e encryption ] [ -o offset ] loop_device file
     losetup [ -d ] loop_device
 
 说明：             
 此命令用来设置循环设备。循环设备可把文件虚拟成块设备，籍此来模拟整个文件系统，让用户得以将其视为硬盘驱动器，光驱或软驱等设备，并挂入当作目录来使用。
-上面，命令格式中的选项与参数名：
--e 表示加密的方式
--o 设置数据偏移量
--d 卸载设备
+上面，命令格式中的选项与参数名：      
+-e 表示加密的方式       
+-o 设置数据偏移量     
+-d 卸载设备      
+
 loop_device 循环设备名，在 linux 下如 /dev/loop0 , /dev/loop1 等。
 file 要与循环设备相关联的文件名，这个往往是一个磁盘镜象文件，如 *.img
 
