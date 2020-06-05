@@ -1,4 +1,7 @@
 
+/dev/mapper/VolGroup-root 
+
+
 ### 命令
 
 fdisk   
