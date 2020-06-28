@@ -36,9 +36,9 @@ $SHELL是一个环境变量，它记录用户所使用的shell类型。你可以
 
 使用不同的shell的原因在于它们各自都有自己的特点，下面作一个简单的介绍：
 
-1.ash shell是由Kenneth Almquist编写的，Linux中占用系统资源最少的一个小shell，它只包含24个内部命令，因而使用起来很不方便。
+1. ash shell是由Kenneth Almquist编写的，Linux中占用系统资源最少的一个小shell，它只包含24个内部命令，因而使用起来很不方便。
 
-2.bash 是Linux系统默认使用的shell，它由Brian Fox和Chet Ramey共同完成，是Bourne Again Shell的缩写，内部命令一共有40个。Linux使用它作为默认的shell是因为它有诸如以下的特色：
+2. bash 是Linux系统默认使用的shell，它由Brian Fox和Chet Ramey共同完成，是Bourne Again Shell的缩写，内部命令一共有40个。Linux使用它作为默认的shell是因为它有诸如以下的特色：
 
 (1)可以使用类似DOS下面的doskey的功能，用方向键查阅和快速输入并修改命令。
 
