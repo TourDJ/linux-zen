@@ -40,17 +40,17 @@ $SHELL是一个环境变量，它记录用户所使用的shell类型。你可以
 
 2. bash 是Linux系统默认使用的shell，它由Brian Fox和Chet Ramey共同完成，是Bourne Again Shell的缩写，内部命令一共有40个。Linux使用它作为默认的shell是因为它有诸如以下的特色：
 
-(1)可以使用类似DOS下面的doskey的功能，用方向键查阅和快速输入并修改命令。
+(1) 可以使用类似DOS下面的doskey的功能，用方向键查阅和快速输入并修改命令。
 
-(2)自动通过查找匹配的方式给出以某字符串开头的命令。
+(2) 自动通过查找匹配的方式给出以某字符串开头的命令。
 
-(3)包含了自身的帮助功能，你只要在提示符下面键入help就可以得到相关的帮助。
+(3) 包含了自身的帮助功能，你只要在提示符下面键入help就可以得到相关的帮助。
 
-3.ksh 是Korn shell的缩写，由Eric Gisin编写，共有42条内部命令。该shell最大的优点是几乎和商业发行版的ksh完全兼容，这样就可以在不用花钱购买商业版本的情况下尝试商业版本的性能了。
+3. ksh 是Korn shell的缩写，由Eric Gisin编写，共有42条内部命令。该shell最大的优点是几乎和商业发行版的ksh完全兼容，这样就可以在不用花钱购买商业版本的情况下尝试商业版本的性能了。
 
-4.csh 是Linux比较大的内核，它由以William Joy为代表的共计47位作者编成，共有52个内部命令。该shell其实是指向/bin/tcsh这样的一个shell，也就是说，csh其实就是tcsh。
+4. csh 是Linux比较大的内核，它由以William Joy为代表的共计47位作者编成，共有52个内部命令。该shell其实是指向/bin/tcsh这样的一个shell，也就是说，csh其实就是tcsh。
 
-5.zch 是Linux最大的shell之一，由Paul Falstad完成，共有84个内部命令。如果只是一般的用途，是没有必要安装这样的shell的。
+5. zch 是Linux最大的shell之一，由Paul Falstad完成，共有84个内部命令。如果只是一般的用途，是没有必要安装这样的shell的。
 
 其实作为命令语言交互式地解释和执行用户输入的命令只是shell功能的一个方面，shell还可以用来进行程序设计，它提供了定义变量和参数的手段以及丰富的程序控制结构。使用shell编程类似于DOS中的批处理文件，称为shell script，又叫shell程序或shell命令文件。
 
