@@ -62,7 +62,7 @@ shell的基本语法主要就是如何输入命令运行程序以及如何在程
 shell文件必须以下面的行开始（必须放在文件的第一行）： 
 
     #!/bin/sh 
-符号`#!`用来告诉系统它后面的参数是用来执行该文件的程序。在这个例子中我们使用/bin/sh来执行程序。 
+符号`#!`用来告诉系统它后面的参数是用来执行该文件的程序。在这个例子中我们使用`/bin/sh`来执行程序。 
 
 当编辑好脚本时，如果要执行该脚本，还必须使其可执行。 要使脚本可执行：运行`chmod +x filename` 这样才能用./filename 来运行
 
@@ -77,7 +77,7 @@ shell文件必须以下面的行开始（必须放在文件的第一行）：
 在进行shell编程时，以#开头的句子表示注释，直到这一行的结束。我们建议您在程序中使用注释。如果您使用了注释，那么即使相当长的时间内没有使用该脚本，您也能在很短的时间内明白该脚本的作用及工作原理。
 
 
-#### <a id="shell_var">变量</a>
+### <a id="shell_var">变量</a>
 像高级程序设计语言一样，shell也提供说明和使用变量的功能。对shell来讲，所有变量的取值都是一个字符串，shell程序采用$var的形式来引用名为var的变量的值。在shell编程中，不需要对变量进行声明，直接赋值就可以，应用变量的话，用$+变量名的形式。
 
 Shell有以下几种基本类型的变量：
@@ -155,25 +155,18 @@ echo $1 $2 $3 $4 $5 $6 $7 $8 $9 $10 ${10} ${11};
 和位置参数有关的几个特殊变量
 * $# 表示传递到 shell 脚本或函数的参数总数（也就是命令行参数或函数参数的总数）。当为了处理选项和参数而建立的循环时，这个变量非常有用。
 * $* 、$@ 表示所有的命令行参数和函数参数。
-* "$*" 将所有的命令行参数和函数参数视为单个字符串。等同于 "$1 $2 ..."。
+* "$\*" 将所有的命令行参数和函数参数视为单个字符串。等同于 "$1 $2 ..."。
+* "$@" 将所有的命令行参数和函数参数视为单个个体，也就是单独的字符串。等同于 "$1" "$2" ...。
+
+"$@" 这是将参数传递给其他程序（其他 shell 脚本、函数）的最佳方式，因为它会保留所有内嵌在每个位置参数里的任何空白。
 
 特殊变量 $IFS 的第一个字符用来作为分隔字符，通过不同的分隔字符来建立字符串。在使用 $IFS 时需要注意，这个变量是一个全局变量，在任何地方改变了其值，将立即生效。
-
- 
-
-"$@"
-
-将所有的命令行参数和函数参数视为单个个体，也就是单独的字符串。等同于 "$1" "$2" ...。
-
-这是将参数传递给其他程序（其他 shell 脚本、函数）的最佳方式，因为它会保留所有内嵌在每个位置参数里的任何空白。
-
  
 
 实例1：
 
 假设 test.sh 文件的内容为：
-
-复制代码
+```shell
 #!/bin/bash
 test_times=0;
 
@@ -207,114 +200,111 @@ printf "main \$@=%s\n" $@;
 printf "main \$*=$*\n";
 printf "main \"\$*\"=%s\n" "$*";
 printf "main \"\$@\"=%s\n" "$@";
-复制代码
- 
-
+```
 运行 
 
-[root@tang web_shell]# ./test.sh 1 4 5
+    [root@tang web_shell]# ./test.sh 1 4 5
 
-func $test_times=0
-func $1=1
-func $2=4
-func $3=5
-func $#=3
-func $*=1
-func $*=4
-func $*=5
-func $@=1
-func $@=4
-func $@=5
-func $*=1 4 5
-func "$*"=1 4 5
-func "$@"=1
-func "$@"=4
-func "$@"=5
-====================
-func $test_times=1
-func $1=1
-func $2=4
-func $3=5
-func $#=3
-func $*=1
-func $*=4
-func $*=5
-func $@=1
-func $@=4
-func $@=5
-func $*=1 4 5
-func "$*"=1 4 5
-func "$@"=1
-func "$@"=4
-func "$@"=5
-====================
-func $test_times=2
-func $1=1
-func $1=4
-func $1=5
-func $2=
-func $3=
-func $#=1
-func $*=1
-func $*=4
-func $*=5
-func $@=1
-func $@=4
-func $@=5
-func $*=1 4 5
-func "$*"=1 4 5
-func "$@"=1 4 5
-====================
-func $test_times=3
-func $1=1
-func $2=4
-func $3=5
-func $#=3
-func $*=1
-func $*=4
-func $*=5
-func $@=1
-func $@=4
-func $@=5
-func $*=1 4 5
-func "$*"=1 4 5
-func "$@"=1
-func "$@"=4
-func "$@"=5
-====================
-main $1=1
-main $2=4
-main $3=5
-main $#=3
-main $*=1
-main $*=4
-main $*=5
-main $@=1
-main $@=4
-main $@=5
-main $*=1 4 5
-main "$*"=1 4 5
-main "$@"=1
-main "$@"=4
-main "$@"=5
+    func $test_times=0
+    func $1=1
+    func $2=4
+    func $3=5
+    func $#=3
+    func $*=1
+    func $*=4
+    func $*=5
+    func $@=1
+    func $@=4
+    func $@=5
+    func $*=1 4 5
+    func "$*"=1 4 5
+    func "$@"=1
+    func "$@"=4
+    func "$@"=5
+    ====================
+    func $test_times=1
+    func $1=1
+    func $2=4
+    func $3=5
+    func $#=3
+    func $*=1
+    func $*=4
+    func $*=5
+    func $@=1
+    func $@=4
+    func $@=5
+    func $*=1 4 5
+    func "$*"=1 4 5
+    func "$@"=1
+    func "$@"=4
+    func "$@"=5
+    ====================
+    func $test_times=2
+    func $1=1
+    func $1=4
+    func $1=5
+    func $2=
+    func $3=
+    func $#=1
+    func $*=1
+    func $*=4
+    func $*=5
+    func $@=1
+    func $@=4
+    func $@=5
+    func $*=1 4 5
+    func "$*"=1 4 5
+    func "$@"=1 4 5
+    ====================
+    func $test_times=3
+    func $1=1
+    func $2=4
+    func $3=5
+    func $#=3
+    func $*=1
+    func $*=4
+    func $*=5
+    func $@=1
+    func $@=4
+    func $@=5
+    func $*=1 4 5
+    func "$*"=1 4 5
+    func "$@"=1
+    func "$@"=4
+    func "$@"=5
+    ====================
+    main $1=1
+    main $2=4
+    main $3=5
+    main $#=3
+    main $*=1
+    main $*=4
+    main $*=5
+    main $@=1
+    main $@=4
+    main $@=5
+    main $*=1 4 5
+    main "$*"=1 4 5
+    main "$@"=1
+    main "$@"=4
+    main "$@"=5
 
  
-
 4 预定义变量
 
 预定义变量和环境变量相类似，也是在shell一开始时就定义了的变量，所不同的是，用户只能根据shell的定义来使用这些变量，而不能重定义它。所有预定义变量都是由$符和另一个符号组成的，常用的shell预定义变量有：
 
-$# ： 传递到脚本的参数个数
-$* ： 以一个单字符串显示所有向脚本传递的参数。与位置变量不同,此选项参数可超过 9个
-$$ ： 脚本运行的当前进程 ID号
-$! ： 后台运行的最后一个进程的进程 ID号
-$@ ：与$*相同,但是使用时加引号,并在引号中返回每个参数
-$- ： 显示shell使用的当前选项,与 set命令功能相同
-$? ： 显示最后命令的退出状态。 0表示没有错误,其他任何值表明有错误。
-$0 ： 当前执行的进程名
+* $# ： 传递到脚本的参数个数
+* $* ： 以一个单字符串显示所有向脚本传递的参数。与位置变量不同,此选项参数可超过 9个
+* $$ ： 脚本运行的当前进程 ID号
+* $! ： 后台运行的最后一个进程的进程 ID号
+* $@ ：与$*相同,但是使用时加引号,并在引号中返回每个参数
+* $- ： 显示shell使用的当前选项,与 set命令功能相同
+* $? ： 显示最后命令的退出状态。 0表示没有错误,其他任何值表明有错误。
+* $0 ： 当前执行的进程名
 其中，“$?”用于检查上一个命令执行是否正确(在Linux中，命令退出状态为0表示该命令正确执行，任何非0值表示命令出错)。“$$”变量最常见的用途是用作临时文件的名字以保证临时文件不会重复。
 
-复制代码
+```shell
 #!/bin/sh
 #param.sh
 
@@ -340,23 +330,21 @@ echo "Show all arguments : $*"
 echo "Process ID : $"
 # $?:回传码
 echo "errors : $?"
-复制代码
+```
 输入./param.sh hello world
 
-复制代码
-[firefox@fire Shell]$ ./param.sh hello world
-path of script : ./param.sh
-name of script : param.sh
-parameter 1 : hello
-parameter 2 : world
-parameter 3 :
-parameter 4 :
-parameter 5 :
-The number of arguments passed : 2
-Show all arguments : hello world
-Process ID : 5181
-errors : 0
-复制代码
+    [firefox@fire Shell]$ ./param.sh hello world
+    path of script : ./param.sh
+    name of script : param.sh
+    parameter 1 : hello
+    parameter 2 : world
+    parameter 3 :
+    parameter 4 :
+    parameter 5 :
+    The number of arguments passed : 2
+    Show all arguments : hello world
+    Process ID : 5181
+    errors : 0
  
 
  
