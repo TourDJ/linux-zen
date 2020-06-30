@@ -2,11 +2,14 @@
   - [Shell 概述](#shell_summary)       
     - [什么是shell](#shell_what)        
     - [几种流行的shell](#shell_kind)          
-  - [基本语法](#shell_gramm)        
+  - [基本语法](#shell_gramm)          
+    - [1 shell文件开头](#shell_begin)               
+    - [2 注释](#shell_comment)          
   - [变量](#shell_var)              
-  
-    
-  
+  - [引号](#quates)              
+  - [Here documents](#here)        
+  - [函数](#function)                  
+  - [调试](#debug)            
 
 ## <a id="shell_base">Shell 基础知识</a>
 
@@ -58,7 +61,7 @@ $SHELL是一个环境变量，它记录用户所使用的shell类型。你可以
 ### <a id="shell_gramm">基本语法</a>
 shell的基本语法主要就是如何输入命令运行程序以及如何在程序之间通过shell的一些参数提供便利手段来进行通讯。
 
-1 shell文件开头
+### <a id="shell_begin">1 shell文件开头</a>
 shell文件必须以下面的行开始（必须放在文件的第一行）： 
 
     #!/bin/sh 
@@ -73,7 +76,7 @@ shell文件必须以下面的行开始（必须放在文件的第一行）：
     # source filename
  
 
-2 注释 
+### <a id="shell_comment">2 注释</a>
 在进行shell编程时，以#开头的句子表示注释，直到这一行的结束。我们建议您在程序中使用注释。如果您使用了注释，那么即使相当长的时间内没有使用该脚本，您也能在很短的时间内明白该脚本的作用及工作原理。
 
 
@@ -348,38 +351,48 @@ echo "errors : $?"
  
 
  
-引号
-在向程序传递任何参数之前，程序会扩展通配符和变量。这里所谓扩展的意思是程序会把通配符（比如*）替换成合适的文件名，它变量替换成变量值。为了防 止程序作这种替换，您可以使用引号：让我们来看一个例子，假设在当前目录下有一些文件，两个jpg文件， mail.jpg 和tux.jpg。 
-echo *.jpg
+### <a id="quates">引号</a>
+在向程序传递任何参数之前，程序会扩展通配符和变量。这里所谓扩展的意思是程序会把通配符（比如\*）替换成合适的文件名，它变量替换成变量值。为了防止程序作这种替换，您可以使用引号。
+
+让我们来看一个例子，假设在当前目录下有一些文件，两个jpg文件， mail.jpg 和tux.jpg。 
+
+    echo *.jpg
 这将打印出"mail.jpg tux.jpg"的结果。 
+
 引号 (单引号和双引号) 将防止这种通配符扩展： 
+```shell
 #!/bin/sh 
 echo "*.jpg" 
-echo '*.jpg' 
-这将打印"*.jpg" 两次。 单引号更严格一些。它可以防止任何变量扩展。双引号可以防止通配符扩展但允许变量扩展。 
-
+echo '*.jpg'
+```
+这将打印"\*.jpg" 两次。 单引号更严格一些。它可以防止任何变量扩展。双引号可以防止通配符扩展但允许变量扩展。 
+```shell
 #!/bin/sh 
 echo $SHELL 
 echo "$SHELL" 
 echo '$SHELL' 
+```
 运行结果为： 
 
-/bin/bash 
-/bin/bash 
-$SHELL 
+    /bin/bash 
+    /bin/bash 
+    $SHELL 
  
 最后，还有一种防止这种扩展的方法，那就是使用转义字符——反斜杠： 
+```shell
 echo \*.jpg 
-echo \$SHELL 
+echo \$SHELL
+```
 这将输出： 
-*.jpg 
-$SHELL
- 
-Here documents
-HERE Document是bash里面定义块变量的途径之一。
-定义的形式为： 
 
-复制代码
+    *.jpg 
+    $SHELL
+ 
+### <a id="here">Here documents</a>
+HERE Document是bash里面定义块变量的途径之一。
+
+定义的形式为： 
+```shell
 命令<<HERE 
 
 ...
@@ -389,12 +402,13 @@ HERE Document是bash里面定义块变量的途径之一。
 ...
 
 HERE
-复制代码
+```
 它的作用即可以用来定义一段变量，会把命令和HERE之间的内容利用转向输入的方式交给该命令去处理。其中HERE相当于标记，可以是任何的字符串。
 
-当要将几行文字传递给一个命令时，here documents是一种不错的方法。对每个脚本写一段帮助性的文字是很有用的，此时如果我们使用here documents技术就不必用echo函数一行行输出。 一个 Here document 以 << 开头，后面接上一个字符串(任意的)，假设是“robin”在你文本结束后，再用这个字符串(“robin”)追加一行，以表示文本结束。这个字符串我暂称之为边界区分字符串。
+当要将几行文字传递给一个命令时，`here documents`是一种不错的方法。对每个脚本写一段帮助性的文字是很有用的，此时如果我们使用`here documents`技术就不必用echo函数一行行输出。 一个 Here document 以 `<<` 开头，后面接上一个字符串(任意的)，假设是“robin”在你文本结束后，再用这个字符串(“robin”)追加一行，以表示文本结束。这个字符串我暂称之为边界区分字符串。
+
 下面是一个例子：
-复制代码
+```sehll
 #!/bin/sh 
 cat << HELP
 ren -- renames a number of files using sed regular expressions 
@@ -402,62 +416,64 @@ USAGE: ren 'regexp' 'replacement' files...
 EXAMPLE: rename all *.HTM files in *.html: 
 ren 'HTM$' 'html' *.HTM 
 HELP
-复制代码
+```
  
-
-函数
+### <a id="function">函数</a>
 如果您写了一些稍微复杂一些的程序，您就会发现在程序中可能在几个地方使用了相同的代码，并且您也会发现，如果我们使用了函数，会方便很多。一个函数是这个样子的：
+```shell
 function name() 
 { 
 　　# inside the body $1 is the first argument given to the function 
 　　# $2 the second ... 
 　　#body 
 } 
- 
+``` 
 
 您需要在每个程序的开始对函数进行声明。
-下面是一个叫做xtitlebar的脚本，使用这个脚本您可以改变终端窗口的名称。这里使用了一个叫做help的函数。正如您可以看到的那样，这个定义的函数被使用了两次。 
-复制代码
+
+下面是一个叫做`xtitlebar`的脚本，使用这个脚本您可以改变终端窗口的名称。这里使用了一个叫做`help`的函数。正如您可以看到的那样，这个定义的函数被使用了两次。 
+```shell
 #!/bin/sh 
 # vim: set sw=4 ts=4 et: 
 help() 
 { 
-cat << HELP
-xtitlebar -- change the name of an xterm, gnome-terminal or kde konsole 
-USAGE: xtitlebar [-h] "string_for_titelbar" 
-OPTIONS: -h help text 
-EXAMPLE: xtitlebar "cvs" 
-HELP
-exit 0 
+    cat << HELP
+    xtitlebar -- change the name of an xterm, gnome-terminal or kde konsole 
+    USAGE: xtitlebar [-h] "string_for_titelbar" 
+    OPTIONS: -h help text 
+    EXAMPLE: xtitlebar "cvs" 
+    HELP
+    exit 0 
 } 
+
 # in case of error or if -h is given we call the function help: 
 [ -z "$1" ] && help 
 [ "$1" = "-h" ] && help 
+
 # send the escape sequence to change the xterm titelbar: 
 echo $1
 echo -e "33]0;"$1"07" 
 #
-复制代码
+```
  
-
 在脚本中提供帮助是一种很好的编程习惯，这样方便其他用户（和您）使用和理解脚本。命令行参数我们已经见过$* 和 $1, $2 ... $9 等特殊变量，这些特殊变量包含了用户从命令行输入的参数。迄今为止，我们仅仅了解了一些简单的命令行语法（比如一些强制性的参数和查看帮助的-h选项）。 但是在编写更复杂的程序时，您可能会发现您需要更多的自定义的选项。通常的惯例是在所有可选的参数之前加一个减号，后面再加上参数值 (比如文件名)。 有好多方法可以实现对输入参数的分析，但是下面的使用case表达式的例子无疑是一个不错的方法。 
 文件test.sh
-复制代码
+```shell
 #!/bin/sh 
 help() 
 { 
-cat << HELP
-This is a generic command line parser demo. 
-USAGE EXAMPLE: cmdparser -l hello -f somefile1 somefile2 
-HELP
-exit 0 
+    cat << HELP
+    This is a generic command line parser demo. 
+    USAGE EXAMPLE: cmdparser -l hello -f somefile1 somefile2 
+    HELP
+    exit 0 
 } 
 
 while [ -n "$1" ]; do 
 　　case $1 in 
-　　-h) help;shift 1;; # function help is called 
-　　-f) opt_f=1;shift 1;; # variable opt_f is set 
-　　-l) opt_l=$2;shift 2;; # -l takes an argument -> shift by 2 
+　　-h) help;shift 1;;      # function help is called 
+　　-f) opt_f=1;shift 1;;   # variable opt_f is set 
+　　-l) opt_l=$2;shift 2;;  # -l takes an argument -> shift by 2 
 　　-*) echo "error: no such option $1. -h for help";exit 1;; 
 　　*) break;; 
 　　esac 
@@ -468,25 +484,27 @@ echo "opt_f is $opt_f"
 echo "opt_l is $opt_l" 
 echo "first arg is $1" 
 echo "2nd arg is $2" 
-复制代码
+```
 您可以这样运行该脚本：
 
-sh test.sh -l hello -f a b
+    sh test.sh -l hello -f a b
 
 返回的结果是： 
 
-opt_f is 1
-opt_l is hello
-first arg is a
-2nd arg is b
+    opt_f is 1
+    opt_l is hello
+    first arg is a
+    2nd arg is b
 这个脚本是如何工作的呢？脚本首先在所有输入命令行参数中进行循环，将输入参数与case表达式进行比较，如果匹配则设置一个变量并且移除该参数。根据unix系统的惯例，首先输入的应该是包含减号的参数。
  
-调试
+### <a id="debug">调试</a>
 最简单的调试命令当然是使用echo命令。您可以使用echo在任何怀疑出错的地方打印任何变量值。这也是绝大多数的shell程序员要花费80%的时间来调试程序的原因。Shell程序的好处在于不需要重新编译，插入一个echo命令也不需要多少时间。 
 shell也有一个真实的调试模式。如果在脚本中有错误，您可以这样来进行调试： 
-sh -x test.sh
+
+    sh -x test.sh
 这将执行该脚本并显示所有变量的值。 
 
 shell还有一个不需要执行脚本只是检查语法的模式。可以这样使用：
-sh -h test.sh
+
+    sh -h test.sh
 这将返回所有语法错误
