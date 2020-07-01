@@ -4,25 +4,25 @@
 
 启动脚本是bash启动时自动执行的脚本。用户可以把一些环境变量的设置和alias、umask设置放在启动脚本中，这样每次启动Shell时这些设置都自动生效。思考一下，bash在执行启动脚本时是以fork子Shell方式执行的还是以source方式执行的？
 
- /etc/profile    ---->    ~/.bash_profile    ---->    ~/.bashrc    ---->    /etc/bashrc    ---->     命令提示符
+ /etc/profile---->~/.bash_profile---->~/.bashrc---->/etc/bashrc---->命令提示符
  
 
 
 
  
 
-/etc/profile 的作用
+### /etc/profile 的作用
 
-USER变量
-LOGNAME变量
-MAIL变量
-PATH变量
-HOSTNAME变量
-umask
-调用/etc/profile.d/*.sh文件
+* USER变量
+* LOGNAME变量
+* MAIL变量
+* PATH变量
+* HOSTNAME变量
+* umask
+* 调用/etc/profile.d/*.sh文件
  
 
-~/.bash_profile的作用
+### ~/.bash_profile的作用
 
 调用了 ~/.bashrc 文件
 在PATH 变量后面加入了”:$HOME/bin” 这个目录
