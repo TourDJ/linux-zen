@@ -1,6 +1,7 @@
 
 - [Shell 使用](#shell)      
   - [Shell 简介](#shell_what)      
+  - [Shell 基本知识](basic.md)               
   
 
 ## <a id="Shell">shell 使用</a>
