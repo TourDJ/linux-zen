@@ -8,13 +8,6 @@
                                                                                
   /etc/profile.d/\*.sh 
      
-  
-
-
-
-
- 
-
 ### /etc/profile 的作用
 
 * USER变量
@@ -62,7 +55,8 @@ PATH 变量
 
 启动bash的方法不同，执行启动脚本的步骤也不相同，具体可分为以下几种情况。 
 
-1. 以交互登录Shell启动，或者使用--login参数启动 
+#### 1. 以交互登录Shell启动，或者使用--login参数启动 
+
 交互Shell是指用户在提示符下输命令的Shell而非执行脚本的Shell，登录Shell就是在输入用户名和密码登录后得到的Shell，比如从字符终端登录或者用telnet/ssh从远程登录，但是从图形界面的窗口管理器登录之后会显示桌面而不会产生登录Shell（也不会执行启动脚本），在图形界面下打开终端窗口得到的Shell也不是登录Shell。
 
 这样启动bash会自动执行以下脚本：
@@ -74,50 +68,53 @@ PATH 变量
 顺便一提，在退出登录时会执行~/.bash_logout脚本（如果它存在的话）。
 
  
-2. 以交互非登录Shell启动 
+#### 2. 以交互非登录Shell启动 
 比如在图形界面下开一个终端窗口，或者在登录Shell提示符下再输入bash命令，就得到一个交互非登录的Shell，这种Shell在启动时自动执行~/.bashrc脚本。
 
 为了使登录Shell也能自动执行~/.bashrc，通常在~/.bash_profile中调用~/.bashrc：
-
+```shell
 if [ -f ~/.bashrc ]; 
 then     
 　　. ~/.bashrc 
 fi
+```
 这几行的意思是如果~/.bashrc文件存在则source它。多数Linux发行版在创建帐户时会自动创建~/.bash_profile和~/.bashrc脚本，~/.bash_profile中通常都有上面这几行。所以，如果要在启动脚本中做某些设置，使它在图形终端窗口和字符终端的Shell中都起作用，最好就是在~/.bashrc中设置。
 
 下面做一个实验，在~/.bashrc文件末尾添加一行（如果这个文件不存在就创建它）：
 
-export PATH=$PATH:/home/akaedu
+    export PATH=$PATH:/home/akaedu
 然后关掉终端窗口重新打开，或者从字符终端logout之后重新登录，现在主目录下的程序应该可以直接输程序名运行而不必输入路径了，例如：
 
-~$ a.out
+    ~$ a.out
 就可以了，而不必
 
-~$ ./a.out
+    ~$ ./a.out
 为什么登录Shell和非登录Shell的启动脚本要区分开呢？最初的设计是这样考虑的，如果从字符终端或者远程登录，那么登录Shell是该用户的所有其它进程的父进程，也是其它子Shell的父进程，所以环境变量在登录Shell的启动脚本里设置一次就可以自动带到其它非登录Shell里，而Shell的本地变量、函数、alias等设置没有办法带到子Shell里，需要每次启动非登录Shell时设置一遍，所以就需要有非登录Shell的启动脚本，所以一般来说在~/.bash_profile里设置环境变量，在~/.bashrc里设置本地变量、函数、alias等。如果你的Linux带有图形系统则不能这样设置，由于从图形界面的窗口管理器登录并不会产生登录Shell，所以环境变量也应该在~/.bashrc里设置。
 
  
-3. 非交互启动 
+#### 3. 非交互启动 
 为执行脚本而fork出来的子Shell是非交互Shell，启动时执行的脚本文件由环境变量BASH_ENV定义，相当于自动执行以下命令：
-
+```shell
 if [ -n "$BASH_ENV" ]; 
 then 
 　　. "$BASH_ENV"; 
 fi
+```
 如果环境变量BASH_ENV的值不是空字符串，则把它的值当作启动脚本的文件名，source这个脚本。
 
  
-4. 以sh命令启动
+#### 4. 以sh命令启动
 如果以sh命令启动bash，bash将模拟sh的行为，以~/.bash_开头的那些启动脚本就不认了。所以，如果作为交互登录Shell启动，或者使用--login参数启动，则依次执行以下脚本：
 
-/etc/profile
+/etc/profile                       
 
 ~/.profile
 
 如果作为交互Shell启动，相当于自动执行以下命令：
-
+```shell
 if [ -n "$ENV" ]; 
 then 
 　　. "$ENV"; 
 fi
+```
 如果作为非交互Shell启动，则不执行任何启动脚本。通常我们写的Shell脚本都以#! /bin/sh开头，都属于这种方式。
