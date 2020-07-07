@@ -32,14 +32,14 @@
 在PATH 变量后面加入了”:$HOME/bin” 这个目录
  
 
-~/.bashrc 的作用
+### ~/.bashrc 的作用
 
 设置别名
  
 
  
 
-/etc/bashrc的作用
+### /etc/bashrc的作用
 
 PS1 变量
 umask
