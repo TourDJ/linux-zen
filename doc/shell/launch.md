@@ -47,20 +47,18 @@ PATH 变量
 调用 /etc/profile.d/*.sh 文件
  
 
-bash 配置文件一览表
+**bash 配置文件一览表**
 
-文件	效力范围	时机	说明
-/etc/profile	全系统	login shell 启动时	通常包含环境变量（至少会定义一个基本的 PATH），以及登陆后要立即启动的程序。
-~/.bash_profile	个人	login shell 启动时	执行次序在 /etc/profile 之后
-~/.bash_login	个人	login shell 启动时	只有在 ~/.bash_profile 不存在时才有效
-~/.profile	个人	login shell 启动时	只有在 ~/.bash_profile  和  ~/.bash_login 都不存在是才有效
-~/.bash_logout	个人	login shell 结束时	用户注销时会自动执行
-~/.bashrc	个人	以交互模式启动时，在所有 profile 之后	通常含有个人偏好环境的设定值或是会追溯 /etc/bashrc
-/etc/bashrc	全系统	不一定	含有全体用户都适用的环境设定值。通常由个人的~/.bashrc 来追溯此文件
-~/.inputrc	个人	login shell 启动时	定义按键绑定（key binding）和影响 bash 按键响应方式的变量。bash 默认的按键绑定类似于 Emacs 文本编辑程序
- 
-
- 
+|文件	|效力范围|	时机|	说明     |
+|----|--|-----------|-------------------------------------------------|
+|/etc/profile|	全系统|	login shell 启动时|	通常包含环境变量（至少会定义一个基本的 PATH），以及登陆后要立即启动的程序。|
+|~/.bash_profile|	个人|	login shell 启动时|	执行次序在 /etc/profile 之后|
+|~/.bash_login|	个人|	login shell 启动时|	只有在 ~/.bash_profile 不存在时才有效|
+|~/.profile|	个人|	login shell 启动时|	只有在 ~/.bash_profile  和  ~/.bash_login 都不存在是才有效|
+|~/.bash_logout|	个人|	login shell 结束时|	用户注销时会自动执行|
+|~/.bashrc|	个人|	以交互模式启动时，在所有 profile 之后|	通常含有个人偏好环境的设定值或是会追溯 /etc/bashrc|
+|/etc/bashrc|	全系统|	不一定|	含有全体用户都适用的环境设定值。通常由个人的~/.bashrc 来追溯此文件|
+|~/.inputrc|	个人|	login shell 启动时|	定义按键绑定（key binding）和影响 bash 按键响应方式的变量。bash 默认的按键绑定类似于 Emacs 文本编辑程序|
 
 启动bash的方法不同，执行启动脚本的步骤也不相同，具体可分为以下几种情况。 
 
