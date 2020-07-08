@@ -1,107 +1,99 @@
 
 ## Shell 常用特性
   
-管道(|)
+### 管道(|)
 
 管道 (|)： 将一个命令的输出作为另外一个命令的输入。
  
 管道同样可以在标准输入输出和标准错误输出间做代替工作，这样一来，可以将某一个程序的输出送到另一个程序的输入，其语法如下：
 
-command1| command2 [| command3...]
+    command1| command2 [| command3...]
 
 也可以连同标准错误输出一起送入管道：
 
-command1| &command2[|& command3...]
+    command1| &command2[|& command3...]
  
 例如：
-grep "hello" file.txt | wc -l 
+
+    grep "hello" file.txt | wc -l 
 在file.txt中搜索包含有”hello”的行并计算其行数。 在这里grep命令的输出作为wc命令的输入。当然您可以使用多个命令。 
 
- 
- 
-输入输出重定向
+### 输入输出重定向
  
 在Linux中，每一个进程都有三个特殊的文件描述指针：
-标准输入(standard input，文件描述指针为0)
-标准输出(standard output，文件描述指针为1)
-标准错误输出(standard error，文件描述指针为2)
+* 标准输入(standard input，文件描述指针为0)
+* 标准输出(standard output，文件描述指针为1)
+* 标准错误输出(standard error，文件描述指针为2)
  
 这三个特殊的文件描述指针使进程在一般情况下接收标准输入终端的输入，同时由标准终端来显示输出，Linux同时也向使用者提供可以使用普通的文件或管道来取代这些标准输入输出设备。在shell中，使用者可以利用“>”和“<”来进行输入输出重定向。
  
-重定向：将命令的结果输出到文件，而不是标准输出（屏幕）
-如：
+重定向：将命令的结果输出到文件，而不是标准输出（屏幕）。如：
+* command>file：将命令的输出结果重定向到一个文件。
+* command>&file：将命令的标准错误输出一起重定向到一个文件。
+* command>>file：将标准输出的结果追加到文件中。
+* command>>&file：将标准输出和标准错误输出的结构都追加到文件中。
 
-command>file：将命令的输出结果重定向到一个文件。
-command>&file：将命令的标准错误输出一起重定向到一个文件。
-command>>file：将标准输出的结果追加到文件中。
-command>>&file：将标准输出和标准错误输出的结构都追加到文件中。
 例如：
 
-复制代码
-find /etc -name passwd 1> stdout 将标准输出存入stdout文件中，默认为1可以不写
+    find /etc -name passwd 1> stdout 将标准输出存入stdout文件中，默认为1可以不写
 
-find /etc -name passwd 2>errs 1>output 将错误输出存入errs文件中，标准输出存入output文件中
+    find /etc -name passwd 2>errs 1>output 将错误输出存入errs文件中，标准输出存入output文件中
 
-find /etc -name passwd >alloutlput 2>&1 将标准输出、错误输出都存入到alloutout文件中
+    find /etc -name passwd >alloutlput 2>&1 将标准输出、错误输出都存入到alloutout文件中
 
-find /etc -name passwd &>alloutlput1 将所有信息存入到alloutput1文件中
-复制代码
+    find /etc -name passwd &>alloutlput1 将所有信息存入到alloutput1文件中
  
 
- 
-
-常用特殊符号
+### 常用特殊符号
  
 
 1 反引号
-
  
-使用反引号("`")可以将一个命令的输出作为另外一个命令的一个命令行参数。
+使用反引号("\`")可以将一个命令的输出作为另外一个命令的一个命令行参数。
 命令： 
-find . -mtime -1 -type f -print 
-用来查找过去24小时（-mtime –2则表示过去48小时）内修改过的文件。如果您想将所有查找到的文件打一个包，则可以使用以下脚本： 
 
+    find . -mtime -1 -type f -print 
+用来查找过去24小时（-mtime –2则表示过去48小时）内修改过的文件。如果您想将所有查找到的文件打一个包，则可以使用以下脚本： 
+```shell
 #!/bin/sh 
 # The ticks are backticks (`) not normal quotes ('): 
 tar -zcvf lastmod.tar.gz `find . -mtime -1 -type f -print` 
- 
+``` 
 
  
 2 前台和后台
 
-
 在shell下面，一个新产生的进程可以通过用命令后面的符号“;”和“&”来分别以前台和后台的方式来执行，语法如下：
 
-command
+    command
 
 产生一个前台的进程，下一个命令须等该命令运行结束后才能输入。
-
  
-command &
+    command &
 
 产生一个后台的进程，此进程在后台运行的同时，可以输入其他的命令。
  
  
 3 文件名代换（Globbing）
 
- 
-
 * 、?、 [] 这些用于匹配的字符称为通配符（Wildcard），具体如下：
 
-表 - 通配符
+**表 - 通配符**
 
-*	匹配0个或多个任意字符
-?	匹配一个任意字符
-[若干字符]	匹配方括号中任意一个字符的一次出现
-[^若干字符]	匹配任意一个字符的一次出现除了方括号中列出的
+|\*|	匹配0个或多个任意字符|
+|?|	匹配一个任意字符|
+|[若干字符]|	匹配方括号中任意一个字符的一次出现|
+|[^若干字符]|	匹配任意一个字符的一次出现除了方括号中列出的|
+```shell
 $ ls /dev/ttyS* 
 $ ls ch0?.doc 
 $ ls ch0[0-2].doc 
 $ ls ch[012][0-9].doc
+```
 注意，Globbing所匹配的文件名是由Shell展开的，也就是说在参数还没传给程序之前已经展开了，比如上述ls ch0[012].doc命令，如果当前目录下有ch00.doc和ch02.doc，则传给ls命令的参数实际上是这两个文件名，而不是一个匹配字符串。
 
  
-4 命令代换：`或 $() 
+4 命令代换：\`或 $() 
 
  
 
