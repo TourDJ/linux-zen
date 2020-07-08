@@ -20,5 +20,5 @@ A kernel is a program that:
 By interfacing with a kernel, a shell provides a way for a user to execute utilities and programs.
 
 
-## Reference
+## 参考资料
 * [What Is a Shell?](https://www.thegeekdiary.com/unix-linux-what-is-a-shell-what-are-different-shells/)     
