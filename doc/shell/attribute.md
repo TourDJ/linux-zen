@@ -178,39 +178,34 @@ $ echo 'ABC\（回车） > DE'（再按一次回车结束命令） ABC\ DE
 
 双引号用于保持引号内所有字符的字面值（回车也不例外），但以下情况除外：
 
-$加变量名可以取变量的值
+* $加变量名可以取变量的值
+* 反引号仍表示命令替换
+* \$表示$的字面值
+* \`表示\`的字面值
+* \"表示"的字面值
+* \\表示\的字面值 
+* ！
 
-反引号仍表示命令替换
-
-\$表示$的字面值
-
-\`表示`的字面值
-
-\"表示"的字面值
-
-\\表示\的字面值 
-
-！
 除以上情况之外，在其它字符前面的\无特殊含义，只表示字面值
-复制代码
-$ echo "$SHELL" 
-  /bin/bash 
 
-$ echo "`date`" 
-  Sun Apr 20 11:22:06 CEST 2003 
+    $ echo "$SHELL" 
+      /bin/bash 
 
-$ echo "I'd say: \"Go for it\"" 
-  I'd say: "Go for it" 
+    $ echo "`date`" 
+      Sun Apr 20 11:22:06 CEST 2003 
 
-$ echo "\"（回车） >"（再按一次回车结束命令） 
-  "  
+    $ echo "I'd say: \"Go for it\"" 
+      I'd say: "Go for it" 
 
-$ echo "\\" 
-  \
-复制代码
+    $ echo "\"（回车） >"（再按一次回车结束命令） 
+      "  
+
+    $ echo "\\" 
+      \
+
  
 
-运算符
+### 运算符
  
 
 1 算术代换：$(()) 和 $[]
@@ -294,14 +289,15 @@ bash 计算器可以识别：
 编程语句
 函数
 示例
-[root@localhost ~]# bc
-bc 1.06
-Copyright 1991-1994,1997,1998,2000 Free Software Foundation,Inc.
-This is free software with ABSOLUTELY NO WARRANTY.
-For details type `warranty'.
- 
- 9*2
-18
+
+    [root@localhost ~]# bc
+    bc 1.06
+    Copyright 1991-1994,1997,1998,2000 Free Software Foundation,Inc.
+    This is free software with ABSOLUTELY NO WARRANTY.
+    For details type `warranty'.
+
+     9*2
+    18
 上述命令是来做数学运算。
 
  
