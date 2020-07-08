@@ -2,7 +2,8 @@
 - [Shell 使用](#shell)      
   - [Shell 简介](#shell_what)      
   - [Shell 基础知识](basic.md)               
-  - [Shell 启动脚本](launch.md)                 
+  - [Shell 启动脚本](launch.md)              
+  - [Shell 常用特性](attribute.md)                    
   
 
 ## <a id="Shell">shell 使用</a>
