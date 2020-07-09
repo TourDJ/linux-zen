@@ -67,7 +67,7 @@ tar -zcvf lastmod.tar.gz `find . -mtime -1 -type f -print`
  
 2 前台和后台
 
-在shell下面，一个新产生的进程可以通过用命令后面的符号“;”和“&”来分别以前台和后台的方式来执行，语法如下：
+在shell下面，一个新产生的进程可以通过用命令后面的符号`“;”`和`“&”`来分别以前台和后台的方式来执行，语法如下：
 
     command
 
@@ -80,7 +80,7 @@ tar -zcvf lastmod.tar.gz `find . -mtime -1 -type f -print`
  
 3 文件名代换（Globbing）
 
-* 、?、 [] 这些用于匹配的字符称为通配符（Wildcard），具体如下：
+`*` 、`?`、 `[]` 这些用于匹配的字符称为通配符（Wildcard），具体如下：
 
 **表 - 通配符**
 
@@ -96,89 +96,68 @@ $ ls ch0?.doc
 $ ls ch0[0-2].doc 
 $ ls ch[012][0-9].doc
 ```
-注意，Globbing所匹配的文件名是由Shell展开的，也就是说在参数还没传给程序之前已经展开了，比如上述ls ch0[012].doc命令，如果当前目录下有ch00.doc和ch02.doc，则传给ls命令的参数实际上是这两个文件名，而不是一个匹配字符串。
+注意，Globbing 所匹配的文件名是由Shell展开的，也就是说在参数还没传给程序之前已经展开了，比如上述ls ch0[012].doc命令，如果当前目录下有ch00.doc和ch02.doc，则传给ls命令的参数实际上是这两个文件名，而不是一个匹配字符串。
 
  
 4 命令代换：\`或 $() 
 
- 
-
 由反引号括起来的也是一条命令，Shell先执行该命令，然后将输出结果立刻代换到当前命令行中。例如定义一个变量存放date命令的输出：
 
-$ DATE=`date` 
-$ echo $DATE
+    $ DATE=`date` 
+    $ echo $DATE
  
-
 命令代换也可以用$()表示：
 
-$ DATE=$(date)
- 
-
+    $ DATE=$(date)
  
 5 转义字符\ 
 
- 
-
 和C语言类似，\在Shell中被用作转义字符，用于去除紧跟其后的单个字符的特殊意义（回车除外），换句话说，紧跟其后的字符取字面值。例如：
 
-$ echo $SHELL /bin/bash 
-$ echo \$SHELL $SHELL 
-$ echo \\ \
+    $ echo $SHELL /bin/bash 
+    $ echo \$SHELL $SHELL 
+    $ echo \\ \
  
+比如创建一个文件名为`“$ $”`的文件可以这样：
 
-比如创建一个文件名为“$ $”的文件可以这样：
-
-$ touch \$\ \$
- 
+    $ touch \$\ \$
 
 还有一个字符虽然不具有特殊含义，但是要用它做文件名也很麻烦，就是-号。如果要创建一个文件名以-号开头的文件，这样是不行的：
 
-$ touch -hello 
+    $ touch -hello 
 
-touch: invalid option -- h 
-Try `touch --help' for more information.
+    touch: invalid option -- h 
+    Try `touch --help' for more information.
 即使加上\转义也还是报错：
 
-$ touch \-hello 
-touch: invalid option -- h 
-Try `touch --help' for more information.
+    $ touch \-hello 
+    touch: invalid option -- h 
+    Try `touch --help' for more information.
  
-
 因为各种UNIX命令都把-号开头的命令行参数当作命令的选项，而不会当作文件名。如果非要处理以-号开头的文件名，可以有两种办法：
 
-$ touch ./-hello
- 
+    $ touch ./-hello
 
 或者
 
-$ touch -- -hello
+    $ touch -- -hello
  
 
 \还有一种用法，在\后敲回车表示续行，Shell并不会立刻执行命令，而是把光标移到下一行，给出一个续行提示符>，等待用户继续输入，最后把所有的续行接到一起当作一个命令执行。例如：
 
-$ ls \ 
-> -l （ls -l命令的输出）
- 
-
- 
+    $ ls \ 
+    > -l （ls -l命令的输出）
 
 6 单引号 
 
- 
-
 和C语言不一样，Shell脚本中的单引号和双引号一样都是字符串的界定符（双引号下一节介绍），而不是字符的界定符。单引号用于保持引号内所有字符的字面值，即使引号内的\和回车也不例外，但是字符串中不能出现单引号。如果引号没有配对就输入回车，Shell会给出续行提示符，要求用户把引号配上对。例如：
 
+    $ echo '$SHELL' $SHELL 
+    $ echo 'ABC\（回车） 
+    > DE'（再按一次回车结束命令） 
+    ABC\ DE
  
-
-$ echo '$SHELL' $SHELL 
-$ echo 'ABC\（回车） > DE'（再按一次回车结束命令） ABC\ DE
- 
-
- 
-
 7 双引号
-
- 
 
 双引号用于保持引号内所有字符的字面值（回车也不例外），但以下情况除外：
 
@@ -214,84 +193,66 @@ $ echo 'ABC\（回车） > DE'（再按一次回车结束命令） ABC\ DE
 
 1 算术代换：$(()) 和 $[]
 
- 
+用于算术计算，`$(())`中的Shell变量取值将转换成整数，例如：
 
-用于算术计算，$(())中的Shell变量取值将转换成整数，例如：
+    $ VAR=45 
+    $ echo $(($VAR+3))
+    $ echo $[$VAR+4]
+`$(())`中只能用+-\*/%和()运算符，并且只能做整数运算。
 
-$ VAR=45 
-$ echo $(($VAR+3))
-$ echo $[$VAR+4]
-$(())中只能用+-*/%和()运算符，并且只能做整数运算。
-
- 
 
 2 expr 和 let 命令
-
  
 expr 命令允许处理命令行中的等式。
-expr [1+5]
+
+    expr [1+5]
  
  
 3 declare 命令
 功能说明：声明 shell 变量。
 
-语　　法：declare [+/-][rxi][变量名称＝设置值] 或 declare -f
+语　　法：
+
+  declare [+/-][rxi][变量名称＝设置值] 或 declare -f
 
 补充说明：declare为shell指令，在第一种语法中可用来声明变量并设置变量的属性([rix]即为变量的属性），在第二种语法中可用来显示shell函数。若不加上任何参数，则会显示全部的shell变量与函数(与执行set指令的效果相同)。
 
 参　　数：
-　+/- 　"-"可用来指定变量的属性，"+"则是取消变量所设的属性。
-　-f 　仅显示函数。
-　r 　将变量设置为只读。
-　x 　指定的变量会成为环境变量，可供shell以外的程序来使用。
-　i 　[设置值]可以是数值，字符串或运算式。
-
-  a   将变量声明为数组型
-
-  p   显示指定变量的被声明的类型
-
+*　+/- 　"-"可用来指定变量的属性，"+"则是取消变量所设的属性。
+*　-f 　 仅显示函数。
+*　r 　  将变量设置为只读。
+*　x 　  指定的变量会成为环境变量，可供shell以外的程序来使用。
+*　i 　  [设置值]可以是数值，字符串或运算式。
+*  a    将变量声明为数组型
+*  p    显示指定变量的被声明的类型
+```shell
+    declare -i cc = $aa +$bb
+```
  
-
-declare -i cc = $aa +$bb
-
- 
-
 4 变量测试
-
- 
-
-
-
- 
-
- 
 
 bc(bash 计算器)
  
 bash 计算器实际上是一种编程语言，该语言允许在命令行中输入浮点表达式，然后解释表达式并计算它们。
  
-bc 命令:
-     bc 命令是用于命令行计算器。 它类似基本的计算器。 使用这个计算器可以做基本的数学运算。
+bc 命令: bc 命令是用于命令行计算器。 它类似基本的计算器。 使用这个计算器可以做基本的数学运算。
 
 语法:
-  语法是 
-     bc [命令开关]
 
-命令开关:
-     
--c	仅通过编译。 bc命令的输出被发送到标准输出。
--l	定义数学函数并且初始化值为20，取代默认值0。
-filename	文件名，它包含用于计算的计算器命令，这不是必须的命令。
+    bc [命令开关]
 
-
+命令开关:    
+* -c	仅通过编译。 bc命令的输出被发送到标准输出。
+* -l	定义数学函数并且初始化值为20，取代默认值0。
+* filename 文件名，它包含用于计算的计算器命令，这不是必须的命令。
  
 bash 计算器可以识别：
-数字（整数和浮点）
-变量
-注释
-表达式
-编程语句
-函数
+* 数字（整数和浮点）
+* 变量
+* 注释
+* 表达式
+* 编程语句
+* 函数
 示例
 
     [root@localhost ~]# bc
@@ -300,55 +261,53 @@ bash 计算器可以识别：
     This is free software with ABSOLUTELY NO WARRANTY.
     For details type `warranty'.
 
-     9*2
+    9*2
     18
 上述命令是来做数学运算。
 
- 
+    [root@localhost ~]# bc -l
 
-[root@localhost ~]# bc -l
+    bc 1.06 Copyright 1991-1994,1997,1998,2000 Free Software Foundation,Inc.
+    This is free software with ABSOLUTELY NO WARRANTY.
+    For details type `warranty'.
 
-bc 1.06 Copyright 1991-1994,1997,1998,2000 Free Software Foundation,Inc.
-This is free software with ABSOLUTELY NO WARRANTY.
-For details type `warranty'.
- 
-1+2
-3
+    1+2
+    3
 上述命令是求'1+2'的和。
 
  
 
-[root@localhost ~]# bc calc.txt
+    [root@localhost ~]# bc calc.txt
 
-bc 1.06 Copyright 1991-1994,1997,1998,2000 Free Software Foundation,Inc.
-This is free software with ABSOLUTELY NO WARRANTY.
-For details type `warranty'.
- 
-3
+    bc 1.06 Copyright 1991-1994,1997,1998,2000 Free Software Foundation,Inc.
+    This is free software with ABSOLUTELY NO WARRANTY.
+    For details type `warranty'.
+
+    3
 'calc.txt' 这个文件有代码:1+2。 从文件输入并且显示输出结果。
-
- 
  
 浮点算术被称为 scale 的内置变量控制。必须把这个值设置为想要的十进制小数位数。
 例如
-$ bc -q
-3.44/5
-0
-scale=4
-3.44/5
-.6880
-quit
-$
+
+    $ bc -q
+    3.44/5
+    0
+    scale=4
+    3.44/5
+    .6880
+    quit
+    $
  
 在脚本中使用 bc
-variable='echo "options; expression" | bc'
-例如
-var1='echo "  scale=4; 3.44 / 5"  | bc'
- 
- 
-编码转换
- 
 
+    variable='echo "options; expression" | bc'
+例如
+
+    var1='echo "  scale=4; 3.44 / 5"  | bc'
+ 
+ 
+### 编码转换
+ 
 在Linux中执行.sh脚本，异常提示/bin/sh^M: bad interpreter: No such file or directory。这是不同系统编码格式引起的：在windows系统中编辑的.sh文件可能有不可见字符，所以在Linux系统下执行会报以上异常信息。
 
 
@@ -361,7 +320,8 @@ var1='echo "  scale=4; 3.44 / 5"  | bc'
 #sh>chmod a+x filename
 
 然后修改文件格式 
-#sh>vi filename
+
+    #sh>vi filename
 
 利用如下命令查看文件格式 
 :set ff 或 :set fileformat
