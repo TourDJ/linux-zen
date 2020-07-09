@@ -25,23 +25,27 @@
 * 标准输出(standard output，文件描述指针为1)
 * 标准错误输出(standard error，文件描述指针为2)
  
-这三个特殊的文件描述指针使进程在一般情况下接收标准输入终端的输入，同时由标准终端来显示输出，Linux同时也向使用者提供可以使用普通的文件或管道来取代这些标准输入输出设备。在shell中，使用者可以利用“>”和“<”来进行输入输出重定向。
+这三个特殊的文件描述指针使进程在一般情况下接收标准输入终端的输入，同时由标准终端来显示输出，Linux同时也向使用者提供可以使用普通的文件或管道来取代这些标准输入输出设备。在shell中，使用者可以利用`“>”`和`“<”`来进行输入输出重定向。
  
 重定向：将命令的结果输出到文件，而不是标准输出（屏幕）。如：
-* command>file：将命令的输出结果重定向到一个文件。
-* command>&file：将命令的标准错误输出一起重定向到一个文件。
-* command>>file：将标准输出的结果追加到文件中。
-* command>>&file：将标准输出和标准错误输出的结构都追加到文件中。
+* `command > file`：将命令的输出结果重定向到一个文件。
+* `command >& file`：将命令的标准输出和标准错误输出一起重定向到一个文件。
+* `command >> file`：将标准输出的结果追加到文件中。
+* `command >>& file`：将标准输出和标准错误输出的都追加到文件中。
 
 例如：
 
-    find /etc -name passwd 1> stdout 将标准输出存入stdout文件中，默认为1可以不写
+    find /etc -name passwd 1> stdout 
+    将标准输出存入stdout文件中，默认为1可以不写
 
-    find /etc -name passwd 2>errs 1>output 将错误输出存入errs文件中，标准输出存入output文件中
+    find /etc -name passwd 2> errs 1> output 
+    将错误输出存入errs文件中，标准输出存入output文件中
 
-    find /etc -name passwd >alloutlput 2>&1 将标准输出、错误输出都存入到alloutout文件中
+    find /etc -name passwd > alloutlput 2>&1 
+    将标准输出、错误输出都存入到alloutout文件中
 
-    find /etc -name passwd &>alloutlput1 将所有信息存入到alloutput1文件中
+    find /etc -name passwd &> alloutlput1 
+    将所有信息存入到alloutput1文件中
  
 
 ### 常用特殊符号
