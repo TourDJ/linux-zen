@@ -4,29 +4,33 @@
  
 ### 分支条件
  
-Linux 提供 \$? 特殊变量来保存最后一条命令执行结束的退出状态。如果想核对一条命令的退出状态，必须在这条命令运行完成后立即查看或使用变量 $?。一条命令成功完成的退出状态是 0，如果命令执行错误，那么退出状态就会是一个正整数。
-Linux退出状态代码
-代码  　　　　描述
-0 　　　　命令成功完成
-1 　　　　通常的未知错误
-2 　　　　误用 shell 命令
-126 　　  命令无法执行
-127 　　  没有找到命令
-128 　　  无效的退出参数
-128+x 　 Linux 信号 x 的致使错误
-255 　　  规范外的退出状态
+Linux 提供 \$? 特殊变量来保存最后一条命令执行结束的退出状态。如果想核对一条命令的退出状态，必须在这条命令运行完成后立即查看或使用变量 \$?。一条命令成功完成的退出状态是 0，如果命令执行错误，那么退出状态就会是一个正整数。
+
+**Linux退出状态代码**
+|代码  |　　　　描述    |
+|----|--------------------------|
+|0| 　　　　命令成功完成|
+|1| 　　　　通常的未知错误|
+|2| 　　　　误用 shell 命令|
+|126| 　　  命令无法执行|
+|127| 　  没有找到命令|
+|128|　  无效的退出参数|
+|128+x| 　 Linux 信号 x 的致使错误|
+|255| 　　  规范外的退出状态|
  
  
-if-then语句
+#### if-then 语句
 在其他编程语言中，if 语句后面的对象是一个值为 TRUE 或 FALSE 的等式。 bash shell脚本中的 if 语句不是这样的。 bash shell 中的 if 语句运行在 if 行定义的命令。如果命令的退出状态是0(成功执行命令)，将执行 then 后面的所有命令。如果命令的退出状态是0以外的其他值，那么then后面的命令将不会执行， bash shell 会移动到脚本的下一条命令。
  
 格式：
-  if command
-  then
-       commands
-  fi
- 
+
+    if command
+    then
+         commands
+    fi
+
 示例
+```shell
 #!/bin/bash
 #  testing multiple commands in the then section
 testuser=rich
@@ -35,22 +39,25 @@ then
   echo The bash files for user $testuser are :
   ls -a /home/$testuser/.b*
 fi
-
+```
 注意：在一些脚本中，可能会看到 if-then 语句的另一种形式：
-if command; then
-  commands
-fi
+
+    if command; then
+      commands
+    fi
 在计值的命令末尾使用一个分号，可以将 then 语句包含在此行中，这更像是在其他一些编程语言中处理 if-then 语句的方式。
  
-if-then-else
+#### if-then-else 语句
 格式：
-if command
-then
-    commands
-else
-    commands
-fi
+
+    if command
+    then
+        commands
+    else
+        commands
+    fi
 示例 
+```shell
 #!/bin/bash
 #testing multiple commands in the then section
 testuser=rich
@@ -61,7 +68,7 @@ then
 else
   echo "The user name $testuser doesn't exist on this system"
 fi
-
+```
  
 
 嵌套 if 语句
