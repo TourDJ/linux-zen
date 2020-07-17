@@ -234,15 +234,15 @@ expr 命令允许处理命令行中的等式。
 | 变量置换方式 | 变量 y 没有设置 | 变量 y 为空值 | 变量 y 设置值 |
 |---------|---------|---------|---------|
 | x=\${y-新值} | x=新值 | x 为空 | x=\$y|
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
-|||||
+| x=\${y:-新值} | x=新值 | x=新值 | x=\$ |
+| x=\${y+新值} | x 为空 | x=新值 | x=新值 |
+| x=\${y:+新值} |x 为空 | x 为空 | x=新值 |
+| x=\${y=新值} | x=新值, y=新值 | x 为空, y 值不变 | x=\$y, y 值不变 |
+| x=\${y:=新值} | x=新值, y=新值 | x=新值, y=新值 |  x=\$y, y 值不变 |
+| x=\${y?新值} |新值输出到标准错误输出（屏幕）| x 为空 |x=\$y |
+| x=\${y:?新值} |新值输出到标准错误输出（屏幕）| 新值输出到标准错误输出（屏幕）||
 
-bc(bash 计算器)
+### bc(bash 计算器)
  
 bash 计算器实际上是一种编程语言，该语言允许在命令行中输入浮点表达式，然后解释表达式并计算它们。
  
@@ -328,22 +328,27 @@ bash 计算器可以识别：
 
 2）也可在Linux中转换： 
 首先要确保文件有可执行权限 
-#sh>chmod a+x filename
+
+    #sh>chmod a+x filename
 
 然后修改文件格式 
 
     #sh>vi filename
 
 利用如下命令查看文件格式 
-:set ff 或 :set fileformat
+
+    :set ff 或 :set fileformat
 
 可以看到如下信息 
-fileformat=dos 或 fileformat=unix
+
+    fileformat=dos 或 fileformat=unix
 
 利用如下命令修改文件格式 
-:set ff=unix 或 :set fileformat=unix
 
-:wq (存盘退出)
+    :set ff=unix 或 :set fileformat=unix
+
+    :wq (存盘退出)
 
 最后再执行文件 
-#sh>./filename
+
+    #sh>./filename
