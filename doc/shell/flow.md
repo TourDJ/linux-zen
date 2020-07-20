@@ -70,17 +70,18 @@ else
 fi
 ```
  
-
-嵌套 if 语句
+#### 嵌套 if 语句
 格式：
-if command1
-then
-  commands
-elif  command2
-then
-  more commands
-fi
+
+    if command1
+    then
+      commands
+    elif  command2
+    then
+      more commands
+    fi
 示例
+```shell
 #!/bin/bash
 # looking for a possible value
  
@@ -94,38 +95,44 @@ then
 else
   echo "Sorry, you're not allowed here" 
 fi
+``` 
  
- 
-test命令
+#### test 命令
 test命令提供一种检测 if-then 语句中不同条件的方法。如果test命令中的条件评估值为true，test命令以0退出状态代码退出，如果条件为false，则test命令退出。
  
 test 命令格式：
-  test condition
+
+    test condition
 condition 是一系列 test命令评估的参数和值。
  
 在 if-then 语句中使用时，test命令如下所示：
-if test condition
-then
-  commands
-fi
+
+    if test condition
+    then
+      commands
+    fi
  
 bash shell 提供一种在 if-then 语句中声明 test 命令的另一种方法：
-if [ condition ]
-then
-   commands
-fi
+
+    if [ condition ]
+    then
+       commands
+    fi
 方括号定义在 test 命令中使用的条件。注意，在前半个方括号的后面和后半个方括号的前面必须都有一个空格，否则会得到错误信息。
  
 test 命令能够评估以下3类条件：
 
 (1)数值比较：
-n1 -eq n2：检查 n1 是否等于 n2
-n1 -ge n2：检查 n1 是否大于或等于 n2
-n1 -gt n2：检查 n1 是否大于 n2
-n1 -le n2： 检查 n1 是否小于或等于 n2
-n1 -lt n2： 检查 n1 是否小于 n2
-n1 -ne n2：检查 n1 是否不等于 n2
+|命令| 说明 |
+|------- | --------------------------- |
+|n1 -eq n2| 检查 n1 是否等于 n2|
+|n1 -ge n2| 检查 n1 是否大于或等于 n2|
+|n1 -gt n2| 检查 n1 是否大于 n2|
+|n1 -le n2| 检查 n1 是否小于或等于 n2|
+|n1 -lt n2| 检查 n1 是否小于 n2|
+|n1 -ne n2| 检查 n1 是否不等于 n2|
 示例
+```shell
 #!/bin/bash
 # testing floating point numbers
 val1=` echo "scale=4; 10 / 3 " | bc`
@@ -134,6 +141,7 @@ if [ $val1 -gt 3 ]
 then
    echo "The result is larger than 3"
 fi
+```
 注意：test 命令无法处理存储在变量 val1 中的浮点值。
 
 (2)字符串比较：
