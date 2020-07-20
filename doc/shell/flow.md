@@ -20,7 +20,7 @@ Linux 提供 \$? 特殊变量来保存最后一条命令执行结束的退出状
  
  
 #### if-then 语句
-在其他编程语言中，if 语句后面的对象是一个值为 TRUE 或 FALSE 的等式。 bash shell脚本中的 if 语句不是这样的。 bash shell 中的 if 语句运行在 if 行定义的命令。如果命令的退出状态是0(成功执行命令)，将执行 then 后面的所有命令。如果命令的退出状态是0以外的其他值，那么then后面的命令将不会执行， bash shell 会移动到脚本的下一条命令。
+在其他编程语言中，if 语句后面的对象是一个值为 `TRUE` 或 FALSE 的等式。 bash shell脚本中的 if 语句不是这样的。 bash shell 中的 if 语句运行在 if 行定义的命令。如果命令的退出状态是0(成功执行命令)，将执行 then 后面的所有命令。如果命令的退出状态是0以外的其他值，那么then后面的命令将不会执行， bash shell 会移动到脚本的下一条命令。
  
 格式：
 
@@ -131,6 +131,7 @@ test 命令能够评估以下3类条件：
 |n1 -le n2| 检查 n1 是否小于或等于 n2|
 |n1 -lt n2| 检查 n1 是否小于 n2|
 |n1 -ne n2| 检查 n1 是否不等于 n2|
+
 示例
 ```shell
 #!/bin/bash
@@ -145,14 +146,19 @@ fi
 注意：test 命令无法处理存储在变量 val1 中的浮点值。
 
 (2)字符串比较：
-str1 = str2：检查 str1 与 str2 是否相同
-str1 != str2：检查 str1 与 str2 是否不同
-str1 < str2：检查 str1 是否小于 str2
-str1 > str2: 检查 str1 是否大于 str2
--n str1：检查 str1 的长度是否大于0
--z str1：检查 str1 的长度是否为0
+|命令| 说明 |
+|------- | --------------------------- |
+|str1 = str2|检查 str1 与 str2 是否相同|
+|str1 != str2|检查 str1 与 str2 是否不同|
+|str1 < str2|检查 str1 是否小于 str2|
+|str1 > str2| 检查 str1 是否大于 str2|
+|-n str1|检查 str1 的长度是否大于0|
+|-z str1|检查 str1 的长度是否为0|
+
 字符串相等
+
 示例
+```shell
 #!/bin/bash
 # testing string equality
 testuser=rich
@@ -161,11 +167,14 @@ if [ $USER = $testuser ]
 then
    echo "Welcom $ testuser"
 fi
+```
  
-字符串顺序
+字符串顺序                      
 大于和小于符号一定要转义，否则 shell 会将它们当作重定向符号，将字符串值看作文件名。
 大于和小于顺序与在 sort 命令中的顺序不同。
+
 示例
+```shell
 #!/bin/bash
 # mis-using string comparisons
  
@@ -178,9 +187,12 @@ then
 else
    echo "$val1 is less than $var2"
 fi
+```
  
 字符串大小
+
 示例
+```shell
 #!/bin/bash
 # testing string length
 val1=testing
@@ -206,24 +218,29 @@ then
 else
    echo "The string '$val3' is empty"
 fi
+```
 空变量和没有初始化的变量长度为0。
  
 
 (3)文件比较：
--d 文件名：  如果文件存在且为目录则为真
--e 文件名：   如果文件存在则为真
--f 文件名：  如果文件存在且为普通文件则为真
--r 文件名：　如果文件存在且可读则为真
--s 文件名：  如果文件存在且至少有一个字符则为真
--w 文件名：  如果文件存在且可写则为真
--x 文件名：  如果文件存在且可执行则为真
--o file ： 检查 file 是否存在并且被当前用户拥有
--G file：检查 file 是否存在并且默认组是否为当前用户组
--c 文件名：  如果文件存在且为字符型特殊文件则为真
--b 文件名：  如果文件存在且为块特殊文件则为真
-file1 -ot file2 若 file 旧于 file2，则条件成立
+|命令| 说明 |
+|------- | --------------------------- |
+|-d 文件名| 如果文件存在且为目录则为真|
+|-e 文件名| 如果文件存在则为真|
+|-f 文件名| 如果文件存在且为普通文件则为真|
+|-r 文件名| 如果文件存在且可读则为真|
+|-s 文件名| 如果文件存在且至少有一个字符则为真|
+|-w 文件名| 如果文件存在且可写则为真|
+|-x 文件名  如果文件存在且可执行则为真|
+|-o file|  检查 file 是否存在并且被当前用户拥有|
+|-G file|  检查 file 是否存在并且默认组是否为当前用户组|
+|-c 文件名| 如果文件存在且为字符型特殊文件则为真|
+|-b 文件名| 如果文件存在且为块特殊文件则为真|
+
+`file1 -ot file2` 表示若 file 旧于 file2，则条件成立。
  
 示例 
+```shell
  #!/bin/bash
 # check if a file
 if [ -e $HOME ]
@@ -242,22 +259,26 @@ then
 else
    echo "Sorry, the object doesn't exists"
 fi
+```
  
 复合条件检查 
-  [ condition1 ] && [ condition2 ]
+
+    [ condition1 ] && [ condition2 ]
 
 两个条件必须都满足才能执行 then 部分
 
-  [ condition1 ] || [ condition2 ] 
+    [ condition1 ] || [ condition2 ] 
 
 如果任意一个条件评估为 true，那么就会执行 then 部分
 
 示例
+```shell
 #!/bin/sh 
 mailfolder=/var/spool/mail/james 
 [ -r "$mailfolder" ]||{ echo "Can not read $mailfolder" ; exit 1; } 
 echo "$mailfolder has mail from:" 
 grep "^From " $mailfolder
+```
 该脚本首先判断mailfolder是否可读。如果可读则打印该文件中的"From" 一行。如果不可读则或操作生效，打印错误信息后脚本退出。这里有个问题，那就是我们必须有两个命令： 
   -打印错误信息 
   -退出程序 
