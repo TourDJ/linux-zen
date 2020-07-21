@@ -285,137 +285,148 @@ echo "$mailfolder has mail from:"
 grep "^From " $mailfolder
 ```
 该脚本首先判断mailfolder是否可读。如果可读则打印该文件中的"From" 一行。如果不可读则或操作生效，打印错误信息后脚本退出。这里有个问题，那就是我们必须有两个命令： 
-  -打印错误信息 
-  -退出程序 
+* -打印错误信息 
+* -退出程序 
+
 我们使用花括号以匿名函数的形式将两个命令放到一起作为一个命令使用。一般函数将在下文提及。 不用与和或操作符，我们也可以用if表达式作任何事情，但是使用与或操作符会更便利很多。
  
  
-if-then 高级特征
-双圆括号
-((  expression ))
+#### if-then 高级特征
+##### 双圆括号
+
+    ((  expression ))
 表示数学表达数，允许在比较中包含高级数学公式。除了 test 命令使用的标准数学操作符，还包括：
- 符号     　　描述
-val++ 　　后增量
-val--  　　后减量
-++val 　　前增量
---val  　　前减量
-! 　　　　逻辑否定
-~ 　　　  逐位取反
-** 　　　 取幂
-<< 　　   左移
->> 　　   右移
-&           
-|
-&& 　　   逻辑与
-||  　　    逻辑或
+| 符号 |　　描述  |
+|-------|---------------------|
+|val++| 　　后增量|
+|val--|  　　后减量|
+|++val| 　　前增量|
+|--val|  　　前减量|
+|! 　　|　　逻辑否定|
+|~ 　　|　  逐位取反|
+|** 　|　　 取幂|
+|<< 　|　   左移|
+|>> 　|　   右移|
+|&    |     按位与  |
+||     |  按位或  |
+|&&    | 　　逻辑与|
+|||  　|　   逻辑或|
  
 示例
+```shell
 if (( $val1 ** 2 > 90 ))
 then
    (( val2 = $val1 ** 2 ))
    echo "The square of $val1 is $val2"
 fi
+```
  
-双方括号
-[[ expression ]]
-双括号命令提供了模式匹配。
+##### 双方括号
+
+    [[ expression ]]
+双方括号命令提供了模式匹配。
+
 示例
+```shell
 if [[ $USER == r* ]]
 then
   echo "Hello $USER"
 else
   echo "Sorry, I don't know you"
 fi
- 
-case命令
+```
+
+#### case命令
 case 命令以列表导向格式检查单个变量的多个值。
-case variable in 
-pattern1 | pattern2) commands1 ;; 
-pattern3) commands2;;
-*) default commands;;
-esac
+
+    case variable in 
+        pattern1 | pattern2) commands1 ;; 
+        pattern3) commands2;;
+        *) default commands;;
+    esac
 case 命令将指定的变量与不同的模式进行比较。如果变量与模式匹配，shell 执行为该模式指定的命令。可以在一行中列出多个模式，使用竖条操作符将每个模式分开。星号是任何列出的模式都不匹配的所有值。
 
 以下是一个使用case的实例：
-
+```shell
 dirs=`ls $sourceRoot/android | tr '\n' ' '`
 for i in $dirs
 do
-sourceFold=$sourceRoot/android/${i}
-case ${i} in 
-out)
-echo "skip ${i}";;
-kernel|frameworks|vendor|build)
-cp -rfu $sourceFold $workRoot/android
-echo "copy ${i}";;
-*) 
-ln -sf $sourceFold $workRoot/android
-echo "linking ${i}";;
-esac
+    sourceFold=$sourceRoot/android/${i}
+    case ${i} in 
+        out)
+            echo "skip ${i}";;
+        kernel|frameworks|vendor|build)
+            cp -rfu $sourceFold $workRoot/android
+            echo "copy ${i}";;
+        *) 
+            ln -sf $sourceFold $workRoot/android
+            echo "linking ${i}";;
+    esac
 done
+```
+
 再让我们看一个例子。 file命令可以辨别出一个给定文件的文件类型，比如： 
 
-file lf.gz 
+    file lf.gz 
 这将返回： 
-lf.gz: gzip compressed data, deflated, original filename, 
-last modified: Mon Aug 27 23:09:18 2001, os: Unix 
+
+    lf.gz: gzip compressed data, deflated, original filename, 
+    last modified: Mon Aug 27 23:09:18 2001, os: Unix 
+    
 下面有个叫做smartzip的脚本，该脚本可以自动解压bzip2, gzip 和zip 类型的压缩文件： 
+```shell
 #!/bin/sh 
 ftype=`file "$1"` 
 case "$ftype" in 
-"$1: Zip archive"*) 
-unzip "$1" ;; 
-"$1: gzip compressed"*) 
-gunzip "$1" ;; 
-"$1: bzip2 compressed"*) 
-bunzip2 "$1" ;; 
-*) echo "File $1 can not be uncompressed with smartzip";; 
+    "$1: Zip archive"*) 
+        unzip "$1" ;; 
+    "$1: gzip compressed"*) 
+        gunzip "$1" ;; 
+    "$1: bzip2 compressed"*) 
+        bunzip2 "$1" ;; 
+    *) 
+        echo "File $1 can not be uncompressed with smartzip";; 
 esac 
-您可能注意到我们在这里使用了一个特殊的变量$1。该变量包含了传递给该程序的第一个参数值。
+```
+您可能注意到我们在这里使用了一个特殊的变量`$1`。该变量包含了传递给该程序的第一个参数值。
+
 也就是说，当我们运行： 
-smartzip articles.zip 
-$1 就是字符串 articles.zip
+
+    smartzip articles.zip 
+`$1` 就是字符串 articles.zip
  
  
-循环结构 
-for命令
+### 循环结构 
+#### for 命令
 for 命令用于通过一系列值重复的循环。每次重复使用系列中的一个值执行一个定义的命令集。
 
 格式：
 
-for var in list
-
-do
-
-  commands
-
-done
+    for var in list
+    do
+      commands
+    done
 
 在参数 list 中提供一系列用于迭代的值。for 循环认为每个值都用空格分隔。
 
- 
+注意：可以将 do 语句与 for 语句放在同一行，但是必须使用**分号**将它与列表项分开：
 
-注意：可以将 do 语句与 for 语句放在同一行，但是必须使用分号将它与列表项分开：
+      for var in list; do
 
-  for var in list; do
-
- 
 
 列表值中包含单引号的处理方法
-
-使用转义字符（反斜杠符号）来转义单引号
-使用双引号来定义使用单引号的值
+* 使用转义字符（反斜杠符号）来转义单引号
+* 使用双引号来定义使用单引号的值
  
 
 内部字段分隔符(internal field separator, IFS)定义了 bash shell 用作字段分隔符的字符列表。默认情况下，bash shell 将下面的字符看作字段分隔符。
-
-空格
-制表符
-换行符
+* 空格
+* 制表符
+* 换行符
 如果处理能够包含空格的数据时，就会产生干扰，可以在 shell 脚本中暂时更改环境变量 IFS 的值，限制 bash shell 看作是字段分隔符的字符。
 
 示例
-
+```shell
 #!/bin/bash
 # reading values from a file
 
@@ -426,13 +437,13 @@ for state in `cat $file`
 do
   echo "Visit beautiful $state"
 done
-
+```
  
 
 使用通配符读取目录或处理多目录
 
 示例
-
+```shell
 #!/bin/bash
 # iterate through all the files in a directory
 
@@ -440,27 +451,26 @@ for file in /home/txj/* /home/txj/.b*
 do
 if [ -d "$file" ]
 then
-echo "$file is a directory"
+    echo "$file is a directory"
 elif [ -f "$file" ]
 then
-echo "$file is a file"
+    echo "$file is a file"
 fi
 done
-
+```
  
 
-C式 for 循环
+#### C式 for 循环
 格式
 
-for (( variable assignment ;  condition ;  iteration process ))
+    for (( variable assignment ;  condition ;  iteration process ))
 
 有几项不遵循标准 bash shell 的 for 方法
-
-变量的赋值可以包含空格
-条件中的变量不以美元符号做前缘
-迭代处理式不使用 expr 命令格式
+* 变量的赋值可以包含空格
+* 条件中的变量不以美元符号做前缘
+* 迭代处理式不使用 expr 命令格式
 示例
-
+```shell
 #!/bin/bash
 # multiple variables
 
@@ -468,26 +478,20 @@ for (( a=1, b=10; a<=10; a++,b-- ))
 do
 echo "$a - $b"
 done
+```
 
- 
-
- 
-
-while 命令
+#### while 命令
 while 命令格式
 
-while test command
-
-do
-
-  other commands
-
-done
+    while test command
+    do
+      other commands
+    done
 
 在 while 命令中定义的 test 命令与在 if-then 语句中定义的格式一样。while 关键是指定的 test 命令的退出状态必须根据循环中命令的运行情况改变。
 
 示例
-
+```shell
 #!/bin/bash
 # while command test
 
@@ -497,11 +501,11 @@ do
 echo $var1
 var1=$[ $var1 - 1 ]
 done
-
+```
  
 
 如果有多条 test 命令，只有最后一条测试命令的退出状态是用来决定循环是何时停止的。
-
+```shell
 #!/bin/bash
 # tesing a multicommand while loop
 
@@ -513,26 +517,23 @@ do
 echo "This is inside the loop"
 var1=$[ $var1 - 1 ]
 done
-
+```
   
 
-until 命令
+#### until 命令
 until 命令刚好与 while 命令相反。
 
 格式：
 
-until test commands
-
-do 
-
-  other commands
-
-done
+    until test commands
+    do 
+      other commands
+    done
 
 until  命令需要制定一条测试命令，这条命令通常产生一个非0的退出状态。只要测试命令的退出状态非0， bash shell就会执行列在循环当中的命令。一旦测试条件返回0退出状态，循环停止。
 
 示例
-
+```shell
 #!/bin/bash
 # using the until command
 
@@ -543,38 +544,37 @@ do
 echo $var1
 var1=$[ $var1 - 25 ]
 done
-
+```
  
 
-嵌套循环
+#### 嵌套循环
 
 通常需要迭代存储在文件内部的项。需要结合两种技术：
-
-使用嵌套循环
-更改环境变量 IFS
+* 使用嵌套循环
+* 更改环境变量 IFS
 示例
-
+```shell
 #!/bin/bash
 # changing the IFS value
 IFSOLD=$IFS
 IFS=$'\n'
 for entry in `cat /etc/passwd | grep ro `
 do
-echo "Values in $entry -"
-IFS=:
-for value in $entry
-do
-echo " $value"
+    echo "Values in $entry -"
+    IFS=:
+    for value in $entry
+    do
+        echo " $value"
+    done
 done
-done
-
+```
  
 
-break 命令
+#### break 命令
 break 命令是在处理过程中跳出循环的一种简单方法。
 
 示例
-
+```shell
 #!/bin/bash
 # breaking out of a for loop
 
@@ -587,62 +587,62 @@ fi
 echo "Iteration number: $var1"
 done
 echo "The for loop is completed"
-
+```
  
 
 break 命令包括单独的命令行参数值
 
-break n
+    break n
 
 示例
-
+```shell
 #!/bin/bash
 # breaking out of an outer loop
 
 for (( a=1; a<4; a++ ))
 do
-echo "Outer loop: $a"
-for (( b=1; b<100; b++ ))
-do
-if [ $b -gt 4 ]
-then
-break 2
-fi
-echo " Inner loop: $b"
+    echo "Outer loop: $a"
+    for (( b=1; b<100; b++ ))
+    do
+        if [ $b -gt 4 ]
+        then
+            break 2
+        fi
+        echo " Inner loop: $b"
+    done
 done
-done
-
+```
  
 
-continue 命令
+#### continue 命令
 continue 命令是一种提前停止循环内命令，而不完全终止循环的方法。
 
 示例
-
+```shell
 #!/bin/bash
 # continuing an outer loop
 
 for (( a=1; a<=5; a++ ))
 do
-echo "Iteration $a:"
-for (( b=1; b<3; b++ ))
-do
-if [ $a -gt 2 ] && [ $a -lt 4 ]
-then
-continue 2
-fi
-var3=$[ $a * $b ]
-echo " The result of $a * $b is $var3"
+    echo "Iteration $a:"
+    for (( b=1; b<3; b++ ))
+    do
+        if [ $a -gt 2 ] && [ $a -lt 4 ]
+        then
+            continue 2
+        fi
+        var3=$[ $a * $b ]
+        echo " The result of $a * $b is $var3"
+    done
 done
-done
-
+```
  
 
-循环的输出
+#### 循环的输出
 可以通过在 done 命令的末尾添加管道或重定向循环的输出结果。
 
 示例
-
+```shell
 #!/bin/bash
 # redirecting the for output to a file
 
@@ -650,13 +650,13 @@ for (( a=1; a<10; a++ ))
 do
 echo "The number is $a"
 done > test10-23.txt
-
+```
  
-移位(shift) 
+#### 移位(shift) 
 shift命令能够改变命令行参数的相对位置。使用 shift 命令时，默认将每个参数变量左移一个位置。
 
 示例 
-
+```shell
 #!/bin/bash
 # demonstrating the shift command
 
@@ -667,23 +667,20 @@ echo "Parameter #$count = $1"
 count=$[ $count + 1 ]
 shift
 done
-
+```
  
-select
+#### select
 格式
 
-select variable in list
-
-do
-
-    commands
-
-done
+    select variable in list
+    do
+        commands
+    done
 
 类别参数是用空格隔开的构建菜单的文本项列表。select 命令将列表中的每一项显示为一个编号选项，然后为选择显示一个特殊的提示符(由 PS3 环境变量定义)。
 
 示例
-
+```shell
 #!/bin/sh
 echo "What is your favourite OS?"
 select var in "Linux" "Gnu Hurd" "Free BSD" "Other"
@@ -702,16 +699,17 @@ What is your favourite OS?
 4) Other 
 #? 1 
 You have selected Linux
- 
---------------------------------------------------------------------------
+``` 
 
-
-repeat语句
+#### repeat语句
 repeat语句是tcsh提供的独有的循环语句.使用repeat命令要求shell对一个命令执行一定的次数.
 语法格式:
-　　repeat count command
+　　
+    repeat count command
 如;
+```shell
 foreach num ( $ *)
 repeat $num echo -n " *"
 echo " "
 end
+```
