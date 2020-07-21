@@ -284,6 +284,10 @@ tee and >
 #### lsof
 lsof -i: 查看某个端口是否被占用
 
+#### ctrl+r
+用途：反向搜索执行过的命令。(reverse-i-search)
+
+通过Ctrl+R可以根据关键字搜索历史命令，按多次Ctrl+R可以继续搜索更旧的历史命令。
 
 #### 参考  
 [鸟哥的 Linux 私房菜](http://cn.linux.vbird.org/linux_server/)    
