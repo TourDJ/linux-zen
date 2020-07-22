@@ -160,7 +160,7 @@ fi
 |-n str1|检查 str1 的长度是否大于0|
 |-z str1|检查 str1 的长度是否为0|
 
-字符串相等
+###### 字符串相等
 
 示例
 ```shell
@@ -174,7 +174,7 @@ then
 fi
 ```
  
-字符串顺序   
+###### 字符串顺序   
 
 大于和小于符号一定要转义，否则 shell 会将它们当作重定向符号，将字符串值看作文件名。大于和小于顺序与在 sort 命令中的顺序不同。
 
@@ -194,7 +194,7 @@ else
 fi
 ```
  
-字符串大小
+###### 字符串大小
 
 示例
 ```shell
@@ -310,7 +310,7 @@ grep "^From " $mailfolder
 |&     |按位与|
 |\|     |按位或|
 |&&    |逻辑与|
-|\|\|  　|逻辑或|
+|\|\|  |逻辑或|
  
 示例
 ```shell
@@ -706,10 +706,11 @@ You have selected Linux
 
 #### repeat语句
 repeat语句是tcsh提供的独有的循环语句.使用repeat命令要求shell对一个命令执行一定的次数.
+
 语法格式:
 　　
     repeat count command
-如;
+如:
 ```shell
 foreach num ( $ *)
 repeat $num echo -n " *"
