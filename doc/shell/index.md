@@ -5,6 +5,8 @@
   - [Shell 启动脚本](launch.md)              
   - [Shell 常用特性](attribute.md)                    
   - [Shell 语法之结构化命令(流程控制)](flow.md)                         
+  - [Shell 语法之用户输入](input.md)                  
+  
   
 
 ## <a id="Shell">shell 使用</a>
