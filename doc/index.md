@@ -2,7 +2,7 @@
 - [linux 基础知识](#base)                   
   - [linux 启动过程](#startup)              
 - [文件](./file.md)     
-- [loop设备](./doc/lodevice.md)                            
+- [loop设备](./lodevice.md)                            
 - [Linux 分区](./partition.md)         
 
 
