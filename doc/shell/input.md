@@ -1,14 +1,12 @@
 
 ## Shell 语法之用户输入
-bash shell 提供了一些不同的方法从用户处获取数据，这些方法包括命令行参数、命令行选项和直接读取键盘输入。
+bash shell 提供了一些不同的方法从用户处获取数据，这些方法包括`命令行参数`、`命令行选项`和`直接读取键盘输入`。
 
- 
-
-命令行参数
+### 命令行参数
 bash shell 将在命令行中输入的所有参数赋值给一些特殊变量，称为位置参数，通过标准数据表示，其中$0为程序名称，$1为第一个参数，$2为第二个参数，依此类推，直到$9为第九个参数。在第九个变量之后，必须使用大括号将变量括起来，如${10}。
 
 示例
-
+```shell
 #!/bin/bash
 # using one command line parameter
 
@@ -18,54 +16,53 @@ do
   factorial=$[ factorial * $number ]
 done
 echo The factorial of $1 is $factorial
+```
 
- 
+调用：
 
-调用：$ ./test1 5
-
-The factorial of 5 is 120
-
- 
+    $ ./test1 5
+    The factorial of 5 is 120
 
 读取程序名称
 
 使用参数$0可以确定 shell 从命令行启动的程序的名称。
 
 示例
-
+```shell
 #!/bin/bash
 # testing the $0 parameter
 
 echo The command entered is : $0
-
+```
  
+调用：
 
-调用：./test5
+    $ ./test5
 
- 
 
 如果需要去除通过命令行运行脚本时使用的所有路径，使用 basename 命令。
 
 示例
-
+```shell
 #!/bin/bash
 # using basename with the $0 parameter
 
 name=`basename $0`
 echo The command entered is: $name
-
+```
  
 
-调用：./test5b
+调用：
 
-The command entered is : ./test11-5
+    $ ./test5b
+    The command entered is : ./test11-5
 
  
 
 参数计数变量
 
-特殊变量 $# 中存储执行脚本时包含的命令行参数的个数。
-
+特殊变量 `$#` 中存储执行脚本时包含的命令行参数的个数。
+```shell
 示例
 
 #!/bin/bash
@@ -73,12 +70,12 @@ The command entered is : ./test11-5
 
 if [ $# -ne 2 ]
 then
-  echo Uage: test11-9 a b
+  echo Uage: test a b
 else
   total=$[ $1 + $2 ]
   echo The total is $total
 fi
-
+```
 另外，使用变量 ${!#} 可以得到最后一个命令行参数值。注意不能使用 ${$#} 这种格式，否则会得到错误的结果。
 
  
@@ -104,7 +101,7 @@ The total is 25
 变量 $@ 将命令行中提供的所有参数作为同一个字符串中的多个单词处理。允许对其中的值进行迭代，分隔开所提供的不同参数。
 
 示例
-
+```shell
 #!/bin/bash
 # testing $* and $@
 
@@ -121,7 +118,7 @@ do
   echo "\$@ Parameter #$count=$param"
   count=$[ $count + 1 ]
 done
-
+```
  
 
 调用：./test12 rich barbara katie jessica
@@ -142,7 +139,7 @@ $@ Parameter #4=jessica
 执行 shell 脚本时经常会遇到既需要使用选项又需要使用参数的情况。在 Linux 中的标准方式是使用特殊符号双破折号(--)将二者分开，这个特殊字符号码告诉脚本选项结束和普通参数开始的位置。
 
 示例
-
+```shell
 #!/bin/bash
 # extracting options and parameters
 
@@ -167,7 +164,7 @@ do
   echo "Parameter #$count: $param"
   count=$[ $count + 1 ]
 done
-
+```
  
 
 调用：./test16 -c -a -b test1 test2 test3
