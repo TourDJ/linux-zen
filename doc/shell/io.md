@@ -1,41 +1,35 @@
-Shell 语法之输入输出
+
+## Shell 语法之输入输出
  
 
 Linux 使用文件描述符标识每个文件对象。文件描述符是一个非负整数，可以唯一地标识会话中打开的文件。每个进程中最多可以有9个打开文件的描述符。
 
-Linux 标准文件描述符
+**Linux 标准文件描述符**
 
-文件描述符　　缩写 　　　　描述
-
-0  　　　　　STDIN  　　  标准输入
-
-1  　　　　   STDOUT  　  标准输出
-
-2  　　　　　STDERR  　　标准错误
+|  文件描述符　|　  缩写 　　|　　描述  |
+| ------- | --------- | ------------|
+|0  　　|STDIN  　　 |标准输入|
+|1  　　|STDOUT  　  |标准输出|
+|2  　　|STDERR  　　|标准错误|
 
  
 
-STDIN 文件描述符引用 shell 的标准输入。
+* STDIN 文件描述符引用 shell 的标准输入。
+* STDOUT 文件描述符引用 shell 的标准输出。
+* STDERR 文件描述符处理错误消息。
 
-STDOUT 文件描述符引用 shell 的标准输出。
+可以将 STDEER 和 STDOUT 输出重定向到同一个输出文件，使用 `&>` 符号
 
-STDERR 文件描述符处理错误消息。
-
- 
-
-可以将 STDEER 和 STDOUT 输出重定向到同一个输出文件，使用 &> 符号
-
-ls -al test test2 test3 badtet &> test7
+    ls -al test test2 test3 badtet &> test7
 或者
 
-command>&file：将命令的标准错误输出一起重定向到一个文件。
+`command>&file`：将命令的标准错误输出一起重定向到一个文件。
 
-find /etc -name passwd >alloutlput 2>&1
+    find /etc -name passwd >alloutlput 2>&1
 将标准输出、错误输出都存入到alloutout文件中
 
  
-
-在脚本中重定向输出
+### 在脚本中重定向输出
 在脚本中使用文件描述符在多个位置生成输出，只要重定向相应的文件描述符即可。
 
  
