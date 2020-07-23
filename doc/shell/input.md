@@ -317,8 +317,11 @@ done
  
 
 #### getopt 与 getopts 区别
+* getopt是个外部binary文件，而getopts是built-in。
+* getopts 有两个参数，第一个参数是一个字符串，包括字符和“：”，每一个字符都是一个有效的选项，如果字符后面带有“：”，表示这个字符有自己的参数。 getopts从命令中获取这些参数，并且删去了“-”，并将其赋值在第二个参数中，如果带有自己参数，这个参数赋值在“OPTARG”中。提供getopts的shell内置了OPTARG这个变量，getopts修改了这个变量。而getopt则不能。
+* getopt必须使用set来重新设定位置参数$1,$2....，然后在getopt中用shift的方式依次来获取。
 
-getopt是个外部binary文件，而getopts是built-in。getopts 有两个参数，第一个参数是一个字符串，包括字符和“：”，每一个字符都是一个有效的选项，如果字符后面带有“：”，表示这个字符有自己的参数。 getopts从命令中获取这些参数，并且删去了“-”，并将其赋值在第二个参数中，如果带有自己参数，这个参数赋值在“OPTARG”中。提供getopts的shell内置了OPTARG这个变量，getopts修改了这个变量。而getopt则不能。因此getopt必须使用set来重新设定位置参数$1,$2....，然后在getopt中用shift的方式依次来获取。基本上，如果参数中可能含有空格，那么必须用getopts。否则仅仅从使用上看，他们没有区别。
+基本上，如果参数中可能含有空格，那么必须用getopts。否则仅仅从使用上看，他们没有区别。
 
 
 ### 键盘输入
