@@ -60,11 +60,13 @@ exec 1>testout
 
 echo "This output should go to the testout file"
 echo "but this should go to the testerror file" >&2
-
-[root@tang sh]# ./test12-11
-This is the start of the script
-now redirecting all output to another location
 ```
+调用：
+
+     [root@tang sh]# ./test12-11
+     This is the start of the script
+     now redirecting all output to another location
+
  
 
 ### 在脚本中重定向输入
