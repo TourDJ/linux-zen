@@ -7,6 +7,7 @@
   - [Shell 语法之结构化命令(流程控制)](flow.md)                         
   - [Shell 语法之用户输入](input.md)                  
   - [Shell 语法之输入输出](io.md)                      
+  - [Shell 语法之信号与作业](sign.md)                    
   
   
 
