@@ -80,8 +80,8 @@ count=1
 
 while read line
 do
-echo "Line #$count: $line"
-count=$[ $count + 1 ]
+    echo "Line #$count: $line"
+    count=$[ $count + 1 ]
 done
 ```
 调用
@@ -111,11 +111,12 @@ exec 3>test3out
 echo "this should display on the monitor"
 echo "and this should be stored in teh file" >&3
 echo "then this should be back on the monitor"
-
-[root@tang sh]# ./test12-13
-this should display on the monitor
-then this should be back on the monitor
 ```
+调用：
+
+     [root@tang sh]# ./test12-13
+     this should display on the monitor
+     then this should be back on the monitor
  
 
 ### 重定向文件描述符
@@ -156,15 +157,15 @@ exec 0<states
 count=1
 while read line
 do
-echo "Line #$count: $line"
-count=$[ $count + 1 ]
+    echo "Line #$count: $line"
+    count=$[ $count + 1 ]
 done
 
 exec 0<&6
 read -p "Are you done now?" answer
 case $answer in
-Y|y) echo "Goodby" ;;
-N|n) echo "Sorry, this is the end." ;;
+    Y|y) echo "Goodby" ;;
+    N|n) echo "Sorry, this is the end." ;;
 esac
 ```
  
@@ -172,7 +173,7 @@ esac
 ### 关闭文件描述符
 如果创建新的输入或输出文件描述符， shell 将在脚本退出时自动关闭它们。有时需要在脚本结束前手动关闭文件描述符。
 
-要关闭文件描述符，将它重定向到特殊符号 &- 。
+要关闭文件描述符，将它重定向到特殊符号 `&-` 。
 
 示例
 ```shell
