@@ -1,27 +1,21 @@
-Shell 语法之信号与作业
+
+## Shell 语法之信号与作业
 Linux 使用信号与系统上运行的进程进行通信。
 
-Linux 编程中最常见的 Linux 系统信号
+**Linux 编程中最常见的 Linux 系统信号**
 
-信号 　　值 　　　　   描述
+|信号 |　　值　|   描述      |
+|----|-----------|-----------------------------------|
+|1 　|SIGHUP 　　 |挂起进程|
+|2 　|SIGINT 　　 |中断进程|
+|3 　|SIGQUIT 　　|停止进程|
+|9 　|SIGKILL 　　|无条件终止进程|
+|15  |SIGTERM 　　|如果可能的话终止进程|
+|17  |SIGSTOP 　　|无条件停止，但不终止进程|
+|18  |SIGTSTP 　　|停止或暂停进程，但不终止它|
+|19  |SIGCONT 　  |重新启动停止的进程|
 
-1 　　  SIGHUP 　　 挂起进程
-
-2 　　  SIGINT 　　  中断进程
-
-3 　　  SIGQUIT 　　停止进程
-
-9 　　  SIGKILL 　　 无条件终止进程
-
-15 　　SIGTERM 　　如果可能的话终止进程
-
-17 　　SIGSTOP 　　无条件停止，但不终止进程
-
-18 　　SIGTSTP 　　停止或暂停进程，但不终止它
-
-19 　　SIGCONT 　  重新启动停止的进程
-
- 默认情况下，bash shell 会忽略它接收的任何 SIGQUIT 和 SIGTERM 信号。
+默认情况下，bash shell 会忽略它接收的任何 SIGQUIT 和 SIGTERM 信号。
 
  
 
