@@ -26,7 +26,7 @@ Ctrl + C 组合键可以生成 SIGINT 信号
  
 ### 暂停进程
 
-Ctrl +Z 组合键生成 SIGTSTP 信号
+Ctrl + Z 组合键生成 SIGTSTP 信号
 
 
 ### 捕获信号
