@@ -242,11 +242,15 @@ r 命令允许插入包含在独立文件中的数据。
 
     $ sed '/number 2/r data11' data2
 
-    $ sed '$r data11' data2 将文本添加到数据流末尾
+将文本添加到数据流末尾
+
+    $ sed '$r data11' data2 
+
+套用信函使用类占位符 LIST 代替人员列表，并删除占位符。
 
     $ sed '/LIST/{
     > r data10
     > d
-    > }' letter 套用信函使用类占位符 LIST 代替人员列表，并删除占位符。
+    > }' letter 
 
 
