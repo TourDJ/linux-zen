@@ -73,7 +73,7 @@ s  用新文本替换某一行中的文本
 
 sed 编辑器允许为替换命令中的字符串定界符选择一个不同的字符。
 
-$ sed 's!/bin/bash!/bin/csh!' /etc/passwd
+    $ sed 's!/bin/bash!/bin/csh!' /etc/passwd
 
  
 
@@ -122,7 +122,7 @@ $ sed 's!/bin/bash!/bin/csh!' /etc/passwd
 
 #### 删除行
 
-d 删除与锁提供的寻址模式一致的所有文本行。
+d 删除与所提供的寻址模式一致的所有文本行。
 
     $ sed '3d' data1 
     $ sed '2,3d' data2
@@ -136,155 +136,128 @@ d 删除与锁提供的寻址模式一致的所有文本行。
  
 
 #### 插入和附加文本
+* i 在指定行之前添加新的一行
+* a 在指定行之后添加新的一行
 
-i 在指定行之前添加新的一行
-
-a 在指定行之后添加新的一行
-
-不能在单命令行上使用这两个命令，必须单独指定要插入或附件的行。
+不能在单命令行上使用这两个命令，必须单独指定要插入或附加的行。
 
 格式
 
-sed '[address]command\
+    sed '[address]command\
+    new line'
 
-new line'
+例如 
 
- 
+    $ echo "testing" | sed 'i\
+    > This is a test'
 
-$ echo "testing" | sed 'i\
+    $ echo "testing" | sed 'a\
+    > This is a test'
 
-> This is a test'
-
-$ echo "testing" | sed 'a\
-
-> This is a test'
-
- 
-
- 
-
-更改行
+#### 更改行
 
 c 允许更改数据流中整行文本的内容。
 
-$ sed '3c\
+    $ sed '3c\
+    > This is a changed line of text.' data5
 
-> This is a changed line of text.' data5
+    $ sed '/number 3/c\
+    > This is a changed line of text.' data5
 
-$ sed '/number 3/c\
+    $ sed '2,3c\
+    > This is a  new line of text.' data5
 
-> This is a changed line of text.' data5
-
-$ sed '2,3c\
-
-> This is a  new line of text.' data5
-
- 
-
- 
-
-变换命令
+#### 变换命令
 
 y 命令是唯一对单个字符进行操作的 sed 编辑器命令。格式：
 
-[address]y/inchars/outchars/
+    [address]y/inchars/outchars/
 
 变换命令将 inchars 和 outchars 的值进行一对一映射。
 
-$ sed 'y/123/789/' data1
+    $ sed 'y/123/789/' data1
+
+ 
+#### 打印
+
+有3个命令可以用于打印来自数据流的信息
+* 打印文本行的小写 p 命令
+* 打印行号的等号(=)命令
+* 列出行的 l 命令
+
+##### 打印行
+
+    $ echo "This is a test" | sed 'p'
+
+    $ sed -n '/number 3/p' data1
+
+    $ sed -n '2,3p' data1
+
+    $ sed -n '/3/{
+
+    p
+
+    s/line/test/p
+
+    }' data4
 
  
 
-打印
+##### 打印行号
 
- 有3个命令可以用于打印来自数据流的信息
+    $ sed '=' data1
 
-打印文本行的小写 p 命令
+    $ sed -n 'number 4/{
 
-打印行号的等号(=)命令
+    =
 
-列出行的 l 命令
+    p
 
- 
-
-打印行
-
-$ echo "This is a test" | sed 'p'
-
-$ sed -n '/number 3/p' data1
-
-$ sed -n '2,3p' data1
-
-$ sed -n '/3/{
-
-p
-
-s/line/test/p
-
-}' data4
+    }' data4
 
  
 
-打印行号
-
-$ sed '=' data1
-
-$ sed -n 'number 4/{
-
-=
-
-p
-
-}' data4
-
- 
-
-列出行
+##### 列出行
 
 列出命令(l)允许打印数据流中的文本和不可打印的 ASCII 字符。
 
-$ sed -n 'l' data6
+    $ sed -n 'l' data6
 
  
 
-写文件
+#### 写文件
 
 w 命令用于将文本行写入文件。
 
 格式
 
-[address]w filename
+    [address]w filename
 
 filename 可以指定为相对活绝对路径。
 
-$ sed '1,2w test' data2
+    $ sed '1,2w test' data2
+    $ sed -n '/IN/w INcustomers' data1
 
-$ sed -n '/IN/w INcustomers' data1
-
- 
-
-从文件中读取
+#### 从文件中读取
 
 r 命令允许插入包含在独立文件中的数据。
 
 格式
 
-[address]r filename
+    [address]r filename
 
-$ sed '3r data11' data2
+    $ sed '3r data11' data2
 
-$ sed '/number 2/r data11' data2
+    $ sed '/number 2/r data11' data2
 
-$ sed '$r data11' data2 将文本添加到数据流末尾
+    $ sed '$r data11' data2 将文本添加到数据流末尾
 
-$ sed '/LIST/{
+    $ sed '/LIST/{
 
-> r data10
+    > r data10
 
-> d
+    > d
 
-> }' letter 套用信函使用类占位符 LIST 代替人员列表，并删除占位符。
+    > }' letter 套用信函使用类占位符 LIST 代替人员列表，并删除占位符。
 
- 
 
-模式空间和保留空间
