@@ -9,6 +9,7 @@
   - [Shell 语法之输入输出](io.md)                      
   - [Shell 语法之信号与作业](sign.md)                    
   - [Shell 语法之函数](function.md)      
+  - [Shell 工具之 sed](sed.md)                   
   
   
 
