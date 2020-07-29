@@ -188,17 +188,11 @@ y 命令是唯一对单个字符进行操作的 sed 编辑器命令。格式：
 ##### 打印行
 
     $ echo "This is a test" | sed 'p'
-
     $ sed -n '/number 3/p' data1
-
     $ sed -n '2,3p' data1
-
     $ sed -n '/3/{
-
     p
-
     s/line/test/p
-
     }' data4
 
  
@@ -206,13 +200,9 @@ y 命令是唯一对单个字符进行操作的 sed 编辑器命令。格式：
 ##### 打印行号
 
     $ sed '=' data1
-
     $ sed -n 'number 4/{
-
     =
-
     p
-
     }' data4
 
  
@@ -246,6 +236,8 @@ r 命令允许插入包含在独立文件中的数据。
 
     [address]r filename
 
+例如
+
     $ sed '3r data11' data2
 
     $ sed '/number 2/r data11' data2
@@ -253,11 +245,8 @@ r 命令允许插入包含在独立文件中的数据。
     $ sed '$r data11' data2 将文本添加到数据流末尾
 
     $ sed '/LIST/{
-
     > r data10
-
     > d
-
     > }' letter 套用信函使用类占位符 LIST 代替人员列表，并删除占位符。
 
 
