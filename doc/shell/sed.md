@@ -19,47 +19,31 @@ sed 命令格式：
 |-f file|将文件中指定的命令添加到处理输入时执行的命令中|
 |-n|不需要为每个命令产生输出，但要等待打印命令|
 
-在命令行中定义编辑器命令
+#### 在命令行中定义编辑器命令
 
     $ echo "This is a test" | sed 's/test/big test/'
+    $ sed 's/dog/cat/' data1 
 
-    $ sed 's/dog/cat/' data1
-
- 
-
-在命令行中使用多个编辑器命令
+#### 在命令行中使用多个编辑器命令
 
     $ sed -e 's/brown/green/; s/dog/cat/' data1 
 
-注意：命令必须用分号隔开，且在命令结尾和分号之间不能有任何空格。
+> 注意：命令必须用分号隔开，且在命令结尾和分号之间不能有任何空格。
 
- 
-
-也使用次提示符，而不是分号分隔
+#### 也可以使用次提示符
 
     $ sed -e '
-
     > s/brown/green/
-
     > s/fox/elephant/
-
     > s/dog/cat/' data1
-
  
-
-从文件读取编辑器命令
+#### 从文件读取编辑器命令
 
     $ sed -f script1 data1
-
     $ cat script1
-
     s/brown/green/
-
     s/fox/elephant/
-
     s/dog/cat/
-
- 
 
 ### sed 命令
 
