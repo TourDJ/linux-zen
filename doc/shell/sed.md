@@ -65,16 +65,11 @@ s  用新文本替换某一行中的文本
 例如
 
     $ sed 's/test/trial/2' data1 仅替换每一行中第二次出现的模式 
-
     $ sed 's/test/trial/g' data2 
-
     $ sed -n 's/test/trial/p' data4 替换命令中匹配模式的那一行，经常和-n 选项一起使用
-
     $ sed 's/test/trail/w test' data5
 
- 
-
-替换字符
+#### 替换字符
 
 sed 编辑器允许为替换命令中的字符串定界符选择一个不同的字符。
 
@@ -82,85 +77,65 @@ $ sed 's!/bin/bash!/bin/csh!' /etc/passwd
 
  
 
-使用地址
+#### 使用地址
 
 在 sed 编辑器中， 有两种行寻址形式：
-
-行的数值范围
-
-筛选行的文本模式
+* 行的数值范围
+* 筛选行的文本模式
 
 格式
 
- [address] command
+    [address] command
 
 或者将多个命令组合在一起 
 
-address {
+    address {
+      command1
+      command2
+    }
 
-  command1
 
-  command2
+##### 数字式寻址
 
-}
+    $ sed '2s/dog/cat/' data1
+    $ sed '2,3s/dog/cat' data1
+    $ sed 2,$s/dog/cat' data1
 
- 
-
-数字式寻址
-
-$ sed '2s/dog/cat/' data1
-
-$ sed '2,3s/dog/cat' data1
-
-$ sed 2,$s/dog/cat' data1
-
- 
-
-文本模式筛选器
+##### 文本模式筛选器
 
 格式
 
-/pattern/command
+    /pattern/command
 
-$ sed '/rich/s/bash/csh/' /etc/passwd
+    $ sed '/rich/s/bash/csh/' /etc/passwd
 
  
 
-组合命令
+##### 组合命令
 
 如果需要在单独一行上执行多个命令，使用大括号将命令组合在一起
 
-$ sed '2,${
+    $ sed '2,${
+    > s/fox/elephant/
+    > s/dog/cat/
+    > }' data1
 
-> s/fox/elephant/
-
-> s/dog/cat/
-
-> }' data1
-
- 
-
-删除行
+#### 删除行
 
 d 删除与锁提供的寻址模式一致的所有文本行。
 
-$ sed '3d' data1 
-
-$ sed '2,3d' data2
-
-$ sed '2,$d' data3
-
-$ sed 'number 1/d' data4
-
- 
+    $ sed '3d' data1 
+    $ sed '2,3d' data2
+    $ sed '2,$d' data3
+    $ sed 'number 1/d' data4
 
 还可以使用两个文本模式删除若干行。指定的第一个模式将打开行删除，第二个模式将关闭行删除。sed 编辑器将删除指定的这两行(包括这两行)之间的所有文本行。
 
-sed '/1/,/3/d' data5
+    sed '/1/,/3/d' data5
 
  
 
-插入和附加文本
+#### 插入和附加文本
 
 i 在指定行之前添加新的一行
 
