@@ -6,14 +6,23 @@
 
 格式
 ```shell
+[ function ] name [()]
+{
+    commands;
+    [return int;]
+}
+```
+> 说明：              
+  1、可以带`function name()` 定义，也可以直接 `name()` 定义,不带任何参数。name 属性定义了该函数的唯一名称。name 后面要有空格。
+  2、`commands` 是组成函数的一条或多条 bash shell 命令。
+  3、参数返回，可以显式加 `return` 返回，如果不加，将以最后一条命令运行结果，作为返回值。 return后跟数值n(0-255)
+
+常用格式：
+```shell
 function name {
 　　commands
 }
 ```
-name 属性定义了该函数的唯一名称。name 后面要有空格。
-
-commands 是组成函数的一条或多条 bash shell 命令。
-
 另一种格式 
 ```shell
 name() {
@@ -26,7 +35,7 @@ name() {
 # using a function in a script
 
 function func1 {
-　　echo "This is an example of a function"
+  echo "This is an example of a function"
 }
 
 count=1
@@ -52,43 +61,42 @@ echo "Now this is the end of the script"
     This is an example of a function
     Now this is the end of the script
 
- 
-
-注意：如果在函数定义之前使用函数，会得到错误消息。如果重新定义函数，那么新定义将取代函数原先的定义。
+> 注意：如果在函数定义之前使用函数，会得到错误消息。如果重新定义函数，那么新定义将取代函数原先的定义。
 
  
 
 ### 函数返回值
 
-默认退出状态
+#### 默认退出状态
 
 默认情况下，函数的退出状态是函数的最后一条命令返回的退出状态。
 
 示例
-
+```shell
 #!/bin/bash
 # testing the exit status of a function
 
 func1() {
-　　echo "trying to display a non-existent file"
-　　ls -l badfile
+  echo "trying to display a non-existent file"
+  ls -l badfile
 }
 
 echo "testing the function:"
 func1
 echo "The exit status is: $?"
+```
+调用
 
-[root@tang sh14]# ./test4
-testing the function:
-trying to display a non-existent file
-ls: badfile: No such file or directory
-The exit status is: 2
+    [root@tang sh14]# ./test4
+    testing the function:
+    trying to display a non-existent file
+    ls: badfile: No such file or directory
+    The exit status is: 2
 
- 
 
-使用 return 命令
+#### 使用 return 命令
 
-return  命令可以使用单个整数值来定义函数退出状态，提供了一种通过编程设置函数退出状态的简单方法。
+`return` 命令可以使用单个整数值来定义函数退出状态，提供了一种通过编程设置函数退出状态的简单方法。
 
 示例
 
