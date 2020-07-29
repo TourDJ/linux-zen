@@ -29,7 +29,7 @@ sed 命令格式：
 
 在命令行中使用多个编辑器命令
 
-$ sed -e 's/brown/green/; s/dog/cat/' data1 
+    $ sed -e 's/brown/green/; s/dog/cat/' data1 
 
 注意：命令必须用分号隔开，且在命令结尾和分号之间不能有任何空格。
 
@@ -37,50 +37,53 @@ $ sed -e 's/brown/green/; s/dog/cat/' data1
 
 也使用次提示符，而不是分号分隔
 
-$ sed -e '
+    $ sed -e '
 
-> s/brown/green/
+    > s/brown/green/
 
-> s/fox/elephant/
+    > s/fox/elephant/
 
-> s/dog/cat/' data1
+    > s/dog/cat/' data1
 
  
 
 从文件读取编辑器命令
 
-$ sed -f script1 data1
+    $ sed -f script1 data1
 
-$ cat script1
+    $ cat script1
 
-s/brown/green/
+    s/brown/green/
 
-s/fox/elephant/
+    s/fox/elephant/
 
-s/dog/cat/
+    s/dog/cat/
 
  
 
-sed 命令
-替换标记
+### sed 命令
+
+#### 替换标记
 
 s  用新文本替换某一行中的文本
 
-s/pattern/replacement/flags
+    s/pattern/replacement/flags
 
 可用的替换标记有4种：
+* 数字：表示新文本替换的模式
+* g：表示用新文本替换现有文本的全部实例
+* p：表示打印原始行的内容
+* w file：将替换的结果写入文件
 
-数字：表示新文本替换的模式
-g：表示用新文本替换现有文本的全部实例
-p：表示打印原始行的内容
-w file：将替换的结果写入文件
-$ sed 's/test/trial/2' data1 仅替换每一行中第二次出现的模式 
+例如
 
-$ sed 's/test/trial/g' data2 
+    $ sed 's/test/trial/2' data1 仅替换每一行中第二次出现的模式 
 
-$ sed -n 's/test/trial/p' data4 替换命令中匹配模式的那一行，经常和-n 选项一起使用
+    $ sed 's/test/trial/g' data2 
 
-$ sed 's/test/trail/w test' data5
+    $ sed -n 's/test/trial/p' data4 替换命令中匹配模式的那一行，经常和-n 选项一起使用
+
+    $ sed 's/test/trail/w test' data5
 
  
 
