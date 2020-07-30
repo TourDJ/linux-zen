@@ -19,81 +19,72 @@
 |-W keyword	|指定 gawk 的兼容模式或警告级别|
  
 
-1. 自命令行读取程序脚本
+### 自命令行读取程序脚本
+`gawk` 程序脚本由左大括号和右大括号定义。脚本命令必须放置在两个大括号之间。由于gawk命令行假定脚本是单个文本字符串，所以必须将脚本放到单引号内。
 
-gawk 程序脚本由左大括号和右大括号定义。脚本命令必须放置在两个大括号之间。由于gawk命令行假定脚本是单个文本字符串，所以必须将脚本放到单引号内。
+    $ gawk '{print "hello world"}'    
+    hello
+    hello world
+    hi
+    hello world
 
-# gawk '{print "hello world"}'    
-hello
-hello world
-hi
-hello world
-
-2. 使用数据字段变量
-gawk 将下面的变量分配给文本行中检测到的每个数据字段：
-$0代表整个文本行
-$1代表文本行中的第1个数据字段，$2等依次类推
+### 使用数据字段变量
+`gawk` 将下面的变量分配给文本行中检测到的每个数据字段：
+* $0代表整个文本行
+* $1代表文本行中的第1个数据字段，$2等依次类推
 gawk 的默认分隔符为空白字符。
 
-# gawk '{print $1}' data1
-this
+    $ gawk '{print $1}' data1
+    this
 
-使用-F来指定字段分隔符
-# gawk -F: '{print $1}' /etc/passwd                                   
-root
-bin
-daemon
-adm
+### 使用-F来指定字段分隔符
 
-3. 在程序脚本中使用多个命令
+    $ gawk -F: '{print $1}' /etc/passwd                                   
+    root
+    bin
+    daemon
+    adm
 
-要在命令行指定的程序脚本中使用多个命令，只需在各命令之间加一个分号：
+### 在程序脚本中使用多个命令
+要在命令行指定的程序脚本中使用多个命令，只需在各命令之间加一个分号;
 
-# echo "this is a test" | gawk '{$4="gawk";print $0}'   
-this is a gawk
-
- 
+    $ echo "this is a test" | gawk '{$4="gawk";print $0}'   
+    this is a gawk
 
 也可以使用次提示符每次输入一行程序脚本命令：
 
-$ gawk '{
+    $ gawk '{
+    > $4="testing"
+    > print $0 }' 
+    This is not a good test.
+    This is not testing good test.
 
-> $4="testing"
+### 从文件读取程序
+`gawk` 编辑器允许您将程序保存在文件中并在命令行引用他们：
 
-> print $0 }' 
+    //gawk程序中使用变量无需加美元符
+    # cat gawktest 
+    {
+    text="'s home directory is "
+    print $1 text $6
+    }
+    
+    # gawk -F: -f gawktest passwd 
+    root's home directory is /root
+    bin's home directory is /bin
+    daemon's home directory is /sbin
+    adm's home directory is /var/adm
 
-This is not a good test.
-
-This is not testing good test.
-
-
-4.从文件读取程序
-
-gawk 编辑器允许您将程序保存在文件中并在命令行引用他们：
-
-# cat gawktest 
-{
-text="'s home directory is "
-print $1 text $6                                                 //gawk程序中使用变量无需加美元符
-}
-# gawk -F: -f gawktest passwd 
-root's home directory is /root
-bin's home directory is /bin
-daemon's home directory is /sbin
-adm's home directory is /var/adm
-
-5. 在处理数据之前/之后允许脚本
-
-BEGIN 关键字允许指定在读取数据之前 gawk 执行的程序脚本
-
-END 关键字允许指定在读取数据之后 gawk 执行的程序脚本
-
-# cat beginend 
-BEGIN {                                            //BEGIN处理数据前运行的脚本
-print "userid   shell"
-print "------   -----"
-FS=":"                                             //FS脚本中定义分隔符
-}
+### 在处理数据之前/之后允许脚本
+* BEGIN 关键字允许指定在读取数据之前 gawk 执行的程序脚本
+* END 关键字允许指定在读取数据之后 gawk 执行的程序脚本
+```shell
+    # cat beginend 
+    BEGIN {                                            //BEGIN处理数据前运行的脚本
+    print "userid   shell"
+    print "------   -----"
+    FS=":"                                             //FS脚本中定义分隔符
+    }
 
 {
 print $1 "      " $7                               //引号内为制表符，这样输出的结果才能对齐
@@ -102,6 +93,7 @@ print $1 "      " $7                               //引号内为制表符，这
 END {                                              //END处理数据后运行的脚本
 print "end of list"
 }
+```
 # gawk -f beginend passwd 
 userid  shell
 ------  -----
