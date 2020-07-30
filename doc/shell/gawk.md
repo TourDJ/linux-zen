@@ -86,116 +86,76 @@ gawk 的默认分隔符为空白字符。
     FS=":"                                             //FS脚本中定义分隔符
     }
 
-{
-print $1 "      " $7                               //引号内为制表符，这样输出的结果才能对齐
-}
+    {
+    print $1 "      " $7                               //引号内为制表符，这样输出的结果才能对齐
+    }
 
-END {                                              //END处理数据后运行的脚本
-print "end of list"
-}
+    END {                                              //END处理数据后运行的脚本
+    print "end of list"
+    }
 ```
-# gawk -f beginend passwd 
-userid  shell
-------  -----
-root    /bin/bash
-bin     /sbin/nologin
-daemon  /sbin/nologin
-adm     /sbin/nologi
-...
-end of list
+
+    # gawk -f beginend passwd 
+    userid  shell
+    ------  -----
+    root    /bin/bash
+    bin     /sbin/nologin
+    daemon  /sbin/nologin
+    adm     /sbin/nologi
+    ...
+    end of list
 
  
+### 使用变量
+`gawk` 编程语言支持两种不同类型的变量：
+* 内置变量
+* 用户定义的变量
 
-使用变量
-
-gawk 编程语言支持两种不同类型的变量：
-
-内置变量
-
-用户定义的变量
-
- 
-
-内置变量
-
-gawk 程序使用内置变量引用程序数据内的特定功能。
+#### 内置变量
+`gawk` 程序使用内置变量引用程序数据内的特定功能。
 
 数据字段变量允许使用美元符号和数据字段在记录中的数字位置引用数据记录中的单个数据字段。如$1。可以使用FS内置变量更改字段分隔符号。
 
 FS内置变量属于一组内置变量，用于控制 gawk 在输入数据和输出数据中处理字段和记录的方式。
 
-gawk数据字段和记录变量
+**gawk数据字段和记录变量**
 
-变量
-
-描述
-
-FIELDWIDTHS
-
-以空格分隔的数字列表，用空格定义每个数据字段的精确宽度
-
-FS
-
-输入字段分隔符号
-
-RS
-
-输入记录分隔符号
-
-OFS
-
-输出字段分隔符号
-
-ORS
-
-输出记录分隔符号
+|   变量  |    描述     |
+|----------|---------------------------------------|
+|FIELDWIDTHS|以空格分隔的数字列表，用空格定义每个数据字段的精确宽度|
+|FS|输入字段分隔符号|
+|RS|输入记录分隔符号|
+|OFS|输出字段分隔符号|
+|ORS|输出记录分隔符号|
 
 默认情况下，gawk将OFS变量设置为空格：
 
-[root@wh tmp]# cat data1
-
-data11,data12,data13,data14,data15
-
-data21,data22,data23,data24,data25
-
-data31,data32,data33,data34,data35
-
-[root@wh tmp]# gawk 'BEGIN{FS=","} {print $1,$2,$3}' data1
-
-data11 data12 data13
-
-data21 data22 data23
-
-data31 data32 data33
-
+    [root@wh tmp]# cat data1
+    data11,data12,data13,data14,data15
+    data21,data22,data23,data24,data25
+    data31,data32,data33,data34,data35
+    [root@wh tmp]# gawk 'BEGIN{FS=","} {print $1,$2,$3}' data1
+    data11 data12 data13
+    data21 data22 data23
+    data31 data32 data33
  
 
 通过设置OFS变量，可以使用任何字符串分隔符输出中的数据字段：
 
-[root@wh tmp]# gawk 'BEGIN{FS=",";OFS="-"} {print $1,$2,$3}' data1
+    [root@wh tmp]# gawk 'BEGIN{FS=",";OFS="-"} {print $1,$2,$3}' data1
+    data11-data12-data13
+    data21-data22-data23
+    data31-data32-data33
 
-data11-data12-data13
+    [root@wh tmp]# gawk 'BEGIN{FS=",";OFS="--"} {print $1,$2,$3}' data1
+    data11--data12--data13
+    data21--data22--data23
+    data31--data32--data33
 
-data21-data22-data23
-
-data31-data32-data33
-
-[root@wh tmp]# gawk 'BEGIN{FS=",";OFS="--"} {print $1,$2,$3}' data1
-
-data11--data12--data13
-
-data21--data22--data23
-
-data31--data32--data33
-
-[root@wh tmp]# gawk 'BEGIN{FS=",";OFS="<-->"} {print $1,$2,$3}' data1
-
-data11<-->data12<-->data13
-
-data21<-->data22<-->data23
-
-data31<-->data32<-->data33
-
+    [root@wh tmp]# gawk 'BEGIN{FS=",";OFS="<-->"} {print $1,$2,$3}' data1
+    data11<-->data12<-->data13
+    data21<-->data22<-->data23
+    data31<-->data32<-->data33
  
 
 更多gawk内置变量
