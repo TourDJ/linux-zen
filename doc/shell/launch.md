@@ -6,7 +6,7 @@
 ```
 /etc/profile ——> ~/.bash_profile ——> ~/.bashrc ——> /etc/bashrc ————> 命令提示符                       
        |                                               |                                                             
-      \|/
+      \|/                                              |
 /etc/profile.d/\*.sh <—————————————————————————————————
 ```    
 ### /etc/profile 的作用
