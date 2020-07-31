@@ -5,7 +5,7 @@
 启动脚本是bash启动时自动执行的脚本。用户可以把一些环境变量的设置和alias、umask设置放在启动脚本中，这样每次启动Shell时这些设置都自动生效。思考一下，bash在执行启动脚本时是以fork子Shell方式执行的还是以source方式执行的？
 
 /etc/profile ——> ~/.bash_profile ——> ~/.bashrc ——> /etc/bashrc ————> 命令提示符                       
-       |                                              |                                                             
+       | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|                                                             
 /etc/profile.d/\*.sh <—————————————————————————————————
      
 ### /etc/profile 的作用
