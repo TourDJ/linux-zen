@@ -29,7 +29,9 @@
   - [raid](./raid.md)             
   - [selinux](./selinux.md)               
   - [term](./term.md)               
-  - [tmux 命令](./tmux.md)        
+  - [tmux 命令](./tmux.md)         
+  - [shopt](./shopt.md)                
+  - [core](./core.md)                     
   - [Redhad/CentOS 常用命令](../distribution/redhat.md)         
   - [Debian/Ubuntu 常用命令](../distribution/debian.md)        
 
