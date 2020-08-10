@@ -292,8 +292,9 @@ fi
 
 ##### 多重條件判定
 例如： 
-
-    test -r filename -a -x filename
+```shell
+test -r filename -a -x filename
+```
 
 **表： 多重條件判定**
 |命令| 说明 |
