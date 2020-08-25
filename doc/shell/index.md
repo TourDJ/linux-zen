@@ -67,3 +67,4 @@ $SHELL是一个环境变量，它记录用户所使用的shell类型。你可以
 
 ## 参考资料
 * [What Is a Shell?](https://www.thegeekdiary.com/unix-linux-what-is-a-shell-what-are-different-shells/)     
+* [shell中\$(( ))、\$( )、\`\`与\${ }的区别](https://www.cnblogs.com/chengd/p/7803664.html)                        
