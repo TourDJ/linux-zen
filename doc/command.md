@@ -37,7 +37,7 @@
 
 ## <a id="linux">linux 命令</a>
 
-## <a id="linux-base">Linux 基础命令</a>
+### <a id="linux-base">Linux 基础命令</a>
 
 #### <a id="nohup">nohup</a>   
 　　用途：不挂断地运行命令。
