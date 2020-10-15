@@ -91,7 +91,32 @@
 * -M ：后面接天数，修改 shadow 第五字段(口令多久需要进行变更)
 * -W ：后面接天数，修改 shadow 第六字段(口令过期前警告日期)
 
-usermod, userdel
+ 强制使用者在第一次登陆时一定要更改口令后才能够使用系统资源
+ 
+    chage -d 0 agetest
+
+
+#### <a id="usermod">usermod</a>
+用途：更改用户信息
+
+命令格式：
+
+    usermod [-cdegGlsuLU] username
+选项与参数：
+* -c  ：后面接账号的说明，即 /etc/passwd 第五栏的说明栏，可以加入一些账号的说明。
+* -d  ：后面接账号的家目录，即修改 /etc/passwd 的第六栏；
+* -e  ：后面接日期，格式是 YYYY-MM-DD 也就是在 /etc/shadow 内的第八个字段数据啦！
+* -f  ：后面接天数，为 shadow 的第七字段。
+* -g  ：后面接初始群组，修改 /etc/passwd 的第四个字段，亦即是 GID 的字段！
+* -G  ：后面接次要群组，修改这个使用者能够支持的群组，修改的是 /etc/group 啰～
+* -a  ：与 -G 合用，可『添加次要群组的支持』而非『配置』喔！
+* -l  ：后面接账号名称。亦即是修改账号名称， /etc/passwd 的第一栏！
+* -s  ：后面接 Shell 的实际文件，例如 /bin/bash 或 /bin/csh 等等。
+* -u  ：后面接 UID 数字啦！即 /etc/passwd 第三栏的数据；
+* -L  ：暂时将用户的口令冻结，让他无法登陆。其实仅改 /etc/shadow 的口令栏。
+* -U  ：将 /etc/shadow 口令栏的 ! 拿掉，解冻啦！
+
+userdel
 
 ### <a id="linux-base">Linux 基础命令</a>
 
