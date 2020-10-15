@@ -116,7 +116,14 @@
 * -L  ：暂时将用户的口令冻结，让他无法登陆。其实仅改 /etc/shadow 的口令栏。
 * -U  ：将 /etc/shadow 口令栏的 ! 拿掉，解冻啦！
 
-userdel
+#### <a id="userdel">userdel</a>
+用途：删除用户的相关数据
+
+命令格式：
+
+    userdel [-r] username
+选项与参数：
+* -r  ：连同用户的家目录也一起删除
 
 ### <a id="linux-base">Linux 基础命令</a>
 
