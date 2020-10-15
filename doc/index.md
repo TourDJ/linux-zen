@@ -1,9 +1,14 @@
 
+- [linux 基础知识](#base)                   
+  - [linux 启动过程](#startup)              
+- [文件](./file.md)     
+- [loop设备](./lodevice.md)                            
+- [Linux 分区](./partition.md)         
 
 
-## linux 基础知识
+## <a id="base">linux 基础知识</a>
 
-#### linux 启动过程
+### <a id="startup">linux 启动过程</a>
 1. 读取 MBR 的信息,启动 Boot Manager。Windows 使用 NTLDR 作为 Boot Manager,如果您的系统中安装多个版本的 Windows,您就需要在 NTLDR 中选择您要进入的系统。Linux 通常使用功能强大,配置灵活的 GRUB 作为 Boot Manager。
 2. 加载系统内核,启动 init 进程。init 进程是 Linux 的根进程,所有的系统进程都是它的子进程。
 3. init 进程读取 /etc/inittab 文件中的信息,并进入预设的运行级别,按顺序运行该运行级别对应文件夹下的脚本。脚本通常以 start 参数启动,并指向一个系统中的程序。通常情况下, /etc/rcS.d/ 目录下的启动脚本首先被执行,然后是/etc/rcN.d/ 目录。例如您设定的运行级别为 3,那么它对应的启动目录为 /etc/rc3.d/ 。
