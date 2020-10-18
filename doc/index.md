@@ -92,3 +92,6 @@ Run the below command:
     sservice sshd restart
 
 
+[如何在 Linux 中禁用内置摄像头](https://blog.csdn.net/Linuxprobe18/article/details/80965553)        
+
+
