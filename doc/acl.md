@@ -8,6 +8,8 @@ ACL，就是Access Control List，一个文件/目录的访问控制列表，可
 
        sudo tune2fs -l /dev/sda1 |grep "Default mount options:"
        Default mount options:                 user_xattr    acl
+       sudo dumpe2fs -h /dev/sda2 |grep "Default mount options:"
+       Default mount options:                 user_xattr    acl
 从输出中可以看出已经加入 acl 支持。
 
 
