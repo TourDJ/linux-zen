@@ -140,6 +140,16 @@ file /bin/bash
 
     sudo passwd
 
+### 无线网卡启动命令
+#查看无线网络
+rfkill list      
+#启动无线网络
+rfkill unblock all 
+#取消无线网络
+rfkill block all 
+#启动网卡
+ifconfig wlan 0 up 
+
 
 ## 参考资料：      
 * [Linux中apt与apt-get命令的区别与解释](https://www.sysgeek.cn/apt-vs-apt-get/)      
