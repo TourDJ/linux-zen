@@ -8,11 +8,13 @@ ACL，就是Access Control List，一个文件/目录的访问控制列表，可
 
        sudo tune2fs -l /dev/sda1 |grep "Default mount options:"
        Default mount options:                 user_xattr    acl
+       sudo dumpe2fs -h /dev/sda2 |grep "Default mount options:"
+       Default mount options:                 user_xattr    acl
 从输出中可以看出已经加入 acl 支持。
 
 
 ### ACL 权限查看
-命令： `getfacl `
+命令格式： `getfacl `
 
 说明：
 
@@ -60,6 +62,21 @@ ACL，就是Access Control List，一个文件/目录的访问控制列表，可
 
 
 ### ACL 权限设置
-命令：  `setfacl`
+命令格式：  
+
+       setfacl [-bkRd] [{-m|-x} acl参数] 目标文件名
+选项与参数：
+* -m ：配置后续的 acl 参数给文件使用，不可与 -x 合用；
+* -x ：删除后续的 acl 参数，不可与 -m 合用；
+* -b ：移除所有的 ACL 配置参数；
+* -k ：移除默认的 ACL 参数，关于所谓的『默认』参数于后续范例中介绍；
+* -R ：递归配置 acl ，亦即包括次目录都会被配置起来；
+* -d ：配置『默认 acl 参数』的意思！只对目录有效，在该目录新建的数据会引用此默认值
+
+ACL 主要可以针对几个项目来控制权限呢：
+
+* 使用者 (user)：可以针对使用者来配置权限；
+* 群组 (group)：针对群组为对象来配置其权限；
+* 默认属性 (mask)：还可以针对在该目录下在创建新文件/目录时，规范新数据的默认权限；
 
 

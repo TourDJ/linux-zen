@@ -1,7 +1,19 @@
 
 - [linux 命令](#linux)             
   - [Linux 的账号](#linux-account)             
-    - [新增用户](#useradd)      
+    - [新增用户](#useradd)                   
+    - [变更密码](#passwd)                   
+    - [更改用户密码有效期信息](#chage)                   
+    - [更改用户](#usermod)                   
+    - [删除用户](#userdel)                   
+    - [用户信息查看](#finger) 
+    - [改变用户的基本信息](#chfn)                                     
+    - [改变用户的登陆shell](#chsh)                   
+    - [查询用户 UID/GID](#id)                   
+    - [新增群组](#groupadd)                   
+    - [变更群组](#groupmod)                   
+    - [删除群组](#groupdel)                   
+    - [删除群组](#gpasswd)   
   - [基础命令](#linux-base)             
     - [nohup](#nohup)         
     - [ldconfig](#ldconfig)          
@@ -97,7 +109,7 @@
 
 
 #### <a id="usermod">usermod</a>
-用途：更改用户信息
+用途：更改用户
 
 命令格式：
 
@@ -124,6 +136,83 @@
     userdel [-r] username
 选项与参数：
 * -r  ：连同用户的家目录也一起删除
+
+#### <a id ="finger">finger</a>
+用途：用户信息查看
+
+命令格式：
+
+    finger [-s] username
+选项与参数：
+* -s  ：仅列出用户的账号、全名、终端机代号与登陆时间等等；
+* -m  ：列出与后面接的账号相同者，而不是利用部分比对 (包括全名部分)
+
+#### <a id="chfn">chfn</a>
+用途： 改变用户的基本信息
+
+命令格式：
+
+    chfn [-foph] [账号名]
+选项与参数：
+* -f  ：后面接完整的大名；
+* -o  ：您办公室的房间号码；
+* -p  ：办公室的电话号码；
+* -h  ：家里的电话号码！
+
+#### <a id="chsh">chsh</a>
+用途：改变用户的登陆shell
+
+命令格式：
+
+    chsh [-ls]
+选项与参数：
+* -l  ：列出目前系统上面可用的 shell ，其实就是 /etc/shells 的内容！
+* -s  ：配置修改自己的 Shell 啰
+
+#### <a id="id">id</a>
+用途：查询某人或自己的相关 UID/GID 等等的信息
+
+#### <a id="groupadd">groupadd</a>
+用途：新增群组
+
+命令格式：
+
+    groupadd [-g gid] [-r] 组名
+选项与参数：
+* -g  ：后面接某个特定的 GID ，用来直接给予某个 GID ～
+* -r  ：创建系统群组啦！与 /etc/login.defs 内的 GID_MIN 有关。
+
+#### <a id="groupmod">groupmod</a>
+用途：变更群组
+
+命令格式：
+
+    groupmod [-g gid] [-n group_name] 群组名
+选项与参数：
+* -g  ：修改既有的 GID 数字；
+* -n  ：修改既有的组名
+
+#### <a id="groupdel">groupdel</a>
+用途：删除群组
+
+命令格式：
+
+#### <a id="gpasswd">gpasswd</a>
+用途：群组管理员功能
+
+命令格式：
+
+    gpasswd [-A user1,...] [-M user3,...] [-rR] [-ad] user groupname
+选项与参数：
+*     ：若没有任何参数时，表示给予 groupname 一个口令(/etc/gshadow)
+* -A  ：将 groupname 的主控权交由后面的使用者管理(该群组的管理员)
+* -M  ：将某些账号加入这个群组当中！
+* -r  ：将 groupname 的口令移除
+* -R  ：让 groupname 的口令栏失效
+* -a  ：将某位使用者加入到 groupname 这个群组当中！
+* -d  ：将某位使用者移除出 groupname 这个群组当中。
+
+
 
 ### <a id="linux-base">Linux 基础命令</a>
 
